@@ -1,2 +1,0 @@
-# NardGL
-Created with CodeSandbox
