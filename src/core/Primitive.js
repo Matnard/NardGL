@@ -4,7 +4,7 @@ class Primitive {
   constructor(gl, conf) {
     this.gl = gl;
     //stuff to access
-    this.vertexArrayObject = null;
+    this.vao = null;
     this.program = null;
     this.uniforms = conf.uniforms || null;
     this.transforms = [];
@@ -16,10 +16,15 @@ class Primitive {
     this.attributes = conf.attributes || null;
     this.indices = conf.indices || null;
 
+    //draw stuff
+    this.draw = conf.draw;
+
     this.init();
   }
 
-  afterInit() {}
+  afterInit() {
+    console.log("---------------------------------------------");
+  }
 
   updateUniform(name, value) {
     const type = this.uniforms.find(u => u.name === name).type;
@@ -98,24 +103,28 @@ class Primitive {
 
     this.vao = gl.createVertexArray();
     gl.bindVertexArray(this.vao);
-    gl.enableVertexAttribArray(this.attributeLocations[0].location);
+
+    //this.attributes.forEach((attribute, i) => {
+    let i = 0;
+    gl.enableVertexAttribArray(this.attributeLocations[i].location);
 
     const conf = {
-      size: getSize(this.attributes[0].type), //3 comps per iteration
-      type: this.attributes[0].componentType, //the data is 32bits floats
+      size: getSize(this.attributes[i].type), //3 comps per iteration
+      type: this.attributes[i].componentType, //the data is 32bits floats
       normalize: false, //don't normalize the data
-      stride: 0, // 0 = move forward size * sizeof(type) each iteration to get the next position
-      offset: 0 // start at the beginning of the buffer
+      stride: this.attributes[i].stride, // 0 = move forward size * sizeof(type) each iteration to get the next position
+      offset: this.attributes[i].offset // start at the beginning of the buffer
     };
 
     gl.vertexAttribPointer(
-      this.attributeLocations[0].location,
+      this.attributeLocations[i].location,
       conf.size,
       conf.type,
       conf.normalize,
       conf.stride,
       conf.offset
     );
+    //});
 
     this.afterInit();
   }

@@ -59,6 +59,7 @@ const randomInt = function(range) {
 
 const getSize = function(type) {
   return {
+    SCALAR: 1,
     VEC2: 2,
     VEC3: 3,
     VEC4: 4

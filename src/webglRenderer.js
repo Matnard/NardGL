@@ -28,35 +28,36 @@ class WebGLRenderer {
 
   init() {}
 
+  beforeDraw() {}
+
   drawFrame(dt) {
     const gl = this.gl;
-    resizeCanvas(gl.canvas);
-    gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
-    gl.clearColor(1, 1, 1, 1);
-    gl.clear(gl.COLOR_BUFFER_BIT);
 
     gl.useProgram(this.scene[0].program);
     gl.bindVertexArray(this.scene[0].vao);
-    this.scene[0].updateUniform(
-      "u_pointSize",
-      (Math.sin(dt / 1000) * 0.5 + 0.5) * 150
-    );
+
+    this.beforeDraw(dt);
 
     const drawConf = {
-      primitiveType: gl.POINTS,
-      offset: 0,
-      count: 2
+      primitiveType: this.scene[0].draw.primitiveType || gl.TRIANGLES,
+      offset: this.scene[0].draw.offset,
+      count: this.scene[0].draw.count
     };
 
     gl.drawArrays(drawConf.primitiveType, drawConf.offset, drawConf.count);
   }
 
   render() {
+    const gl = this.gl;
     requestAnimationFrame(() => this.render());
     this.now = Date.now();
     this.elapsed = this.now - this.then;
 
     if (this.elapsed > this.fpsInterval) {
+      resizeCanvas(gl.canvas);
+      gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
+      gl.clearColor(1, 1, 1, 1);
+      gl.clear(gl.COLOR_BUFFER_BIT);
       this.drawFrame(this.then);
 
       this.then = this.now - (this.elapsed % this.fpsInterval);
