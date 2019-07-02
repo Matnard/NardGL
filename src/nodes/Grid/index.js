@@ -49,7 +49,7 @@ const count = srcData.length / 4;
 const attributes = [
   {
     name: "a_position",
-    type: "VEC4",
+    type: "VEC3",
     componentType: 5126,
     count,
     srcData,
