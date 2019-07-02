@@ -31,18 +31,22 @@ class Primitive {
     this.init();
   }
 
-  setInitialUniforms() {
-    this.uniforms.forEach(uniform => {
-      uniform.init();
-    });
-  }
-
   afterInit() {
     //console.log("---------------------------------------------");
   }
 
-  updateUniform(name, data) {
-    this.uniforms.find(u => u.name === name).update(data);
+  setUniform(name, data) {
+    this.uniforms.find(u => u.name === name).value = data;
+  }
+
+  updateUniform(name, value) {
+    this.uniforms.find(u => u.name === name).update(value);
+  }
+
+  updateUniforms() {
+    this.uniforms.forEach(uniform => {
+      uniform.update();
+    });
   }
 
   init() {

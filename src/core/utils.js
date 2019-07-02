@@ -62,8 +62,33 @@ const getSize = function(type) {
     SCALAR: 1,
     VEC2: 2,
     VEC3: 3,
-    VEC4: 4
+    VEC4: 4,
+    MAT2: 4,
+    MAT3: 9,
+    MAT4: 16
   }[type];
+};
+
+const getGLSLType = function(componentType, type) {
+  const size = getSize(type);
+  return {
+    5126: function(size) {
+      return {
+        1: "float",
+        2: "vec2",
+        3: "vec3",
+        4: "vec4"
+      }[size];
+    },
+    5123: function(size) {
+      return {
+        1: "int",
+        2: "ivec2",
+        3: "ivec3",
+        4: "ivec4"
+      }[size];
+    }
+  }[componentType](size);
 };
 
 const getTypedArray = function(srcData, componentType) {
@@ -80,5 +105,6 @@ export {
   createShader,
   createProgramFromSource,
   getSize,
-  getTypedArray
+  getTypedArray,
+  getGLSLType
 };

@@ -1,4 +1,6 @@
-import vertexShaderSrc from "./vertex.glsl";
+import Shader from "../../core/Shader";
+// import fullVertexShaderSrc from "./vertex.glsl";
+import lightVertexShaderSrc from "./vertex-light";
 import fragmentShaderSrc from "./fragment.glsl";
 import Primitive from "../../core/Primitive";
 
@@ -44,34 +46,44 @@ for (var i = step; i <= 1; i += step) {
 
 const count = srcData.length / 4;
 
-const conf = {
-  attributes: [
-    {
-      name: "a_position",
-      type: "VEC3",
-      componentType: 5126,
-      count,
-      srcData,
-      stride: Float32Array.BYTES_PER_ELEMENT * 4,
-      offset: 0
-    },
-    {
-      name: "a_colors",
-      type: "SCALAR",
-      componentType: 5126,
-      count,
-      stride: Float32Array.BYTES_PER_ELEMENT * 4,
-      offset: Float32Array.BYTES_PER_ELEMENT * 3
-    }
-  ],
-  uniforms: [
-    {
-      name: "u_colors",
-      type: "3fv",
-      value: [0.8, 0.8, 0.8, 1, 0, 0, 0, 1, 0, 0, 0, 1]
-    }
-  ],
+const attributes = [
+  {
+    name: "a_position",
+    type: "VEC4",
+    componentType: 5126,
+    count,
+    srcData,
+    stride: Float32Array.BYTES_PER_ELEMENT * 4,
+    offset: 0
+  },
+  {
+    name: "a_colors",
+    type: "SCALAR",
+    componentType: 5126,
+    count,
+    stride: Float32Array.BYTES_PER_ELEMENT * 4,
+    offset: Float32Array.BYTES_PER_ELEMENT * 3
+  }
+];
 
+const uniforms = [
+  {
+    name: "u_colors",
+    type: "3fv",
+    value: [0.8, 0.8, 0.8, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+    count: 4
+  }
+];
+
+const vertexShaderSrc = new Shader({
+  attributes,
+  uniforms,
+  script: lightVertexShaderSrc
+}).decorated;
+
+const conf = {
+  attributes,
+  uniforms,
   vertexShaderSrc,
   fragmentShaderSrc,
   draw: {

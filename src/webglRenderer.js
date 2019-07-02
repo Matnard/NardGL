@@ -34,10 +34,11 @@ class WebGLRenderer {
     const gl = this.gl;
 
     this.scene.forEach(node => {
+      this.currentNode = node;
       gl.useProgram(node.program);
 
       if (!node.hasRenderedOnce) {
-        node.setInitialUniforms();
+        node.updateUniforms();
         node.hasRenderedOnce = true;
       }
 
