@@ -51,7 +51,7 @@ const conf = {
   fragmentShaderSrc
 };
 
-export default class LonerVertex extends Primitive {
+export default class Dots extends Primitive {
   constructor(gl) {
     super(gl, conf);
   }
