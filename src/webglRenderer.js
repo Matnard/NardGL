@@ -35,6 +35,12 @@ class WebGLRenderer {
 
     this.scene.forEach(node => {
       gl.useProgram(node.program);
+
+      if (!node.hasRenderedOnce) {
+        node.setInitialUniforms();
+        node.hasRenderedOnce = true;
+      }
+
       gl.bindVertexArray(node.vao);
 
       this.beforeDraw(dt);

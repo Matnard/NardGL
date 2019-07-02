@@ -1,7 +1,7 @@
 #version 300 es
 precision mediump float;
 in vec4 color;
-uniform float u_time;
+//uniform float u_time;
 out vec4 finalColor;
 
 void main(void){

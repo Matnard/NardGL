@@ -7,6 +7,10 @@ class Uniform {
     }
   }
 
+  init() {
+    this.update(this.value); //sets initial uniform value
+  }
+
   getLocation() {
     return this.gl.getUniformLocation(this.program, this.name);
   }

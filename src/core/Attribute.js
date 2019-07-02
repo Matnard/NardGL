@@ -10,7 +10,13 @@ class Attribute {
   }
 
   get location() {
-    return this.gl.getAttribLocation(this.program, this.name);
+    const location = this.gl.getAttribLocation(this.program, this.name);
+    if (location === -1) {
+      throw new Error(
+        `Haven't fount the location of the variable name "${this.name}"`
+      );
+    }
+    return location;
   }
 
   get size() {
