@@ -1,14 +1,11 @@
 import "./styles.css";
 import WebglRenderer from "./webglRenderer";
-import lonerVertexConf from "./nodes/LonerVertex";
-import Primitive from "./core/Primitive";
+import LonerVertex from "./nodes/LonerVertex";
 // import Grid from "./nodes/Grid";
 
 class App extends WebglRenderer {
   init() {
-    const lonerVertex = new Primitive(this.gl, lonerVertexConf);
-
-    this.scene.push(lonerVertex);
+    this.scene.push(new LonerVertex(this.gl));
     //this.scene.push(new Grid(this.gl));
 
     this.render();

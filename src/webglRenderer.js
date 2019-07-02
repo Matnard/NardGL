@@ -33,18 +33,23 @@ class WebGLRenderer {
   drawFrame(dt) {
     const gl = this.gl;
 
-    gl.useProgram(this.scene[0].program);
-    gl.bindVertexArray(this.scene[0].vao);
+    this.scene.forEach(node => {
+      gl.useProgram(node.program);
+      gl.bindVertexArray(node.vao);
 
-    this.beforeDraw(dt);
+      this.beforeDraw(dt);
 
-    const drawConf = {
-      primitiveType: this.scene[0].draw.primitiveType || gl.TRIANGLES,
-      offset: this.scene[0].draw.offset,
-      count: this.scene[0].draw.count
-    };
+      const drawConf = {
+        primitiveType:
+          node.draw.primitiveType !== "undefined"
+            ? node.draw.primitiveType
+            : gl.TRIANGLES,
+        offset: node.draw.offset,
+        count: node.draw.count
+      };
 
-    gl.drawArrays(drawConf.primitiveType, drawConf.offset, drawConf.count);
+      gl.drawArrays(drawConf.primitiveType, drawConf.offset, drawConf.count);
+    });
   }
 
   render() {

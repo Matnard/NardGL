@@ -1,8 +1,8 @@
 import vertexShaderSrc from "./vertex.glsl";
 import fragmentShaderSrc from "./fragment.glsl";
-//import { getTypedArray } from "../../core/utils";
+import Primitive from "../../core/Primitive";
 
-export default {
+const conf = {
   attributes: [
     {
       name: "a_position",
@@ -31,3 +31,9 @@ export default {
   vertexShaderSrc,
   fragmentShaderSrc
 };
+
+export default class LonerVertex extends Primitive {
+  constructor(gl) {
+    super(gl, conf);
+  }
+}
