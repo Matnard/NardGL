@@ -65,8 +65,17 @@ class Shader {
   }
 
   get decorated() {
+    throw new Error("Use either VertexShader or FragmentShader instances");
+  }
+}
+
+export default Shader;
+
+class VertexShader extends Shader {
+  get decorated() {
     return (
       "#version 300 es\n" +
+      "precision mediump float;\n" +
       this.attributes.map(this.outputAttribute).join("") +
       "\n" +
       this.uniforms.map(this.outputUniform).join("") +
@@ -76,4 +85,16 @@ class Shader {
   }
 }
 
-export default Shader;
+class FragmentShader extends Shader {
+  get decorated() {
+    return (
+      "#version 300 es\n" +
+      "precision mediump float;\n" +
+      this.uniforms.map(this.outputUniform).join("") +
+      "\n" +
+      `${this.script}`
+    );
+  }
+}
+
+export { VertexShader, FragmentShader };

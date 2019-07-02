@@ -1,7 +1,8 @@
-import Shader from "../../core/Shader";
+import { VertexShader, FragmentShader } from "../../core/Shader";
 // import fullVertexShaderSrc from "./vertex.glsl";
-import lightVertexShaderSrc from "./vertex-light";
-import fragmentShaderSrc from "./fragment.glsl";
+import partialFragmentShaderSrc from "./fragment-partial.glsl";
+import partialVertexShaderSrc from "./vertex-partial.glsl";
+// import fullFragmentShaderSrc from "./fragment.glsl";
 import Primitive from "../../core/Primitive";
 
 let srcData = [
@@ -75,11 +76,18 @@ const uniforms = [
   }
 ];
 
-const vertexShaderSrc = new Shader({
+const vertexShaderSrc = new VertexShader({
   attributes,
   uniforms,
-  script: lightVertexShaderSrc
+  script: partialVertexShaderSrc
 }).decorated;
+
+const fragmentShaderSrc = new FragmentShader({
+  uniforms,
+  script: partialFragmentShaderSrc
+}).decorated;
+
+console.log(fragmentShaderSrc);
 
 const conf = {
   attributes,
