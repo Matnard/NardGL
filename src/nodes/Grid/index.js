@@ -1,9 +1,9 @@
 import { VertexShader, FragmentShader } from "../../core/Shader";
-// import fullVertexShaderSrc from "./vertex.glsl";
-import partialFragmentShaderSrc from "./fragment-partial.glsl";
-import partialVertexShaderSrc from "./vertex-partial.glsl";
-// import fullFragmentShaderSrc from "./fragment.glsl";
+import fragmentShaderPartial from "./fragment.glsl";
+import vertexShaderPartial from "./vertex.glsl";
 import Primitive from "../../core/Primitive";
+import Uniform from "../../core/Uniform";
+import Attribute from "../../core/Attribute";
 
 let srcData = [
   0,
@@ -65,7 +65,7 @@ const attributes = [
     stride: Float32Array.BYTES_PER_ELEMENT * 4,
     offset: Float32Array.BYTES_PER_ELEMENT * 3
   }
-];
+].map(a => new Attribute(a));
 
 const uniforms = [
   {
@@ -74,20 +74,18 @@ const uniforms = [
     value: [0.8, 0.8, 0.8, 1, 0, 0, 0, 1, 0, 0, 0, 1],
     count: 4
   }
-];
+].map(u => new Uniform(u));
 
 const vertexShaderSrc = new VertexShader({
   attributes,
   uniforms,
-  script: partialVertexShaderSrc
+  script: vertexShaderPartial
 }).decorated;
 
 const fragmentShaderSrc = new FragmentShader({
   uniforms,
-  script: partialFragmentShaderSrc
+  script: fragmentShaderPartial
 }).decorated;
-
-console.log(fragmentShaderSrc);
 
 const conf = {
   attributes,

@@ -1,12 +1,19 @@
-import { getSize, getTypedArray } from "./utils";
+import { getSize, getTypedArray, getGLSLType } from "./utils";
 
 class Attribute {
-  constructor(gl, program, conf) {
-    this.gl = gl;
-    this.program = program;
+  constructor(conf) {
     for (var key in conf) {
       this[key] = conf[key];
     }
+  }
+
+  bind(gl, program) {
+    this.gl = gl;
+    this.program = program;
+  }
+
+  toGLSL() {
+    return `in ${getGLSLType(this.componentType, this.type)} ${this.name};\n`;
   }
 
   get location() {

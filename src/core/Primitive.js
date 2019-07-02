@@ -13,15 +13,19 @@ class Primitive {
       conf.vertexShaderSrc,
       conf.fragmentShaderSrc
     );
-    this.uniforms = conf.uniforms.map(
-      conf => new Uniform(this.gl, this.program, conf)
-    );
+
+    this.uniforms = conf.uniforms;
+    this.uniforms.forEach(uniform => {
+      uniform.bind(this.gl, this.program);
+    });
+
     this.transforms = [];
 
     //setup stuff
-    this.attributes = conf.attributes.map(
-      conf => new Attribute(this.gl, this.program, conf)
-    );
+    this.attributes = conf.attributes;
+    this.attributes.forEach(attribute => {
+      attribute.bind(this.gl, this.program);
+    });
 
     this.indices = conf.indices || null;
 
