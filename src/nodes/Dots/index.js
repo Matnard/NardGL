@@ -2,6 +2,7 @@ import vertexShaderPartial from "./vertex.glsl";
 import fragmentShaderPartial from "./fragment.glsl";
 import Primitive from "../../core/Primitive";
 import { BasicMaterial } from "../../core/Material";
+import m4 from "../../core/m4";
 
 const attributesData = [
   {
@@ -21,6 +22,18 @@ const uniformsData = [
     type: "1f",
     value: 50,
     count: 1
+  },
+  {
+    name: "u_modelViewMatrix",
+    type: "Matrix4fv",
+    value: m4.identity(),
+    count: 1
+  },
+  {
+    name: "u_projectionMatrix",
+    type: "Matrix4fv",
+    value: m4.identity(),
+    count: 1
   }
 ];
 
@@ -30,6 +43,8 @@ const material = new BasicMaterial(
   vertexShaderPartial,
   fragmentShaderPartial
 );
+
+//console.log(material.vertexShaderSrc, material.fragmentShaderSrc);
 
 const draw = {
   primitiveType: 0,

@@ -88,7 +88,7 @@ class Uniform {
       case "Matrix4fv":
       case "Matrix4x2fv":
       case "Matrix4x3fv":
-        gl[`uniform${type}`](location, false, [...data]);
+        gl[`uniform${type}`](location, false, [...data[0]]);
         break;
 
       default:

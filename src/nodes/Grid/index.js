@@ -1,10 +1,8 @@
-import { VertexShader, FragmentShader } from "../../core/Shader";
 import fragmentShaderPartial from "./fragment.glsl";
 import vertexShaderPartial from "./vertex.glsl";
 import Primitive from "../../core/Primitive";
-import Uniform from "../../core/Uniform";
-import Attribute from "../../core/Attribute";
 import { BasicMaterial } from "../../core/Material";
+import m4 from "../../core/m4";
 
 let srcData = [
   0,
@@ -74,6 +72,18 @@ const uniformsData = [
     type: "3fv",
     value: [0.8, 0.8, 0.8, 1, 0, 0, 0, 1, 0, 0, 0, 1],
     count: 4
+  },
+  {
+    name: "u_modelViewMatrix",
+    type: "Matrix4fv",
+    value: m4.identity(),
+    count: 1
+  },
+  {
+    name: "u_projectionMatrix",
+    type: "Matrix4fv",
+    value: m4.identity(),
+    count: 1
   }
 ];
 
