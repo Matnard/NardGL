@@ -4,6 +4,7 @@ import vertexShaderPartial from "./vertex.glsl";
 import Primitive from "../../core/Primitive";
 import Uniform from "../../core/Uniform";
 import Attribute from "../../core/Attribute";
+import { BasicMaterial } from "../../core/Material";
 
 let srcData = [
   0,
@@ -47,7 +48,7 @@ for (var i = step; i <= 1; i += step) {
 
 const count = srcData.length / 4;
 
-const attributes = [
+const attributesData = [
   {
     name: "a_position",
     type: "VEC3",
@@ -65,33 +66,26 @@ const attributes = [
     stride: Float32Array.BYTES_PER_ELEMENT * 4,
     offset: Float32Array.BYTES_PER_ELEMENT * 3
   }
-].map(a => new Attribute(a));
+];
 
-const uniforms = [
+const uniformsData = [
   {
     name: "u_colors",
     type: "3fv",
     value: [0.8, 0.8, 0.8, 1, 0, 0, 0, 1, 0, 0, 0, 1],
     count: 4
   }
-].map(u => new Uniform(u));
+];
 
-const vertexShaderSrc = new VertexShader({
-  attributes,
-  uniforms,
-  script: vertexShaderPartial
-}).decorated;
-
-const fragmentShaderSrc = new FragmentShader({
-  uniforms,
-  script: fragmentShaderPartial
-}).decorated;
+const material = new BasicMaterial(
+  attributesData,
+  uniformsData,
+  vertexShaderPartial,
+  fragmentShaderPartial
+);
 
 const conf = {
-  attributes,
-  uniforms,
-  vertexShaderSrc,
-  fragmentShaderSrc,
+  material,
   draw: {
     primitiveType: 1,
     offset: 0,

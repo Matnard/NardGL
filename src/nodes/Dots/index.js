@@ -1,11 +1,9 @@
 import vertexShaderPartial from "./vertex.glsl";
 import fragmentShaderPartial from "./fragment.glsl";
 import Primitive from "../../core/Primitive";
-import Uniform from "../../core/Uniform";
-import Attribute from "../../core/Attribute";
-import { VertexShader, FragmentShader } from "../../core/Shader";
+import { BasicMaterial } from "../../core/Material";
 
-const attributes = [
+const attributesData = [
   {
     name: "a_position",
     type: "VEC3",
@@ -15,27 +13,23 @@ const attributes = [
     stride: 0,
     offset: 0
   }
-].map(a => new Attribute(a));
+];
 
-const uniforms = [
+const uniformsData = [
   {
     name: "u_pointSize",
     type: "1f",
     value: 50,
     count: 1
   }
-].map(u => new Uniform(u));
+];
 
-const vertexShaderSrc = new VertexShader({
-  attributes,
-  uniforms,
-  script: vertexShaderPartial
-}).decorated;
-
-const fragmentShaderSrc = new FragmentShader({
-  uniforms,
-  script: fragmentShaderPartial
-}).decorated;
+const material = new BasicMaterial(
+  attributesData,
+  uniformsData,
+  vertexShaderPartial,
+  fragmentShaderPartial
+);
 
 const draw = {
   primitiveType: 0,
@@ -44,11 +38,8 @@ const draw = {
 };
 
 const conf = {
-  attributes,
-  uniforms,
-  draw,
-  vertexShaderSrc,
-  fragmentShaderSrc
+  material,
+  draw
 };
 
 export default class Dots extends Primitive {

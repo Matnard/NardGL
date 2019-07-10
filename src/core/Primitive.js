@@ -9,19 +9,15 @@ class Primitive {
     this.vao = null;
     this.hasRenderedOnce = false;
 
-    this.program = createProgramFromSource(
-      gl,
-      conf.vertexShaderSrc,
-      conf.fragmentShaderSrc
-    );
+    this.program = conf.material.createProgram(this.gl);
 
     //setup stuff
-    this.uniforms = conf.uniforms;
+    this.uniforms = conf.material.uniforms;
     this.uniforms.forEach(uniform => {
       uniform.bind(this.gl, this.program);
     });
 
-    this.attributes = conf.attributes;
+    this.attributes = conf.material.attributes;
     this.attributes.forEach(attribute => {
       attribute.bind(this.gl, this.program);
     });
