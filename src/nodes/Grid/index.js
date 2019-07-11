@@ -107,4 +107,8 @@ export default class Grid extends Primitive {
   constructor(gl) {
     super(gl, conf);
   }
+
+  beforeDraw() {
+    this.setUniform("u_modelViewMatrix", this.matrix);
+  }
 }

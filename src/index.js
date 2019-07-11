@@ -7,10 +7,11 @@ import m4 from "./core/m4";
 class App extends WebglRenderer {
   init() {
     this.projectionMatrix = m4.projection(
-      window.innerWidth,
-      window.innerHeight,
-      window.innerWidth
+      this.gl.canvas.clientWidth,
+      this.gl.canvas.clientHeight,
+      this.gl.canvas.clientWidth
     );
+
     this.scene.push(new Dots(this.gl));
     this.scene.push(new Grid(this.gl));
     this.render();
@@ -19,18 +20,16 @@ class App extends WebglRenderer {
   beforeDraw(dt) {
     this.scene[0].setUniform(
       "u_pointSize",
-      (Math.sin(dt / 1000) * 0.5 + 0.5) * 150
+      (Math.sin(dt / 1000) * 0.5 + 0.5) * 50
     );
 
-    //this.scene[1].rotation.x = Math.PI;
-    this.scene[1].translation.z = -2;
-    this.scene[1].rotation.x += 0.01;
-    this.scene[1].rotation.y += 0.01;
-    this.scene[1].rotation.z += 0.01;
-    this.scene[1].computeMatrix(this.projectionMatrix);
-    this.scene[1].setUniform("u_modelViewMatrix", this.scene[1].matrix);
+    this.scene[0].translation.z = -2;
+    this.scene[0].rotation.x = -Math.PI / 3;
+    this.scene[0].rotation.z += 0.006;
 
-    this.currentNode.updateUniforms();
+    this.scene[1].translation.z = -2;
+    this.scene[1].rotation.x = -Math.PI / 3;
+    this.scene[1].rotation.z += 0.006;
   }
 }
 

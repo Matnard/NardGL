@@ -28,7 +28,11 @@ class WebGLRenderer {
 
   init() {}
 
-  beforeDraw() {}
+  beforeDraw(dt) {
+    this.scene.forEach(s => {
+      s.beforeDraw(dt);
+    });
+  }
 
   drawFrame(dt) {
     const gl = this.gl;
@@ -45,6 +49,12 @@ class WebGLRenderer {
       gl.bindVertexArray(node.vao);
 
       this.beforeDraw(dt);
+      this.scene.forEach(s => {
+        s.setUniform("u_projectionMatrix", this.projectionMatrix);
+        s.computeMatrix();
+        s.beforeDraw(dt);
+      });
+      this.currentNode.updateUniforms();
 
       const drawConf = {
         primitiveType:

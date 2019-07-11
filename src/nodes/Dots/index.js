@@ -9,8 +9,8 @@ const attributesData = [
     name: "a_position",
     type: "VEC3",
     componentType: 5126,
-    count: 2,
-    srcData: [0, 0, 0, 0.5, 0.5, 0],
+    count: 3,
+    srcData: [0, 0, 0, 0.5, 0.5, 0, -0.5, -0.5, 0],
     stride: 0,
     offset: 0
   }
@@ -44,12 +44,10 @@ const material = new BasicMaterial(
   fragmentShaderPartial
 );
 
-//console.log(material.vertexShaderSrc, material.fragmentShaderSrc);
-
 const draw = {
   primitiveType: 0,
   offset: 0,
-  count: 2
+  count: 3
 };
 
 const conf = {
@@ -60,5 +58,9 @@ const conf = {
 export default class Dots extends Primitive {
   constructor(gl) {
     super(gl, conf);
+  }
+
+  beforeDraw() {
+    this.setUniform("u_modelViewMatrix", this.matrix);
   }
 }
