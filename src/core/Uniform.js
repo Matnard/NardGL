@@ -8,6 +8,7 @@ class Uniform {
   bind(gl, program) {
     this.gl = gl;
     this.program = program;
+    return this;
   }
 
   check() {

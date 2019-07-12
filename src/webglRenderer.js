@@ -64,8 +64,11 @@ class WebGLRenderer {
         offset: node.draw.offset,
         count: node.draw.count
       };
-
-      gl.drawArrays(drawConf.primitiveType, drawConf.offset, drawConf.count);
+      if (node.indices) {
+        //gl.drawElements(gl.TRIANGLES, node.count, gl.UNSIGNED_SHORT, 0);
+      } else {
+        gl.drawArrays(drawConf.primitiveType, drawConf.offset, drawConf.count);
+      }
     });
   }
 

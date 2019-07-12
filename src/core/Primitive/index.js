@@ -1,4 +1,4 @@
-import Transform from "./Transfom";
+import Transform from "../Transfom";
 
 class Primitive {
   constructor(gl, conf) {
@@ -9,24 +9,18 @@ class Primitive {
 
     this.program = conf.material.createProgram(this.gl);
 
-    //setup stuff
-    this.uniforms = conf.material.uniforms;
-    this.uniforms.forEach(uniform => {
-      uniform.bind(this.gl, this.program);
-    });
-
-    this.attributes = conf.material.attributes;
-    this.attributes.forEach(attribute => {
-      attribute.bind(this.gl, this.program);
-    });
-
+    this.material = conf.material;
+    this.uniforms = this.material.bindUniforms(this.gl, this.program);
+    this.attributes = this.material.bindAttributes(this.gl, this.program);
     this.indices = conf.indices || null;
-
     //draw stuff
-    this.draw = conf.draw || {};
-
+    this.draw = conf.draw || {
+      primitiveType: 4,
+      offset: 0,
+      count: 3
+    };
+    this.draw.count = conf.count;
     this.transform = new Transform();
-
     this.init();
   }
 
@@ -87,6 +81,20 @@ class Primitive {
         offset: attribute.offset
       };
 
+      if (this.indices) {
+        gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, gl.createBuffer());
+        const elementsConf = {
+          target: gl.ELEMENT_ARRAY_BUFFER,
+          srcData: new Uint16Array(this.indices.srcData),
+          usage: gl.STATIC_DRAW
+        };
+        gl.bufferData(
+          elementsConf.target,
+          elementsConf.srcData,
+          elementsConf.usage
+        );
+      }
+
       gl.vertexAttribPointer(
         conf.location,
         conf.size,
@@ -95,6 +103,7 @@ class Primitive {
         conf.stride,
         conf.offset
       );
+
       gl.enableVertexAttribArray(attribute.location);
     });
   }

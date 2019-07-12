@@ -10,6 +10,7 @@ class Attribute {
   bind(gl, program) {
     this.gl = gl;
     this.program = program;
+    return this;
   }
 
   toGLSL() {
@@ -20,7 +21,9 @@ class Attribute {
     const location = this.gl.getAttribLocation(this.program, this.name);
     if (location === -1) {
       throw new Error(
-        `Haven't fount the location of the variable name "${this.name}"`
+        `Maybe not used in shader. Haven't fount the location of the variable name "${
+          this.name
+        }"`
       );
     }
     return location;

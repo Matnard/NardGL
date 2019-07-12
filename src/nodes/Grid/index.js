@@ -72,18 +72,6 @@ const uniformsData = [
     type: "3fv",
     value: [0.8, 0.8, 0.8, 1, 0, 0, 0, 1, 0, 0, 0, 1],
     count: 4
-  },
-  {
-    name: "u_modelViewMatrix",
-    type: "Matrix4fv",
-    value: m4.identity(),
-    count: 1
-  },
-  {
-    name: "u_projectionMatrix",
-    type: "Matrix4fv",
-    value: m4.identity(),
-    count: 1
   }
 ];
 
@@ -96,10 +84,10 @@ const material = new BasicMaterial(
 
 const conf = {
   material,
+  count,
   draw: {
     primitiveType: 1,
-    offset: 0,
-    count
+    offset: 0
   }
 };
 

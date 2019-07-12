@@ -2,6 +2,7 @@ import { VertexShader, FragmentShader } from "../Shader";
 import { createProgramFromSource } from "../utils";
 import Uniform from "../Uniform";
 import Attribute from "../Attribute";
+import m4 from "../m4";
 
 class Material {
   constructor(attributes, uniforms, vertexShader, fragmentShader) {
@@ -19,6 +20,23 @@ class BasicMaterial extends Material {
     vertexShaderPartial,
     fragmentShaderPartial
   ) {
+    const extraUniforms = [
+      {
+        name: "u_modelViewMatrix",
+        type: "Matrix4fv",
+        value: m4.identity(),
+        count: 1
+      },
+      {
+        name: "u_projectionMatrix",
+        type: "Matrix4fv",
+        value: m4.identity(),
+        count: 1
+      }
+    ];
+
+    uniformsData = [...uniformsData, ...extraUniforms];
+
     super(
       attributesData,
       uniformsData,
@@ -44,6 +62,16 @@ class BasicMaterial extends Material {
       this.vertexShaderSrc,
       this.fragmentShaderSrc
     );
+  }
+
+  bindUniforms(gl, program) {
+    return this.uniforms.concat([]).map(uniform => uniform.bind(gl, program));
+  }
+
+  bindAttributes(gl, program) {
+    return this.attributes
+      .concat([])
+      .map(attribute => attribute.bind(gl, program));
   }
 }
 export default Material;

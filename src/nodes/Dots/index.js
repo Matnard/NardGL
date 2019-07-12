@@ -22,18 +22,6 @@ const uniformsData = [
     type: "1f",
     value: 50,
     count: 1
-  },
-  {
-    name: "u_modelViewMatrix",
-    type: "Matrix4fv",
-    value: m4.identity(),
-    count: 1
-  },
-  {
-    name: "u_projectionMatrix",
-    type: "Matrix4fv",
-    value: m4.identity(),
-    count: 1
   }
 ];
 
@@ -46,13 +34,13 @@ const material = new BasicMaterial(
 
 const draw = {
   primitiveType: 0,
-  offset: 0,
-  count: 3
+  offset: 0
 };
 
 const conf = {
   material,
-  draw
+  draw,
+  count: 3
 };
 
 export default class Dots extends Primitive {
