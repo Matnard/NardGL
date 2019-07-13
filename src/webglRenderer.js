@@ -1,4 +1,6 @@
 import { resizeCanvas } from "./core/utils";
+import m4 from "./core/m4";
+import Camera from "./core/Camera";
 
 class WebGLRenderer {
   constructor(canvas = document.createElement("canvas")) {
@@ -15,6 +17,12 @@ class WebGLRenderer {
 
     this.gl = gl;
     this.scene = []; //
+    this.camera = new Camera();
+    this.projectionMatrix = m4.projection(
+      this.gl.canvas.clientWidth,
+      this.gl.canvas.clientHeight,
+      this.gl.canvas.clientWidth
+    );
     this.init();
     this.startAnimating();
   }
@@ -37,35 +45,35 @@ class WebGLRenderer {
   drawFrame(dt) {
     const gl = this.gl;
 
-    this.scene.forEach(node => {
-      this.currentNode = node;
-      gl.useProgram(node.program);
+    this.scene.forEach(primitive => {
+      gl.useProgram(primitive.program);
 
-      if (!node.hasRenderedOnce) {
-        node.updateUniforms();
-        node.hasRenderedOnce = true;
+      if (!primitive.hasRenderedOnce) {
+        primitive.updateUniforms();
+        primitive.hasRenderedOnce = true;
       }
 
-      gl.bindVertexArray(node.vao);
+      gl.bindVertexArray(primitive.vao);
 
       this.beforeDraw(dt);
-      this.scene.forEach(s => {
-        s.setUniform("u_projectionMatrix", this.projectionMatrix);
-        s.computeMatrix();
-        s.beforeDraw(dt);
-      });
-      this.currentNode.updateUniforms();
+
+      primitive.setUniform("u_projectionMatrix", this.projectionMatrix);
+      primitive.setUniform("u_viewMatrix", this.camera.viewMatrix);
+
+      primitive.beforeDraw(dt);
+
+      primitive.updateUniforms();
 
       const drawConf = {
         primitiveType:
-          node.draw.primitiveType !== "undefined"
-            ? node.draw.primitiveType
+          primitive.draw.primitiveType !== "undefined"
+            ? primitive.draw.primitiveType
             : gl.TRIANGLES,
-        offset: node.draw.offset,
-        count: node.draw.count
+        offset: primitive.draw.offset,
+        count: primitive.draw.count
       };
-      if (node.indices) {
-        //gl.drawElements(gl.TRIANGLES, node.count, gl.UNSIGNED_SHORT, 0);
+      if (primitive.indices) {
+        //gl.drawElements(gl.TRIANGLES, primitive.count, gl.UNSIGNED_SHORT, 0);
       } else {
         gl.drawArrays(drawConf.primitiveType, drawConf.offset, drawConf.count);
       }
@@ -82,7 +90,10 @@ class WebGLRenderer {
       resizeCanvas(gl.canvas);
       gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
       gl.clearColor(1, 1, 1, 1);
-      gl.clear(gl.COLOR_BUFFER_BIT);
+      gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+
+      // turn on depth testing
+      gl.enable(this.gl.DEPTH_TEST);
       this.drawFrame(this.then);
 
       this.then = this.now - (this.elapsed % this.fpsInterval);

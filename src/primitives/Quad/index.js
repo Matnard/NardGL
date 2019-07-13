@@ -29,6 +29,6 @@ export default class Quad extends Primitive {
   }
 
   beforeDraw() {
-    this.setUniform("u_modelViewMatrix", this.matrix);
+    this.setUniform("u_modelMatrix", this.matrix);
   }
 }

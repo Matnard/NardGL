@@ -22,7 +22,13 @@ class BasicMaterial extends Material {
   ) {
     const extraUniforms = [
       {
-        name: "u_modelViewMatrix",
+        name: "u_modelMatrix",
+        type: "Matrix4fv",
+        value: m4.identity(),
+        count: 1
+      },
+      {
+        name: "u_viewMatrix",
         type: "Matrix4fv",
         value: m4.identity(),
         count: 1

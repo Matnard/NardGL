@@ -48,7 +48,8 @@ export default class Dots extends Primitive {
     super(gl, conf);
   }
 
-  beforeDraw() {
-    this.setUniform("u_modelViewMatrix", this.matrix);
+  beforeDraw(dt) {
+    this.setUniform("u_modelMatrix", this.matrix);
+    this.setUniform("u_pointSize", (Math.sin(dt / 1000) * 0.5 + 0.5) * 41);
   }
 }
