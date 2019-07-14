@@ -56,10 +56,9 @@ class WebGLRenderer {
       gl.bindVertexArray(primitive.vao);
 
       this.beforeDraw(dt);
-
       primitive.setUniform("u_projectionMatrix", this.projectionMatrix);
       primitive.setUniform("u_viewMatrix", this.camera.viewMatrix);
-
+      primitive.computeMatrix();
       primitive.beforeDraw(dt);
 
       primitive.updateUniforms();
@@ -72,6 +71,7 @@ class WebGLRenderer {
         offset: primitive.draw.offset,
         count: primitive.draw.count
       };
+
       if (primitive.indices) {
         //gl.drawElements(gl.TRIANGLES, primitive.count, gl.UNSIGNED_SHORT, 0);
       } else {
@@ -93,7 +93,7 @@ class WebGLRenderer {
       gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
       // turn on depth testing
-      gl.enable(this.gl.DEPTH_TEST);
+      gl.enable(gl.DEPTH_TEST);
       this.drawFrame(this.then);
 
       this.then = this.now - (this.elapsed % this.fpsInterval);

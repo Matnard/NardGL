@@ -14,14 +14,15 @@ class App extends WebglRenderer {
     this.quad = new Quad(this.gl);
     this.scene.push(this.quad);
     //
+    this.camera.translation.z = 4;
+    this.camera.translation.y = 0.5;
+    this.camera.rotation.x = Math.PI / 2;
     this.render();
   }
 
   beforeDraw(dt) {
-    this.camera.translation.z = 4;
-    this.camera.translation.y = 0.5;
-    this.camera.rotation.x = Math.PI / 2;
-    this.camera.rotation.y += 0.005;
+    this.quad.rotation.y += 0.005;
+    this.camera.rotation.y -= 0.005;
   }
 }
 
