@@ -6,25 +6,44 @@ class GltfParser {
 
     gltf.accessors.forEach((accessor, i) => {
       let itemsPerType = this.getItemsPerType(accessor.type);
+
       let elementBytesLength = this.getComponentArrayType(
         accessor.componentType
       ).BYTES_PER_ELEMENT;
+
       let typedGetter = this.getDvMethodToRun(accessor.componentType);
+      const length = itemsPerType * accessor.count;
 
-      let bufferId = gltf.bufferViews[accessor.bufferView].buffer;
-      let dv = gltf.buffers[bufferId].data;
-      let offset = gltf.bufferViews[accessor.bufferView].byteOffset;
-
-      accessor.srcData = Array.from({
-        length: itemsPerType * accessor.count
-      }).map((el, i) => {
-        var loopOffset = offset + Math.max(0, elementBytesLength * i);
-        return dv[typedGetter](loopOffset, true);
-      });
+      accessor.srcData = this.unpackBufferViewData(
+        gltf,
+        length,
+        elementBytesLength,
+        typedGetter,
+        accessor.bufferView
+      );
 
       //console.log(accessor.data.map(d => d.toFixed(1)));
     });
 
+    gltf.images.forEach(image => {
+      const elementBytesLength = 1;
+      const typedGetter = "getUint8";
+      const length = gltf.bufferViews[image.bufferView].byteLength;
+
+      image.srcData = this.unpackBufferViewData(
+        gltf,
+        length,
+        elementBytesLength,
+        typedGetter,
+        image.bufferView
+      );
+      image.HTMLImageElement = this.uint8ToHTMLImageElement(
+        image.srcData,
+        image.mimeType
+      );
+    });
+
+    console.log(gltf);
     this.gltf = gltf;
   }
 
@@ -39,6 +58,25 @@ class GltfParser {
     });
 
     return dv;
+  }
+
+  unpackBufferViewData(
+    gltf,
+    length,
+    elementBytesLength,
+    typedGetter,
+    bufferView
+  ) {
+    let bufferId = gltf.bufferViews[bufferView].buffer;
+    let offset = gltf.bufferViews[bufferView].byteOffset;
+
+    let dv = gltf.buffers[bufferId].data;
+    return Array.from({
+      length
+    }).map((el, i) => {
+      var loopOffset = offset + Math.max(0, elementBytesLength * i);
+      return dv[typedGetter](loopOffset, true);
+    });
   }
 
   getComponentArrayType(id) {
@@ -56,28 +94,12 @@ class GltfParser {
   }
 
   getItemsPerType(type) {
-    let itemsPerType = null;
-    switch (type) {
-      case "VEC3": {
-        itemsPerType = 3;
-        break;
-      }
-
-      case "VEC4": {
-        itemsPerType = 4;
-        break;
-      }
-
-      case "SCALAR": {
-        itemsPerType = 1;
-        break;
-      }
-
-      default:
-        throw new Error("Needs a type");
-    }
-
-    return itemsPerType;
+    return {
+      SCALAR: 1,
+      VEC2: 2,
+      VEC3: 3,
+      VEC4: 4
+    }[type];
   }
 
   getPrimitives(meshId = 0) {
@@ -92,6 +114,16 @@ class GltfParser {
       primitive.indices = { ...this.gltf.accessors[primitive.indices] };
     });
     return primitives;
+  }
+
+  uint8ToHTMLImageElement(byteArray, type) {
+    var data = new Uint8Array(byteArray);
+    var blob = new Blob([data], { type });
+    var url = URL.createObjectURL(blob);
+    var img = new Image();
+    img.src = url;
+    //document.body.appendChild(img);
+    return img;
   }
 }
 
