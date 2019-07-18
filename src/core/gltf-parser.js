@@ -37,6 +37,7 @@ class GltfParser {
         typedGetter,
         image.bufferView
       );
+
       image.HTMLImageElement = this.uint8ToHTMLImageElement(
         image.srcData,
         image.mimeType
@@ -102,6 +103,7 @@ class GltfParser {
     }[type];
   }
 
+  //mesh > primitives > material.pbrMetallicRoughness.baseColorTexture > texture > images
   getPrimitives(meshId = 0) {
     //from mesh id
     const primitives = this.gltf.meshes[meshId].primitives;

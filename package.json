@@ -2,13 +2,14 @@
   "name": "parcel-sandbox",
   "version": "1.0.0",
   "description": "Simple Parcel Sandbox",
-  "main": "index.html",
+  "main": "isrc/index.js",
   "scripts": {
     "start": "parcel index.html --open",
     "build": "parcel build index.html"
   },
   "dependencies": {
-    "gl-matrix": "^3.0.0"
+    "gl-matrix": "^3.0.0",
+    "nardloader": "^1.0.0"
   },
   "devDependencies": {
     "@babel/core": "7.2.0",

@@ -2,6 +2,8 @@ import WebglRenderer from "./webglRenderer";
 import Dots from "./primitives/Dots";
 import Grid from "./primitives/Grid";
 import Quad from "./primitives/Quad";
+import NardLoader from "nardloader";
+import matnardPath from "../data/profile-512.png";
 
 class App extends WebglRenderer {
   init() {
@@ -27,3 +29,14 @@ class App extends WebglRenderer {
 }
 
 new App(); //document.getElementById("c"));
+
+new NardLoader({
+  onProgress: function(progress) {
+    console.log(`Progress: ${progress}`);
+  }
+})
+  .add(matnardPath)
+  .start()
+  .then(function(data) {
+    console.log(data);
+  });
