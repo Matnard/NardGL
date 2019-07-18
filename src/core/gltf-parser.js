@@ -25,24 +25,26 @@ class GltfParser {
       //console.log(accessor.data.map(d => d.toFixed(1)));
     });
 
-    gltf.images.forEach(image => {
-      const elementBytesLength = 1;
-      const typedGetter = "getUint8";
-      const length = gltf.bufferViews[image.bufferView].byteLength;
+    if (gltf.images) {
+      gltf.images.forEach(image => {
+        const elementBytesLength = 1;
+        const typedGetter = "getUint8";
+        const length = gltf.bufferViews[image.bufferView].byteLength;
 
-      image.srcData = this.unpackBufferViewData(
-        gltf,
-        length,
-        elementBytesLength,
-        typedGetter,
-        image.bufferView
-      );
+        image.srcData = this.unpackBufferViewData(
+          gltf,
+          length,
+          elementBytesLength,
+          typedGetter,
+          image.bufferView
+        );
 
-      image.HTMLImageElement = this.uint8ToHTMLImageElement(
-        image.srcData,
-        image.mimeType
-      );
-    });
+        image.HTMLImageElement = this.uint8ToHTMLImageElement(
+          image.srcData,
+          image.mimeType
+        );
+      });
+    }
 
     console.log(gltf);
     this.gltf = gltf;

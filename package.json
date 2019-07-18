@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "gl-matrix": "^3.0.0",
-    "nardloader": "^1.0.0"
+    "nardloader": "^1.2.0"
   },
   "devDependencies": {
     "@babel/core": "7.2.0",

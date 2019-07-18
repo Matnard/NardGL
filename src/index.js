@@ -3,7 +3,11 @@ import Dots from "./primitives/Dots";
 import Grid from "./primitives/Grid";
 import Quad from "./primitives/Quad";
 import NardLoader from "nardloader";
-import matnardPath from "../data/profile-512.png";
+import assets from "../preload/*.*";
+
+const urls = Object.values(assets)
+  .map(Object.values)
+  .flat();
 
 class App extends WebglRenderer {
   init() {
@@ -13,7 +17,7 @@ class App extends WebglRenderer {
     this.grid = new Grid(this.gl);
     this.scene.push(this.grid);
 
-    this.quad = new Quad(this.gl);
+    this.quad = new Quad(this.gl, App.data[2]);
     this.scene.push(this.quad);
     //
     this.camera.translation.z = 4;
@@ -28,15 +32,18 @@ class App extends WebglRenderer {
   }
 }
 
-new App(); //document.getElementById("c"));
+//document.getElementById("c"));
 
+console.log(assets);
+console.log(urls);
 new NardLoader({
   onProgress: function(progress) {
     console.log(`Progress: ${progress}`);
-  }
+  },
+  assets: urls
 })
-  .add(matnardPath)
   .start()
   .then(function(data) {
-    console.log(data);
+    App.data = data;
+    new App();
   });
