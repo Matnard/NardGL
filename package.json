@@ -1,8 +1,8 @@
 {
-  "name": "parcel-sandbox",
-  "version": "1.0.0",
-  "description": "Simple Parcel Sandbox",
-  "main": "isrc/index.js",
+  "name": "nardgl",
+  "version": "0.1.1",
+  "description": "My graphics library",
+  "main": "src/index.js",
   "scripts": {
     "start": "parcel index.html --open",
     "build": "parcel build index.html"

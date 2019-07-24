@@ -46,6 +46,12 @@ class GltfParser {
       });
     }
 
+    if (gltf.materials) {
+      gltf.materials.forEach(material => {
+        console.log(material.name, material);
+      });
+    }
+
     console.log(gltf);
     this.gltf = gltf;
   }

@@ -80,5 +80,10 @@ class BasicMaterial extends Material {
       .map(attribute => attribute.bind(gl, program));
   }
 }
+
+class PbrMetallicRoughnessMaterial extends BasicMaterial {
+  constructor() {}
+}
+
 export default Material;
-export { BasicMaterial };
+export { BasicMaterial, PbrMetallicRoughnessMaterial };

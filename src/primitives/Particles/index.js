@@ -2,7 +2,6 @@ import vertexShaderPartial from "./vertex.glsl";
 import fragmentShaderPartial from "./fragment.glsl";
 import Primitive from "../../core/Primitive";
 import { BasicMaterial } from "../../core/Material";
-import m4 from "../../core/m4";
 
 const attributesData = [
   {
@@ -43,7 +42,7 @@ const conf = {
   count: 3
 };
 
-export default class Dots extends Primitive {
+export default class Particles extends Primitive {
   constructor(gl) {
     super(gl, conf);
   }

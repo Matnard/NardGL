@@ -1,6 +1,7 @@
 import { resizeCanvas } from "./core/utils";
 import m4 from "./core/m4";
 import Camera from "./core/Camera";
+import "./signature";
 
 class WebGLRenderer {
   constructor(canvas = document.createElement("canvas")) {
