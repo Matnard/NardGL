@@ -3,12 +3,23 @@ import Particles from "./primitives/Particles";
 import Grid from "./primitives/Grid";
 import Quad from "./primitives/Quad";
 import NardLoader from "nardloader";
-import assets from "../preload/*.*";
+//import assets from "../preload/*.*";
+import profile512Path from "../preload/profile-512.png";
+import quadPath from "../preload/quad.gltf";
+import principledPath from "../preload/principled.gltf";
+
 import PrincipledCube from "./primitives/PrincipledCube";
 
-const urls = Object.values(assets)
-  .map(Object.values)
-  .flat();
+
+
+// const urls = Object.values(assets)
+//   .map(Object.values)
+//   .flat();
+const urls = [
+  principledPath,
+  profile512Path,
+  quadPath,
+]
 
 class App extends WebglRenderer {
   init() {
