@@ -39,16 +39,20 @@ class GltfParser {
           image.bufferView
         );
 
-        image.HTMLImageElement = this.uint8ToHTMLImageElement(
-          image.srcData,
-          image.mimeType
-        );
+        image.src = this.uint8ToUrl(image.srcData, image.mimeType);
       });
     }
 
     if (gltf.materials) {
       gltf.materials.forEach(material => {
-        console.log(material.name, material);
+        const textureId = material.pbrMetallicRoughness.baseColorTexture.index;
+        const texture = gltf.images[gltf.textures[textureId].source].src;
+        const uvsAttributeName = `TEXTCOORD_${
+          material.pbrMetallicRoughness.baseColorTexture.texCoord
+        }`;
+        material.pbrMetallicRoughness.baseColorTexture.texture = texture;
+        material.pbrMetallicRoughness.baseColorTexture.uvsAttributeName = uvsAttributeName;
+        console.log(material.pbrMetallicRoughness.baseColorTexture);
       });
     }
 
@@ -122,18 +126,17 @@ class GltfParser {
         ...this.gltf.accessors[primitive.attributes[name]]
       }));
       primitive.indices = { ...this.gltf.accessors[primitive.indices] };
+      if (typeof primitive.material !== "undefined") {
+        primitive.material = this.gltf.materials[primitive.material];
+      }
     });
     return primitives;
   }
 
-  uint8ToHTMLImageElement(byteArray, type) {
+  uint8ToUrl(byteArray, type) {
     var data = new Uint8Array(byteArray);
     var blob = new Blob([data], { type });
-    var url = URL.createObjectURL(blob);
-    var img = new Image();
-    img.src = url;
-    //document.body.appendChild(img);
-    return img;
+    return URL.createObjectURL(blob);
   }
 }
 

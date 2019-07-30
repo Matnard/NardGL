@@ -1,7 +1,7 @@
 import vertexShaderPartial from "./vertex.glsl";
 import fragmentShaderPartial from "./fragment.glsl";
 import Primitive from "../../core/Primitive";
-import { BasicMaterial } from "../../core/Material";
+import BasicMaterial from "../../core/Material/BasicMaterial";
 
 const attributesData = [
   {
@@ -27,6 +27,7 @@ const uniformsData = [
 const material = new BasicMaterial(
   attributesData,
   uniformsData,
+  [],
   vertexShaderPartial,
   fragmentShaderPartial
 );

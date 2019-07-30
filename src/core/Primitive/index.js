@@ -76,7 +76,7 @@ class Primitive {
         location: attribute.location,
         size: attribute.size,
         type: attribute.componentType,
-        normalize: false,
+        normalize: true,
         stride: attribute.stride,
         offset: attribute.offset
       };
