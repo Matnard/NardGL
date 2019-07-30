@@ -74,7 +74,12 @@ class WebGLRenderer {
       };
 
       if (primitive.indices) {
-        //gl.drawElements(gl.TRIANGLES, primitive.count, gl.UNSIGNED_SHORT, 0);
+        gl.drawElements(
+          gl.TRIANGLES,
+          primitive.indices.srcData.length,
+          gl.UNSIGNED_SHORT,
+          0
+        );
       } else {
         gl.drawArrays(drawConf.primitiveType, drawConf.offset, drawConf.count);
       }

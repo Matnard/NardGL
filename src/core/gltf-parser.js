@@ -52,10 +52,8 @@ class GltfParser {
         }`;
         material.pbrMetallicRoughness.baseColorTexture.texture = texture;
         material.pbrMetallicRoughness.baseColorTexture.uvsAttributeName = uvsAttributeName;
-        console.log(material.pbrMetallicRoughness.baseColorTexture);
       });
     }
-
     console.log(gltf);
     this.gltf = gltf;
   }

@@ -3,31 +3,16 @@ import Particles from "./geometries/Particles";
 import Grid from "./geometries/Grid";
 import Quad from "./geometries/Quad";
 import NardLoader from "nardloader";
-<<<<<<< HEAD
 import assets from "../preload/*.*";
 import PrincipledCube from "./geometries/PrincipledCube";
 import GltfParser from "./core/gltf-parser";
 // import profile512Path from "../preload/profile-512.png";
-=======
-//import assets from "../preload/*.*";
-import profile512Path from "../preload/profile-512.png";
-import quadPath from "../preload/quad.gltf";
-import principledPath from "../preload/principled.gltf";
 
-import PrincipledCube from "./primitives/PrincipledCube";
->>>>>>> f5cdfff5f492cad415fd7ad1f79cb32441dfb726
+const urls = Object.values(assets)
+  .map(Object.values)
+  .flat();
 
-
-
-// const urls = Object.values(assets)
-//   .map(Object.values)
-//   .flat();
-const urls = [
-  principledPath,
-  profile512Path,
-  quadPath,
-]
-
+//const urls = [principledPath, profile512Path, quadPath];
 // const assetsPath = profile512Path.split("profile-512.png")[0];
 // const urls = [
 //   {
@@ -61,6 +46,8 @@ class App extends WebglRenderer {
     );
     this.scene.push(this.cube);
 
+    this.cube.translation.z = 2;
+
     this.camera.translation.z = 4;
     this.camera.translation.y = 0.5;
     this.camera.rotation.x = Math.PI / 2;
@@ -68,7 +55,9 @@ class App extends WebglRenderer {
   }
 
   beforeDraw(dt) {
-    //this.quad.rotation.y += 0.005;
+    this.cube.rotation.z -= 0.005;
+    this.cube.rotation.x += 0.005;
+    this.quad.rotation.y += 0.005;
     this.camera.rotation.y -= 0.005;
   }
 }

@@ -58,8 +58,6 @@ export default class BasicMaterial extends Material {
       uniforms: this.uniforms,
       script: fragmentShaderPartial
     }).decorated;
-
-    console.log(this.fragmentShaderSrc);
   }
 
   createProgram(gl) {

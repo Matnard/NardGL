@@ -18,7 +18,8 @@ export default class GltfPrimitive extends Primitive {
     );
     const conf = {
       count: primitiveData.attributes[0].count, //POSITION, maybe..
-      material
+      material,
+      indices: primitiveData.indices
     };
     super(gl, conf);
   }

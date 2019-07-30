@@ -1,10 +1,6 @@
 {
   "name": "nardgl",
-<<<<<<< HEAD
-  "version": "0.2.0",
-=======
-  "version": "0.1.3",
->>>>>>> f5cdfff5f492cad415fd7ad1f79cb32441dfb726
+  "version": "0.3.0",
   "description": "My graphics library",
   "main": "src/index.js",
   "scripts": {
