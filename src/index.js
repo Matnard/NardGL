@@ -3,14 +3,30 @@ import Particles from "./geometries/Particles";
 import Grid from "./geometries/Grid";
 import Quad from "./geometries/Quad";
 import NardLoader from "nardloader";
+<<<<<<< HEAD
 import assets from "../preload/*.*";
 import PrincipledCube from "./geometries/PrincipledCube";
 import GltfParser from "./core/gltf-parser";
 // import profile512Path from "../preload/profile-512.png";
+=======
+//import assets from "../preload/*.*";
+import profile512Path from "../preload/profile-512.png";
+import quadPath from "../preload/quad.gltf";
+import principledPath from "../preload/principled.gltf";
 
-const urls = Object.values(assets)
-  .map(Object.values)
-  .flat();
+import PrincipledCube from "./primitives/PrincipledCube";
+>>>>>>> f5cdfff5f492cad415fd7ad1f79cb32441dfb726
+
+
+
+// const urls = Object.values(assets)
+//   .map(Object.values)
+//   .flat();
+const urls = [
+  principledPath,
+  profile512Path,
+  quadPath,
+]
 
 // const assetsPath = profile512Path.split("profile-512.png")[0];
 // const urls = [
