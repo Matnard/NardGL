@@ -1,7 +1,14 @@
 {
   "name": "@matnard/loader",
-  "version": "1.0.0",
-  "description": "> TODO: description",
+  "version": "0.0.0",
+  "description": "Fetches PNG, JSON/GLTF and HTML files",
+  "keywords": [
+    "fetch",
+    "png",
+    "json",
+    "gltf",
+    "html"
+  ],
   "author": "Mathieu Mence <Mathieu.Mence@matnard.com>",
   "homepage": "https://github.com/Matnard/NardGL#readme",
   "license": "ISC",
