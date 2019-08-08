@@ -12,7 +12,10 @@
   "author": "Mathieu Mence <Mathieu.Mence@matnard.com>",
   "homepage": "https://github.com/Matnard/NardGL#readme",
   "license": "ISC",
+  "source": "src/loader.js",
   "main": "lib/loader.js",
+  "module": "lib/loader.mjs",
+  "unpkg": "lib/loader.umd.js",
   "directories": {
     "lib": "lib",
     "test": "__tests__"
@@ -28,7 +31,9 @@
     "url": "git+https://github.com/Matnard/NardGL.git"
   },
   "scripts": {
-    "test": "echo \"Error: run tests from root\" && exit 1"
+    "test": "echo \"Error: run tests from root\" && exit 1",
+    "build": "microbundle",
+    "dev": "microbundle watch"
   },
   "bugs": {
     "url": "https://github.com/Matnard/NardGL/issues"
