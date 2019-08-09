@@ -1,0 +1,1 @@
+{"version":3,"file":"nardgl.js","sources":["../src/nardgl.js"],"sourcesContent":["import hello from \"@matnard/hello\";\nimport pkg from \"../package.json\";\nhello(\"NardGL\", pkg.version);\n\nexport * from \"@matnard/loader\";\n"],"names":["hello"],"mappings":"kHAEAA,EAAM"}
