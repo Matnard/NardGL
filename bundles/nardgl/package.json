@@ -1,0 +1,33 @@
+{
+  "name": "nardgl",
+  "version": "0.0.0",
+  "description": "My graphics library",
+  "keywords": [
+    "webgl"
+  ],
+  "author": "Mathieu Mence <Mathieu.Mence@matnard.com>",
+  "homepage": "https://github.com/Matnard/NardGL#readme",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Matnard/NardGL.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "dependencies": {
+    "@matnard/hello": "^1.1.0",
+    "@matnard/loader": "^1.1.1-alpha.0"
+  },
+  "bugs": {
+    "url": "https://github.com/Matnard/NardGL/issues"
+  }
+}
