@@ -9,14 +9,13 @@
   ],
   "author": "Mathieu Mence <Mathieu.Mence@matnard.com>",
   "homepage": "https://github.com/Matnard/NardGL#readme",
-  "license": "ISC",
+  "license": "MIT",
   "main": "lib/hello.js",
   "source": "src/hello.js",
   "module": "lib/hello.mjs",
   "unpkg": "lib/hello.umd.js",
   "directories": {
-    "lib": "lib",
-    "test": "__tests__"
+    "lib": "lib"
   },
   "files": [
     "lib"
@@ -38,5 +37,6 @@
   },
   "dependencies": {
     "@matnard/loader": "^1.1.1-alpha.0"
-  }
+  },
+  "devDependencies": {}
 }

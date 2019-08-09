@@ -11,14 +11,13 @@
   ],
   "author": "Mathieu Mence <Mathieu.Mence@matnard.com>",
   "homepage": "https://github.com/Matnard/NardGL#readme",
-  "license": "ISC",
+  "license": "MIT",
   "source": "src/loader.js",
   "main": "lib/loader.js",
   "module": "lib/loader.mjs",
   "unpkg": "lib/loader.umd.js",
   "directories": {
-    "lib": "lib",
-    "test": "__tests__"
+    "lib": "lib"
   },
   "files": [
     "lib"
