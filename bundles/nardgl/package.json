@@ -1,6 +1,6 @@
 {
   "name": "nardgl",
-  "version": "1.0.0-alpha.0",
+  "version": "1.1.0-alpha.0",
   "description": "My graphics library",
   "keywords": [
     "webgl"
@@ -29,7 +29,7 @@
     "dev": "microbundle watch"
   },
   "dependencies": {
-    "@matnard/hello": "^1.1.0",
+    "@matnard/hello": "^1.2.0-alpha.0",
     "@matnard/loader": "^1.1.1-alpha.0"
   },
   "bugs": {
