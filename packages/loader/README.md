@@ -1,11 +1,11 @@
-# `@matnard/loader`
+# `@nardgl/loader`
 
 > TODO: description
 
 ## Usage
 
 ```
-const loader = require('@matnard/loader');
+const loader = require('@nardgl/loader');
 
 // TODO: DEMONSTRATE API
 ```

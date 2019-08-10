@@ -1,7 +1,7 @@
-'use strict';
+"use strict";
 
-const hello = require('..');
+const hello = require("..");
 
-describe('@matnard/hello', () => {
-    it('needs tests');
+describe("@nardgl/hello", () => {
+  it("needs tests");
 });

@@ -1,7 +1,7 @@
-'use strict';
+"use strict";
 
-const loader = require('..');
+const loader = require("..");
 
-describe('@matnard/loader', () => {
-    it('needs tests');
+describe("@nardgl/loader", () => {
+  it("needs tests");
 });

@@ -1,5 +1,5 @@
-import hello from "@matnard/hello";
+import hello from "@nardgl/hello";
 import pkg from "../package.json";
 hello("NardGL", pkg.version);
 
-export * from "@matnard/loader";
+export * from "@nardgl/loader";

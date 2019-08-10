@@ -1,2 +1,0 @@
-!function(e,a){"object"==typeof exports&&"undefined"!=typeof module?a(exports,require("@matnard/hello"),require("@matnard/loader")):"function"==typeof define&&define.amd?define(["exports","@matnard/hello","@matnard/loader"],a):a(e.nardgl={},e.hello,e.loader)}(this,function(e,a,o){(a=a&&a.hasOwnProperty("default")?a.default:a)("NardGL","1.0.0-alpha.0"),Object.keys(o).forEach(function(a){e[a]=o[a]})});
-//# sourceMappingURL=nardgl.umd.js.map
