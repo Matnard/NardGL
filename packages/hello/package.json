@@ -1,6 +1,6 @@
 {
   "name": "@nardgl/hello",
-  "version": "1.2.0-alpha.0",
+  "version": "1.2.1-alpha.0",
   "description": "styled log of package version",
   "keywords": [
     "console",
@@ -36,7 +36,6 @@
     "url": "https://github.com/Matnard/NardGL/issues"
   },
   "dependencies": {
-    "@nardgl/loader": "^1.1.1-alpha.0"
-  },
-  "devDependencies": {}
+    "@nardgl/loader": "^1.1.2-alpha.0"
+  }
 }
