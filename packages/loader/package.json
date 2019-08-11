@@ -1,0 +1,36 @@
+{
+  "name": "@nardgl/loader",
+  "version": "0.0.0",
+  "description": "fetches PNG, JSON/GLTF and text",
+  "keywords": [
+    "fetch",
+    "png",
+    "json",
+    "gltf",
+    "text"
+  ],
+  "author": "Mathieu Mence <Mathieu.Mence@matnard.com>",
+  "homepage": "https://github.com/Matnard/NardGL#readme",
+  "license": "MIT",
+  "main": "src/index.js",
+  "directories": {
+    "src": "src",
+    "test": "__tests__"
+  },
+  "files": [
+    "src"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Matnard/NardGL.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/Matnard/NardGL/issues"
+  }
+}
