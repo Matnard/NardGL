@@ -1,15 +1,15 @@
 {
-  "name": "nardgl",
-  "version": "1.0.0-alpha.0",
-  "description": "My graphics library",
+  "name": "@nardgl/gltf-parser",
+  "version": "0.0.0",
+  "description": "partially parses GLTF(JSON flavor)",
   "keywords": [
-    "webgl",
-    "gltf"
+    "gltf",
+    "parsing"
   ],
   "author": "Mathieu Mence <Mathieu.Mence@matnard.com>",
   "homepage": "https://github.com/Matnard/NardGL#readme",
   "license": "MIT",
-  "main": "lib/nardgl.js",
+  "main": "src/index.js",
   "directories": {
     "lib": "lib",
     "test": "__tests__"
@@ -17,6 +17,9 @@
   "files": [
     "lib"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Matnard/NardGL.git"
@@ -26,10 +29,5 @@
   },
   "bugs": {
     "url": "https://github.com/Matnard/NardGL/issues"
-  },
-  "dependencies": {
-    "@nardgl/console-greeting": "^1.0.0-alpha.0",
-    "@nardgl/gltf-parser": "^0.0.0",
-    "@nardgl/loader": "^1.0.0-alpha.0"
   }
 }
