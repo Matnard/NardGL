@@ -1,6 +1,6 @@
 {
   "name": "@nardgl/gltf-parser",
-  "version": "0.0.0",
+  "version": "1.0.0-alpha.0",
   "description": "partially parses GLTF(JSON flavor)",
   "keywords": [
     "gltf",
