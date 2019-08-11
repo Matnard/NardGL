@@ -1,9 +1,0 @@
-62 error Error: Command failed: git push --follow-tags --no-verify origin master
-62 error ssh: Could not resolve hostname github.com: Name or service not known
-62 error fatal: Could not read from remote repository.
-62 error
-62 error Please make sure you have the correct access rights
-62 error and the repository exists.
-62 error
-62 error     at makeError (/home/matnard/Lab/NardGL/node_modules/execa/index.js:174:9)
-62 error     at Promise.all.then.arr (/home/matnard/Lab/NardGL/node_modules/execa/index.js:278:16)

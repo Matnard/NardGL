@@ -1,4 +1,4 @@
-import { Material } from "..";
+import { Material } from "../index";
 import { Attribute } from "../../Attribute";
 import { Uniform } from "../../Uniform";
 import { TextureUniform } from "../../TextureUniform";

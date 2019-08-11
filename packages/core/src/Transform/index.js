@@ -1,4 +1,4 @@
-import m4 from "../m4";
+import { m4 } from "../m4";
 
 class Transform {
   constructor() {

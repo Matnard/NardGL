@@ -1,4 +1,4 @@
-import BasicMaterial from "../BasicMaterial";
+import { BasicMaterial } from "../BasicMaterial";
 
 class PbrMetallicRoughnessMaterial extends BasicMaterial {
   constructor(

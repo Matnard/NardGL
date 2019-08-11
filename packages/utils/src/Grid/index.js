@@ -1,7 +1,6 @@
 import fragmentShaderPartial from "./fragment.glsl";
 import vertexShaderPartial from "./vertex.glsl";
-import { Primitive } from "@nardgl/core/src/Primitive";
-import { BasicMaterial } from "@nardgl/core/src/Material/BasicMaterial";
+import { BasicMaterial, Primitive } from "@nardgl/core";
 
 let srcData = [
   0,

@@ -1,5 +1,5 @@
-import Primitive from "./index";
-import PbrMetallicRoughnessMaterial from "../Material/PbrMetallicRoughnessMaterial";
+import { Primitive } from "./index";
+import { PbrMetallicRoughnessMaterial } from "../Material/PbrMetallicRoughnessMaterial";
 
 class GltfPrimitive extends Primitive {
   constructor(

@@ -1,5 +1,5 @@
 import { CameraTransform as Transform } from "../Transform";
-import m4 from "../m4";
+import { m4 } from "../m4";
 
 class Camera {
   constructor() {

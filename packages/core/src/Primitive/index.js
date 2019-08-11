@@ -1,4 +1,4 @@
-import Transform from "../Transform";
+import { Transform } from "../Transform";
 
 class Primitive {
   constructor(gl, conf) {
