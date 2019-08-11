@@ -1,9 +1,9 @@
-import Material from "..";
-import Attribute from "../../Attribute";
-import Uniform from "../../Uniform";
-import TextureUniform from "../../TextureUniform";
+import { Material } from "..";
+import { Attribute } from "../../Attribute";
+import { Uniform } from "../../Uniform";
+import { TextureUniform } from "../../TextureUniform";
 import { VertexShader, FragmentShader } from "../../Shader";
-import m4 from "../../m4";
+import { m4 } from "../../m4";
 import { createProgramFromSource } from "../../utils";
 
 class BasicMaterial extends Material {

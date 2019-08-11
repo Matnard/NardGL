@@ -1,6 +1,9 @@
-52 warn complete Waiting for 2 child processes to exit. CTRL-C to exit immediately.
-53 error Error: Command failed: git tag nardgl@1.0.0-alpha.0 -m nardgl@1.0.0-alpha.0
-53 error fatal: tag 'nardgl@1.0.0-alpha.0' already exists
-53 error
-53 error     at makeError (/home/matnard/Lab/NardGL/node_modules/execa/index.js:174:9)
-53 error     at Promise.all.then.arr (/home/matnard/Lab/NardGL/node_modules/execa/index.js:278:16)
+62 error Error: Command failed: git push --follow-tags --no-verify origin master
+62 error ssh: Could not resolve hostname github.com: Name or service not known
+62 error fatal: Could not read from remote repository.
+62 error
+62 error Please make sure you have the correct access rights
+62 error and the repository exists.
+62 error
+62 error     at makeError (/home/matnard/Lab/NardGL/node_modules/execa/index.js:174:9)
+62 error     at Promise.all.then.arr (/home/matnard/Lab/NardGL/node_modules/execa/index.js:278:16)

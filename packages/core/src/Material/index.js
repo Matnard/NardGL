@@ -1,5 +1,5 @@
-import Uniform from "../Uniform";
-import Attribute from "../Attribute";
+import { Uniform } from "../Uniform";
+import { Attribute } from "../Attribute";
 
 class Material {
   constructor(attributes, uniforms, vertexShader, fragmentShader) {
