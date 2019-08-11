@@ -138,4 +138,4 @@ class GltfParser {
   }
 }
 
-export default GltfParser;
+export { GltfParser };
