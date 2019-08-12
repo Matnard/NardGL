@@ -112,5 +112,4 @@ class Loader {
   }
 }
 
-export { batchLoad, loadImage };
-export default Loader;
+export { batchLoad, loadImage, Loader };

@@ -5,6 +5,7 @@ export * from "./Material";
 export * from "./Material/BasicMaterial";
 export * from "./Material/PbrMetallicRoughnessMaterial";
 export * from "./Primitive";
+export * from "./Primitive/GltfPrimitive";
 export * from "./Shader";
 export * from "./Transform";
 export * from "./Attribute";
