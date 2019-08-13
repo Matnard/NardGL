@@ -1,10 +1,10 @@
 import * as NARD from "../bundles/nardgl/src";
 import { Particles } from "./Particles";
 import { Quad } from "./Quad";
-
-const urls = [
-  "https://crossorigin.me/https://matnard.github.io/NardGL/assets/quad.gltf"
-];
+import quadGltfUrl from "./Quad/quad.gltf";
+import { TexturedCube } from "./TexturedCube";
+import texturedCubeGltfUrl from "./TexturedCube/textured-cube.gltf";
+const urls = [quadGltfUrl, texturedCubeGltfUrl];
 
 class App extends NARD.WebGLRenderer {
   init() {
@@ -12,16 +12,29 @@ class App extends NARD.WebGLRenderer {
     this.scene.push(this.particles);
 
     this.grid = new NARD.Grid(this.gl);
+    this.grid.rotation.x = Math.PI / 2;
     this.scene.push(this.grid);
+
+    this.cube = new TexturedCube(
+      this.gl,
+      new NARD.GltfParser(App.data[1]).getPrimitives()[0]
+    );
+
+    this.cube.translation.y = 0.5;
+    this.cube.scale.x = this.cube.scale.y = this.cube.scale.z = 0.3;
+
+    this.scene.push(this.cube);
 
     this.quad = new Quad(
       this.gl,
       new NARD.GltfParser(App.data[0]).getPrimitives()[0]
     );
 
+    this.scene.push(this.quad);
+
     this.camera.translation.z = 4;
     this.camera.translation.y = 0.5;
-    this.camera.rotation.x = Math.PI / 2;
+    // this.camera.rotation.x = Math.PI / 2;
     this.render();
   }
 
