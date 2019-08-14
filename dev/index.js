@@ -17,7 +17,7 @@ class App extends NARD.WebGLRenderer {
 
     this.cube = new TexturedCube(
       this.gl,
-      new NARD.GltfParser(App.data[1]).getPrimitives()[0]
+      new NARD.GltfParser(App.data[urls[1]]).getPrimitives()[0]
     );
 
     this.cube.translation.y = 0.5;
@@ -27,7 +27,7 @@ class App extends NARD.WebGLRenderer {
 
     this.quad = new Quad(
       this.gl,
-      new NARD.GltfParser(App.data[0]).getPrimitives()[0]
+      new NARD.GltfParser(App.data[urls[0]]).getPrimitives()[0]
     );
 
     this.scene.push(this.quad);
