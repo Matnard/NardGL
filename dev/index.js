@@ -1,4 +1,4 @@
-import * as NARD from "../bundles/nardgl/src";
+import * as NARD from "nardgl";
 import { Particles } from "./Particles";
 import { Quad } from "./Quad";
 import quadGltfUrl from "./Quad/quad.gltf";

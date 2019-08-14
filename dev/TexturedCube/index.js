@@ -1,4 +1,4 @@
-import { GltfPrimitive } from "../../bundles/nardgl/src";
+import { GltfPrimitive } from "nardgl";
 import vertexPartial from "./vertex.glsl";
 import fragmentPartial from "./fragment.glsl";
 

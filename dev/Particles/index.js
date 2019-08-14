@@ -1,6 +1,6 @@
 import vertexShaderPartial from "./vertex.glsl";
 import fragmentShaderPartial from "./fragment.glsl";
-import { Primitive, BasicMaterial } from "../../bundles/nardgl/src";
+import { Primitive, BasicMaterial } from "nardgl";
 
 const attributesData = [
   {
