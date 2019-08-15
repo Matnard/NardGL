@@ -1,8 +1,8 @@
-import { GltfPrimitive } from "nardgl";
+import * as NARD from "nardgl";
 import vertexPartial from "./vertex.glsl";
 import fragmentPartial from "./fragment.glsl";
 
-class Quad extends GltfPrimitive {
+class Quad extends NARD.GltfPrimitive {
   constructor(gl, primitiveData) {
     super(gl, primitiveData, [], vertexPartial, fragmentPartial);
   }
