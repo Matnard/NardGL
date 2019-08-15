@@ -10,7 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "nardgl": "^1.0.5-alpha.0"
+    "nardgl": "^1.0.6-alpha.0"
   },
   "browserslist": [
     "last 1 chrome versions"
