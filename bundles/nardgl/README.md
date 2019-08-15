@@ -5,7 +5,7 @@
 ## Usage
 
 ```
-const nardgl = require('nardgl');
+import * as NARD from 'nardgl';
 
 // TODO: DEMONSTRATE API
 ```
