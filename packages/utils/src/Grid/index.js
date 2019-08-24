@@ -91,8 +91,8 @@ const conf = {
 };
 
 class Grid extends Primitive {
-  constructor(gl) {
-    super(gl, conf);
+  constructor() {
+    super(conf);
   }
 
   beforeDraw() {

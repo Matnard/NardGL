@@ -18,17 +18,15 @@ new NARD.Loader({
     const camera = new NARD.Camera();
     const scene = [];
     const renderer = new NARD.WebGLRenderer();
-    const gl = renderer.gl;
 
-    const particles = new Particles(gl);
+    const particles = new Particles();
     scene.push(particles);
 
-    const grid = new NARD.Grid(gl);
+    const grid = new NARD.Grid();
     grid.rotation.x = Math.PI / 2;
     scene.push(grid);
 
     const cube = new TexturedCube(
-      gl,
       new NARD.GltfParser(data[urls[1]]).getPrimitives()[0]
     );
 
@@ -38,7 +36,6 @@ new NARD.Loader({
     scene.push(cube);
 
     const quad = new Quad(
-      gl,
       new NARD.GltfParser(data[urls[0]]).getPrimitives()[0]
     );
 

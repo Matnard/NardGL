@@ -1,18 +1,13 @@
 import { Transform } from "../Transform";
 
 class Primitive extends Transform {
-  constructor(gl, conf) {
+  constructor(conf) {
     super();
-    this.gl = gl;
     //stuff to access
     this.vao = null;
     this.hasRenderedOnce = false;
-
-    this.program = conf.material.createProgram(this.gl);
-
+    this.needsUpdate = true;
     this.material = conf.material;
-    this.uniforms = this.material.bindUniforms(this.gl, this.program);
-    this.attributes = this.material.bindAttributes(this.gl, this.program);
     this.indices = conf.indices || null;
     //draw stuff
     this.draw = conf.draw || {
@@ -21,7 +16,6 @@ class Primitive extends Transform {
       count: 3
     };
     this.draw.count = conf.count;
-    this.init();
   }
 
   setUniform(name, data) {
@@ -40,8 +34,10 @@ class Primitive extends Transform {
 
   beforeDraw(dt) {}
 
-  init() {
-    const gl = this.gl;
+  init(gl) {
+    this.program = this.material.createProgram(gl);
+    this.uniforms = this.material.bindUniforms(gl, this.program);
+    this.attributes = this.material.bindAttributes(gl, this.program);
 
     this.vao = gl.createVertexArray();
     gl.bindVertexArray(this.vao);
@@ -86,6 +82,8 @@ class Primitive extends Transform {
 
       gl.enableVertexAttribArray(attribute.location);
     });
+
+    this.needsUpdate = false;
   }
 }
 

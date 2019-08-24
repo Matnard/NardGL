@@ -43,8 +43,8 @@ const conf = {
 };
 
 class Particles extends Primitive {
-  constructor(gl) {
-    super(gl, conf);
+  constructor() {
+    super(conf);
   }
 
   beforeDraw(dt) {

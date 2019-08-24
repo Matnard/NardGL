@@ -3,8 +3,8 @@ import vertexPartial from "./vertex.glsl";
 import fragmentPartial from "./fragment.glsl";
 
 class Quad extends NARD.GltfPrimitive {
-  constructor(gl, primitiveData) {
-    super(gl, primitiveData, [], vertexPartial, fragmentPartial);
+  constructor(primitiveData) {
+    super(primitiveData, [], vertexPartial, fragmentPartial);
   }
 
   beforeDraw() {

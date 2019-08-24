@@ -2,13 +2,7 @@ import { Primitive } from "./index";
 import { PbrMetallicRoughnessMaterial } from "../Material/PbrMetallicRoughnessMaterial";
 
 class GltfPrimitive extends Primitive {
-  constructor(
-    gl,
-    primitiveData,
-    textureData = [],
-    vertexPartial,
-    fragmentPartial
-  ) {
+  constructor(primitiveData, textureData = [], vertexPartial, fragmentPartial) {
     const material = new PbrMetallicRoughnessMaterial(
       primitiveData.attributes,
       [],
@@ -21,7 +15,7 @@ class GltfPrimitive extends Primitive {
       material,
       indices: primitiveData.indices
     };
-    super(gl, conf);
+    super(conf);
   }
 }
 

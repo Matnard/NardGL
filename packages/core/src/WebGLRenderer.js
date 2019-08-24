@@ -32,6 +32,10 @@ class WebGLRenderer {
     this.gl.enable(this.gl.DEPTH_TEST);
 
     scene.forEach(primitive => {
+      if (primitive.needsUpdate) {
+        primitive.init(this.gl);
+      }
+
       this.gl.useProgram(primitive.program);
 
       if (!primitive.hasRenderedOnce) {
