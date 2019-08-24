@@ -18,7 +18,7 @@
     "url": "git+https://github.com/Matnard/NardGL.git"
   },
   "scripts": {
-    "test": "echo \"Error: run tests from root\" && exit 1"
+    "start": "parcel index.html --open"
   },
   "bugs": {
     "url": "https://github.com/Matnard/NardGL/issues"
@@ -28,5 +28,9 @@
   },
   "browserslist": [
     "last 1 chrome versions"
-  ]
+  ],
+  "devDependencies": {
+    "glslify-bundle": "^5.1.1",
+    "glslify-deps": "^1.3.1"
+  }
 }
