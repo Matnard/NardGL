@@ -1,6 +1,5 @@
 import { resizeCanvas } from "./utils";
 import { m4 } from "./m4";
-import { Camera } from "./Camera";
 
 class WebGLRenderer {
   constructor(canvas = document.createElement("canvas")) {
@@ -16,36 +15,25 @@ class WebGLRenderer {
     }
 
     this.gl = gl;
-    this.scene = []; //
-    this.camera = new Camera();
     this.projectionMatrix = m4.projection(
       this.gl.canvas.clientWidth,
       this.gl.canvas.clientHeight,
       this.gl.canvas.clientWidth
     );
-    this.init();
-    this.startAnimating();
   }
 
-  startAnimating(fps = 60) {
-    this.fpsInterval = 1000 / fps;
-    this.then = Date.now();
-    this.startTime = this.then;
-    this.render();
-  }
-
-  init() {}
-
-  beforeDraw(dt) {
-    this.scene.forEach(s => {
-      s.beforeDraw(dt);
-    });
-  }
-
-  drawFrame(dt) {
+  render(scene, camera) {
     const gl = this.gl;
 
-    this.scene.forEach(primitive => {
+    resizeCanvas(gl.canvas);
+    gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
+    gl.clearColor(1, 1, 1, 1);
+    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+
+    // turn on depth testing
+    gl.enable(gl.DEPTH_TEST);
+
+    scene.forEach(primitive => {
       gl.useProgram(primitive.program);
 
       if (!primitive.hasRenderedOnce) {
@@ -55,11 +43,10 @@ class WebGLRenderer {
 
       gl.bindVertexArray(primitive.vao);
 
-      this.beforeDraw(dt);
       primitive.setUniform("u_projectionMatrix", this.projectionMatrix);
-      primitive.setUniform("u_viewMatrix", this.camera.viewMatrix);
+      primitive.setUniform("u_viewMatrix", camera.viewMatrix);
       primitive.computeMatrix();
-      primitive.beforeDraw(dt);
+      primitive.beforeDraw(this.then);
 
       primitive.updateUniforms();
 
@@ -83,26 +70,6 @@ class WebGLRenderer {
         gl.drawArrays(drawConf.primitiveType, drawConf.offset, drawConf.count);
       }
     });
-  }
-
-  render() {
-    const gl = this.gl;
-    requestAnimationFrame(() => this.render());
-    this.now = Date.now();
-    this.elapsed = this.now - this.then;
-
-    if (this.elapsed > this.fpsInterval) {
-      resizeCanvas(gl.canvas);
-      gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
-      gl.clearColor(1, 1, 1, 1);
-      gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-
-      // turn on depth testing
-      gl.enable(gl.DEPTH_TEST);
-      this.drawFrame(this.then);
-
-      this.then = this.now - (this.elapsed % this.fpsInterval);
-    }
   }
 }
 
