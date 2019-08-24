@@ -6,42 +6,6 @@ import { TexturedCube } from "./TexturedCube";
 import texturedCubeGltfUrl from "./TexturedCube/textured-cube.gltf";
 
 const urls = [quadGltfUrl, texturedCubeGltfUrl];
-class App extends NARD.WebGLRenderer {
-  init() {
-    this.particles = new Particles(this.gl);
-    this.scene.push(this.particles);
-
-    this.grid = new NARD.Grid(this.gl);
-    this.grid.rotation.x = Math.PI / 2;
-    this.scene.push(this.grid);
-
-    this.cube = new TexturedCube(
-      this.gl,
-      new NARD.GltfParser(App.data[urls[1]]).getPrimitives()[0]
-    );
-
-    this.cube.translation.y = 0.5;
-    this.cube.scale.x = this.cube.scale.y = this.cube.scale.z = 0.3;
-
-    this.scene.push(this.cube);
-
-    this.quad = new Quad(
-      this.gl,
-      new NARD.GltfParser(App.data[urls[0]]).getPrimitives()[0]
-    );
-
-    this.scene.push(this.quad);
-
-    this.camera.translation.z = 4;
-    this.camera.translation.y = 0.5;
-    // this.camera.rotation.x = Math.PI / 2;
-    this.render();
-  }
-
-  beforeDraw(dt) {
-    this.camera.rotation.y -= 0.005;
-  }
-}
 
 new NARD.Loader({
   onProgress: function(progress) {
@@ -51,6 +15,53 @@ new NARD.Loader({
 })
   .start()
   .then(function(data) {
-    App.data = data;
-    new App();
+    const camera = new NARD.Camera();
+    const scene = [];
+    const renderer = new NARD.WebGLRenderer();
+    const gl = renderer.gl;
+
+    const particles = new Particles(gl);
+    scene.push(particles);
+
+    const grid = new NARD.Grid(gl);
+    grid.rotation.x = Math.PI / 2;
+    scene.push(grid);
+
+    const cube = new TexturedCube(
+      gl,
+      new NARD.GltfParser(data[urls[1]]).getPrimitives()[0]
+    );
+
+    cube.translation.y = 2;
+    //cube.scale.x = cube.scale.y = cube.scale.z = 0.25;
+
+    scene.push(cube);
+
+    const quad = new Quad(
+      gl,
+      new NARD.GltfParser(data[urls[0]]).getPrimitives()[0]
+    );
+
+    scene.push(quad);
+
+    camera.translation.z = 4;
+    camera.translation.y = 0.5;
+    // camera.rotation.x = Math.PI / 2;
+
+    const fps = 60;
+    const fpsInterval = 1000 / fps;
+    let then = Date.now();
+    onEnterFrame();
+
+    function onEnterFrame() {
+      requestAnimationFrame(onEnterFrame);
+      const now = Date.now();
+      const elapsed = now - then;
+
+      if (elapsed > fpsInterval) {
+        camera.rotation.y -= 0.005;
+        renderer.render(scene, camera);
+        then = now - (elapsed % fpsInterval);
+      }
+    }
   });
