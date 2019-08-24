@@ -23,7 +23,8 @@
   },
   "scripts": {
     "test": "echo \"Error: run tests from root\" && exit 1",
-    "build": "parcel build ./src/index.js --out-dir lib --out-file nardgl.js"
+    "build": "parcel build ./src/index.js --out-dir lib --out-file nardgl.js",
+    "watch": "parcel watch ./src/index.js --out-dir lib --out-file nardgl.js"
   },
   "bugs": {
     "url": "https://github.com/Matnard/NardGL/issues"
