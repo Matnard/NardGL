@@ -23,25 +23,23 @@ class WebGLRenderer {
   }
 
   render(scene, camera) {
-    const gl = this.gl;
-
-    resizeCanvas(gl.canvas);
-    gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
-    gl.clearColor(1, 1, 1, 1);
-    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+    resizeCanvas(this.gl.canvas);
+    this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
+    this.gl.clearColor(1, 1, 1, 1);
+    this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
 
     // turn on depth testing
-    gl.enable(gl.DEPTH_TEST);
+    this.gl.enable(this.gl.DEPTH_TEST);
 
     scene.forEach(primitive => {
-      gl.useProgram(primitive.program);
+      this.gl.useProgram(primitive.program);
 
       if (!primitive.hasRenderedOnce) {
         primitive.updateUniforms();
         primitive.hasRenderedOnce = true;
       }
 
-      gl.bindVertexArray(primitive.vao);
+      this.gl.bindVertexArray(primitive.vao);
 
       primitive.setUniform("u_projectionMatrix", this.projectionMatrix);
       primitive.setUniform("u_viewMatrix", camera.viewMatrix);
@@ -54,20 +52,24 @@ class WebGLRenderer {
         primitiveType:
           primitive.draw.primitiveType !== "undefined"
             ? primitive.draw.primitiveType
-            : gl.TRIANGLES,
+            : this.gl.TRIANGLES,
         offset: primitive.draw.offset,
         count: primitive.draw.count
       };
 
       if (primitive.indices) {
-        gl.drawElements(
-          gl.TRIANGLES,
+        this.gl.drawElements(
+          this.gl.TRIANGLES,
           primitive.indices.srcData.length,
-          gl.UNSIGNED_SHORT,
+          this.gl.UNSIGNED_SHORT,
           0
         );
       } else {
-        gl.drawArrays(drawConf.primitiveType, drawConf.offset, drawConf.count);
+        this.gl.drawArrays(
+          drawConf.primitiveType,
+          drawConf.offset,
+          drawConf.count
+        );
       }
     });
   }
