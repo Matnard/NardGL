@@ -1,7 +1,8 @@
 import { Transform } from "../Transform";
 
-class Primitive {
+class Primitive extends Transform {
   constructor(gl, conf) {
+    super();
     this.gl = gl;
     //stuff to access
     this.vao = null;
@@ -20,28 +21,7 @@ class Primitive {
       count: 3
     };
     this.draw.count = conf.count;
-    this.transform = new Transform();
     this.init();
-  }
-
-  get matrix() {
-    return this.transform.matrix;
-  }
-
-  get translation() {
-    return this.transform.translation;
-  }
-
-  get rotation() {
-    return this.transform.rotation;
-  }
-
-  get scale() {
-    return this.transform.scale;
-  }
-
-  computeMatrix(m) {
-    this.transform.computeMatrix(m);
   }
 
   setUniform(name, data) {
