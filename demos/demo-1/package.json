@@ -1,0 +1,36 @@
+{
+  "name": "demo-1",
+  "version": "0.0.0",
+  "description": "Displays NardGL's primitives",
+  "keywords": [
+    "NardGL",
+    "demo"
+  ],
+  "author": "Mathieu Mence <Mathieu.Mence@matnard.com>",
+  "homepage": "https://github.com/Matnard/NardGL#readme",
+  "license": "MIT",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Matnard/NardGL.git"
+  },
+  "scripts": {
+    "start": "parcel index.html --open"
+  },
+  "bugs": {
+    "url": "https://github.com/Matnard/NardGL/issues"
+  },
+  "browserslist": [
+    "last 1 chrome versions"
+  ],
+  "dependencies": {
+    "nardgl": "^1.0.7-alpha.0"
+  }
+}
