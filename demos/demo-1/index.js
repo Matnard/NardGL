@@ -1,5 +1,6 @@
 import * as NARD from "nardgl";
 
+window.NARD = NARD;
 const camera = new NARD.Camera();
 const scene = [];
 const renderer = new NARD.WebGLRenderer();
