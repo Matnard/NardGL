@@ -28,5 +28,8 @@
   },
   "bugs": {
     "url": "https://github.com/Matnard/NardGL/issues"
+  },
+  "dependencies": {
+    "@nardgl/core": "^0.0.3-alpha.0"
   }
 }

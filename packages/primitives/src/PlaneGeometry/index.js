@@ -7,6 +7,7 @@ class PlaneGeometry {
     yUp = true,
     doubleSided = false
   ) {
+    super();
     this.width = width;
     this.height = height;
     this.segmentsW = segmentsW;
