@@ -1,5 +1,5 @@
 void main() {
-  gl_PointSize = u_pointSize;
+  gl_PointSize = 25.0;//u_pointSize;
   vec4 modelPosition = u_modelMatrix * vec4(a_position, 1.0);
 
   gl_Position = u_projectionMatrix * u_viewMatrix * modelPosition;

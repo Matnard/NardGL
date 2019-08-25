@@ -31,7 +31,7 @@ new NARD.Loader({
     );
 
     cube.translation.y = 2;
-    //cube.scale.x = cube.scale.y = cube.scale.z = 0.25;
+    cube.scale.x = cube.scale.y = cube.scale.z = 0.25;
 
     scene.push(cube);
 
