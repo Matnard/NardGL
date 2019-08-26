@@ -6,7 +6,7 @@ NardGL is a experimental graphics library.
 [![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
 
 # Why?
-In order to understand the foundations
+In order to master the foundations and possibly contribute to other open source libraries
 
 # Goals so far
 - high level API
