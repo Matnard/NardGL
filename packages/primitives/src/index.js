@@ -1,2 +1,1 @@
-export * from "./LineSegment";
-export * from "./PlaneGeometry";
+export * from "./PlaneGeometry/index.js";

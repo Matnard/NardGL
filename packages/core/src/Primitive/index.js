@@ -1,15 +1,26 @@
 import { Transform } from "../Transform";
+import { createProgramFromSource } from "../utils";
+import { Attribute } from "../Attribute";
+import { Uniform } from "../Uniform";
+import { TextureUniform } from "../TextureUniform";
+import { m4 } from "../m4";
 
 class Primitive extends Transform {
-  constructor(conf) {
+  constructor(conf, geometry, material) {
     super();
+    console.log("nioloniolo");
     //stuff to access
     this.vao = null;
     this.hasRenderedOnce = false;
     this.needsUpdate = true;
+
+    //geometry holds the vertices and indices
+
+    //material tells what to draw (points, lines, triangles)
     this.material = conf.material;
     this.indices = conf.indices || null;
-    //draw stuff
+
+    //draw stuff should come from the material
     this.draw = conf.draw || {
       primitiveType: 4,
       offset: 0,
@@ -34,10 +45,65 @@ class Primitive extends Transform {
 
   beforeDraw(dt) {}
 
+  createProgram(gl) {
+    return createProgramFromSource(
+      gl,
+      this.material.vertexShaderSrc(this.attributes, this.uniforms),
+      this.material.fragmentShaderSrc(this.uniforms)
+    );
+  }
+
+  bindUniforms(gl) {
+    return this.uniforms
+      .concat([])
+      .map(uniform => uniform.bind(gl, this.program));
+  }
+
+  bindAttributes(gl) {
+    return this.attributes
+      .concat([])
+      .map(attribute => attribute.bind(gl, this.program));
+  }
+
+  initAttributes(attributesData) {
+    return attributesData.map(a => new Attribute(a));
+  }
+
+  initUniforms(uniformsData, texturesData = []) {
+    const extraUniforms = [
+      {
+        name: "u_modelMatrix",
+        type: "Matrix4fv",
+        value: m4.identity(),
+        count: 1
+      },
+      {
+        name: "u_viewMatrix",
+        type: "Matrix4fv",
+        value: m4.identity(),
+        count: 1
+      },
+      {
+        name: "u_projectionMatrix",
+        type: "Matrix4fv",
+        value: m4.identity(),
+        count: 1
+      }
+    ];
+
+    uniformsData = [...uniformsData, ...extraUniforms];
+
+    let uniforms = uniformsData.map(u => new Uniform(u));
+    return [...uniforms, ...texturesData.map(t => new TextureUniform(t))];
+  }
+
   init(gl) {
-    this.program = this.material.createProgram(gl);
-    this.uniforms = this.material.bindUniforms(gl, this.program);
-    this.attributes = this.material.bindAttributes(gl, this.program);
+    this.attributes = this.initAttributes(this.material.attributesData);
+    this.uniforms = this.initUniforms(this.material.uniformsData);
+
+    this.program = this.createProgram(gl);
+    this.uniforms = this.bindUniforms(gl);
+    this.attributes = this.bindAttributes(gl);
 
     this.vao = gl.createVertexArray();
     gl.bindVertexArray(this.vao);
