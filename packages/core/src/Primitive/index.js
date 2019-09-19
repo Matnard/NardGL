@@ -8,7 +8,14 @@ import { m4 } from "../m4";
 class Primitive extends Transform {
   constructor(conf, geometry, material) {
     super();
-    console.log("nioloniolo");
+    if (!conf) {
+      console.log(geometry);
+
+      const conf = {
+        count: geometry.count
+      };
+      return;
+    }
     //stuff to access
     this.vao = null;
     this.hasRenderedOnce = false;

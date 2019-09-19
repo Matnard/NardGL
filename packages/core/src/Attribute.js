@@ -2,6 +2,9 @@ import { getSize, getTypedArray, getGLSLType } from "./utils";
 
 class Attribute {
   constructor(conf) {
+    if (conf.count) {
+      delete conf.count;
+    }
     for (var key in conf) {
       this[key] = conf[key];
     }
@@ -21,9 +24,7 @@ class Attribute {
     const location = this.gl.getAttribLocation(this.program, this.name);
     if (location === -1) {
       throw new Error(
-        `Maybe not used in shader. Haven't fount the location of the variable name "${
-          this.name
-        }"`
+        `Maybe not used in shader. Haven't fount the location of the variable name "${this.name}"`
       );
     }
     return location;
@@ -31,6 +32,10 @@ class Attribute {
 
   get size() {
     return getSize(this.type);
+  }
+
+  get count() {
+    return this.srcData ? this.srcData.length / this.size : null;
   }
 
   get array() {
