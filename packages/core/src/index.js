@@ -13,3 +13,4 @@ export * from "./Uniform";
 export * from "./utils";
 export * from "./WebGLRenderer";
 export * from "./Geometry";
+export * from "./Vertex";
