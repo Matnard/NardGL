@@ -33,16 +33,7 @@ class Geometry {
   //   }
   // }
 
-  getAttributes(conf) {
-    // const defaults = {
-    //   position: true,
-    //   uv: false,
-    //   normal: false
-    // };
-    // const options = Object.assign({}, defaults, conf);
-
-    // console.log(options);
-
+  getAttributeData() {
     const srcData = Array.from(this.vertices.values())
       .map(({ data }) => [data.position.x, data.position.y, data.position.z])
       .flat();
@@ -57,6 +48,13 @@ class Geometry {
         offset: 0
       }
     ];
+  }
+
+  getCount(primitiveType) {
+    return {
+      0: this.vertices.size,
+      4: this.vertices.size / 3
+    }[primitiveType];
   }
 }
 

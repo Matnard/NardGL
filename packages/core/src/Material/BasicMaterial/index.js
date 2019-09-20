@@ -1,10 +1,6 @@
-import { Attribute } from "../../Attribute";
-import { Uniform } from "../../Uniform";
-import { TextureUniform } from "../../TextureUniform";
-import { VertexShader, FragmentShader } from "../../Shader";
-import { m4 } from "../../m4";
+import { Material } from "../index";
 
-class BasicMaterial {
+class BasicMaterial extends Material {
   constructor(
     attributesData,
     uniformsData,
@@ -12,26 +8,15 @@ class BasicMaterial {
     vertexShaderPartial,
     fragmentShaderPartial
   ) {
+    super({
+      uniformsData,
+      texturesData,
+      vertexShader: vertexShaderPartial,
+      fragmentShader: fragmentShaderPartial
+    });
     this.attributesData = attributesData;
     this.uniformsData = uniformsData;
     this.texturesData = texturesData;
-    this.vertexShaderPartial = vertexShaderPartial;
-    this.fragmentShaderPartial = fragmentShaderPartial;
-  }
-
-  vertexShaderSrc(attributes, uniforms) {
-    return new VertexShader({
-      attributes,
-      uniforms,
-      script: this.vertexShaderPartial
-    }).decorated;
-  }
-
-  fragmentShaderSrc(uniforms) {
-    return new FragmentShader({
-      uniforms,
-      script: this.fragmentShaderPartial
-    }).decorated;
   }
 }
 

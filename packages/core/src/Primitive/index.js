@@ -8,14 +8,6 @@ import { m4 } from "../m4";
 class Primitive extends Transform {
   constructor(conf, geometry, material) {
     super();
-    if (!conf) {
-      console.log(geometry);
-
-      const conf = {
-        count: geometry.count
-      };
-      return;
-    }
     //stuff to access
     this.vao = null;
     this.hasRenderedOnce = false;
@@ -23,17 +15,30 @@ class Primitive extends Transform {
 
     //geometry holds the vertices and indices
 
-    //material tells what to draw (points, lines, triangles)
-    this.material = conf.material;
-    this.indices = conf.indices || null;
+    if (!conf) {
+      console.log(geometry);
+      this.material = material;
+      this.geometry = geometry;
+      this.indices = null;
 
-    //draw stuff should come from the material
-    this.draw = conf.draw || {
-      primitiveType: 4,
-      offset: 0,
-      count: 3
-    };
-    this.draw.count = conf.count;
+      this.draw = {
+        primitiveType: material.primitiveType,
+        offset: 0,
+        count: 3 //geometry.getCount(material.primitiveType)
+      };
+    } else {
+      //material tells what to draw (points, lines, triangles)
+      this.material = conf.material;
+      this.indices = conf.indices || null;
+
+      //draw stuff should come from the material
+      this.draw = conf.draw || {
+        primitiveType: 4,
+        offset: 0,
+        count: 3
+      };
+      this.draw.count = conf.count;
+    }
   }
 
   setUniform(name, data) {
@@ -105,9 +110,10 @@ class Primitive extends Transform {
   }
 
   init(gl) {
-    this.attributes = this.initAttributes(this.material.attributesData);
+    this.attributes = this.initAttributes(
+      this.material.attributesData || this.geometry.getAttributeData()
+    );
     this.uniforms = this.initUniforms(this.material.uniformsData);
-
     this.program = this.createProgram(gl);
     this.uniforms = this.bindUniforms(gl);
     this.attributes = this.bindAttributes(gl);
