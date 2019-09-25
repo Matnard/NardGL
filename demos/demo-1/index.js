@@ -1,4 +1,7 @@
 import * as NARD from "nardgl";
+import { Particles } from "./Particles";
+
+const particles = new Particles();
 
 window.NARD = NARD;
 const camera = new NARD.Camera();
@@ -8,6 +11,8 @@ const renderer = new NARD.WebGLRenderer();
 const grid = new NARD.Grid();
 grid.rotation.x = Math.PI / 2;
 scene.push(grid);
+
+scene.push(particles);
 
 camera.translation.z = 4;
 camera.translation.y = 0.5;
