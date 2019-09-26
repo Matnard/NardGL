@@ -6,6 +6,7 @@
     "webgl",
     "gltf"
   ],
+  "source": true,
   "author": "Mathieu Mence <Mathieu.Mence@matnard.com>",
   "homepage": "https://github.com/Matnard/NardGL#readme",
   "license": "MIT",
@@ -36,5 +37,9 @@
     "@nardgl/loader": "^1.1.0-alpha.0",
     "@nardgl/primitives": "^0.0.0",
     "@nardgl/utils": "^0.0.2-alpha.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.6.2",
+    "@babel/plugin-proposal-class-properties": "^7.5.5"
   }
 }
