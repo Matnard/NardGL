@@ -1,6 +1,6 @@
 import { Transform } from "../Transform";
 import { createProgramFromSource } from "../utils";
-import { Attribute } from "../Attribute";
+import { AttributeCollection } from "../Attribute";
 import { Uniform } from "../Uniform";
 import { TextureUniform } from "../TextureUniform";
 import { m4 } from "../m4";
@@ -78,7 +78,7 @@ class Primitive extends Transform {
   }
 
   initAttributes(attributesData) {
-    return attributesData.map(a => new Attribute(a));
+    return attributesData.map(a => new AttributeCollection(a));
   }
 
   initUniforms(uniformsData, texturesData = []) {

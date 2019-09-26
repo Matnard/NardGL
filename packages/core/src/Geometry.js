@@ -1,7 +1,39 @@
 import { Vertex } from "./Vertex";
 
-//instanciate geometry with the [attributes] and how it's partitioned
-//setting a vertex supplies
+const noPartitionAttributeReduceFn = function(vertices) {
+  return (map, curr) => {
+    curr.forEach(attribute => {
+      const entries = map.get(attribute.name) || { srcData: [] };
+      map.set(attribute.name, {
+        name: attribute.name,
+        componentType: attribute.componentType,
+        count: vertices.size,
+        type: attribute.type,
+        srcData: [...entries.srcData, ...attribute.data],
+        stride: 0,
+        offset: 0
+      });
+    });
+
+    return map;
+  };
+};
+
+const simplePartitionAttributeReduceFn = function(vertices) {
+  return (map, curr) => {
+    curr.forEach(attribute => {
+      const entries = map.get(attribute.name) || { srcData: [] };
+      map.set(attribute.name, {
+        name: attribute.name,
+        componentType: attribute.componentType,
+        count: vertices.size,
+        type: attribute.type
+      });
+    });
+
+    return map;
+  };
+};
 
 class Geometry {
   constructor(
@@ -23,20 +55,30 @@ class Geometry {
     }
   }
 
-  addVertex(x, y, z, attributesTuple = []) {
-    const attributesMap = new Map();
-    attributesTuple.forEach(([key, value]) => {
-      attributesMap.set(key, value);
-    });
+  addVertex(x, y, z, attributes) {
     this.vertices.set(JSON.stringify({ x, y, z }), {
-      data: new Vertex(x, y, z),
-      attributes: attributesMap,
+      attributes,
       index: this.count++
     });
   }
 
   getVertex(x, y, z) {
     this.vertices.get(JSON.stringify({ x, y, z }));
+  }
+
+  getAttributeData() {
+    const attributesMap = Array.from(this.vertices.values())
+      .map(({ attributes }) => attributes)
+      .reduce(noPartitionAttributeReduceFn(this.vertices), new Map());
+
+    return Array.from(attributesMap.values());
+  }
+
+  getCount(primitiveType) {
+    return {
+      0: this.vertices.size,
+      4: this.vertices.size / 3
+    }[primitiveType];
   }
 
   // get indices() { // implemented by the custom geometry
@@ -47,53 +89,6 @@ class Geometry {
   //     type: "SCALAR"
   //   }
   // }
-
-  getAttributeData() {
-    const attributesMap = Array.from(this.vertices.values())
-      .map(({ attributes }) => attributes)
-      .reduce((map, curr) => {
-        curr.forEach((value, label) => {
-          const entries = map.get(label) || [];
-          map.set(label, [...entries, value]);
-        });
-
-        return map;
-      }, new Map());
-
-    const attributes = Array.from(attributesMap.entries()).map(
-      ([name, data]) => ({
-        name,
-        componentType: 5126,
-        count: this.vertices.size,
-        data,
-        type: null,
-        stride: 0,
-        offset: 0
-      })
-    );
-    debugger;
-    const srcData = Array.from(this.vertices.values())
-      .map(({ data }) => [data.position.x, data.position.y, data.position.z])
-      .flat();
-    return [
-      {
-        name: "POSITION",
-        componentType: 5126,
-        count: this.vertices.size,
-        srcData,
-        type: "VEC3",
-        stride: 0,
-        offset: 0
-      }
-    ];
-  }
-
-  getCount(primitiveType) {
-    return {
-      0: this.vertices.size,
-      4: this.vertices.size / 3
-    }[primitiveType];
-  }
 }
 
 Geometry.POSITION = "POSITION";

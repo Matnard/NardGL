@@ -1,7 +1,8 @@
 import { getSize, getTypedArray, getGLSLType } from "./utils";
 
-class Attribute {
+class AttributeCollection {
   constructor(conf) {
+    console.log("leve la");
     if (conf.count) {
       delete conf.count;
     }
@@ -43,4 +44,55 @@ class Attribute {
   }
 }
 
-export { Attribute };
+class Attribute {
+  constructor(name, type, componentType, ...data) {
+    this._name = name;
+    this._type = type;
+    this._componentType = componentType;
+    this._data = [...data];
+  }
+
+  get name() {
+    return !this._name ? this.constructor.label : this._name;
+  }
+
+  get type() {
+    return !this._type ? this.constructor.type : this._type;
+  }
+
+  get componentType() {
+    return !this._componentType
+      ? this.constructor.componentType
+      : this._componentType;
+  }
+
+  get data() {
+    return this._data;
+  }
+}
+
+class NardAttribute extends Attribute {
+  constructor(...data) {
+    super(null, null, null, ...data);
+  }
+}
+
+class PositionAttribute extends NardAttribute {
+  static label = "POSITION";
+  static type = "VEC3";
+  static componentType = 5126;
+}
+
+class UvAttribute extends NardAttribute {
+  static label = "UV";
+  static type = "VEC2";
+  static componentType = 5126;
+}
+
+class NormalAttribute extends NardAttribute {
+  static label = "NORMAL";
+  static type = "VEC3";
+  static componentType = 5126;
+}
+
+export { AttributeCollection, PositionAttribute, UvAttribute, NormalAttribute };
