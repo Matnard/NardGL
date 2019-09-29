@@ -1,31 +1,15 @@
 import vertexShaderPartial from "./vertex.glsl";
 import fragmentShaderPartial from "./fragment.glsl";
 import { Primitive, Geometry, Material, PositionAttribute } from "nardgl";
+import { Vertex } from "../../../packages/core/src";
 
 const geometry = new Geometry();
 geometry.setVertices([
-  {
-    x: 0,
-    y: 0,
-    z: 0,
-    attributes: [new PositionAttribute(0, 0, 0)]
-  },
-  {
-    x: 0.5,
-    y: 0.5,
-    z: 0,
-    attributes: [new PositionAttribute(0.5, 0.5, 0)]
-  },
-  {
-    x: -0.5,
-    y: -0.5,
-    z: 0,
-    attributes: [new PositionAttribute(-0.5, -0.5, 0)]
-  }
+  new Vertex(0, 0, 0, [new PositionAttribute(0, 0, 0)]),
+  new Vertex(0.5, 0.5, 0, [new PositionAttribute(0.5, 0.5, 0)]),
+  new Vertex(-0.5, -0.5, 0, [new PositionAttribute(-0.5, -0.5, 0)])
 ]);
 
-console.log(geometry.getAttributeData());
-console.log(Material.POINTS);
 const material = new Material({
   uniformsData: [
     {

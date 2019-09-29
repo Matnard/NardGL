@@ -4,14 +4,24 @@ const noPartitionAttributeReduceFn = function(vertices) {
   return (map, curr) => {
     curr.forEach(attribute => {
       const entries = map.get(attribute.name) || { srcData: [] };
+
+      // attribute.count = vertices.size;
+      // attribute.srcData = [...entries.srcData, ...attribute.data];
+      // attribute.stride = 0;
+      // attribute.offset = 0;
+      // attribute.elementsPerAttribute = attribute.data.length;
+      // map.set(attribute.name, attribute);
+
+      attribute.elementsPerAttribute = attribute.data.length;
       map.set(attribute.name, {
         name: attribute.name,
         componentType: attribute.componentType,
-        count: vertices.size,
         type: attribute.type,
+        count: vertices.size,
         srcData: [...entries.srcData, ...attribute.data],
         stride: 0,
-        offset: 0
+        offset: 0,
+        spaceTaken: attribute.spaceTaken
       });
     });
 
@@ -21,26 +31,38 @@ const noPartitionAttributeReduceFn = function(vertices) {
 
 const simplePartitionAttributeReduceFn = function(vertices) {
   return (map, curr) => {
-    curr.forEach(attribute => {
-      const entries = map.get(attribute.name) || { srcData: [] };
-      map.set(attribute.name, {
-        name: attribute.name,
-        componentType: attribute.componentType,
-        count: vertices.size,
-        type: attribute.type
-      });
+    curr.attributes.forEach(attribute => {
+      let entry = map.get(attribute.name);
+
+      attribute.count = vertices.size;
+
+      if (entry && attribute.srcData) {
+        entry.srcData = [...entry.srcData, ...attribute.srcData];
+      }
+
+      if (!entry) {
+        map.set(attribute.name, attribute);
+        entry = attribute;
+      }
     });
 
     return map;
   };
 };
 
+const getAttributeOffset = function(attributes, i) {
+  const slice = attributes.slice(0, i);
+  return slice.length === 0
+    ? 0
+    : slice.reduce((acc, curr) => acc + curr.spaceTaken, 0);
+};
+
 class Geometry {
-  constructor(
-    attributes = [Geometry.POSITION],
-    partitionStyle = Geometry.NO_PARTITION
-  ) {
-    this.attributes = attributes;
+  static POSITION = "POSITION";
+  static NO_PARTITION = "NO_PARTITION";
+  static SIMPLE_PARTITION = "SIMPLE_PARTITION";
+
+  constructor(partitionStyle = Geometry.NO_PARTITION) {
     this.partitionStyle = partitionStyle;
   }
 
@@ -49,17 +71,16 @@ class Geometry {
     this.vertices = new Map();
     this.count = 0;
     if (vertexArr) {
-      vertexArr.forEach(({ x, y, z, attributes }) => {
-        this.addVertex(x, y, z, attributes);
+      vertexArr.forEach(vertex => {
+        const { x, y, z } = vertex;
+        this.addVertex(x, y, z, vertex);
       });
     }
   }
 
-  addVertex(x, y, z, attributes) {
-    this.vertices.set(JSON.stringify({ x, y, z }), {
-      attributes,
-      index: this.count++
-    });
+  addVertex(x, y, z, vertex) {
+    vertex.index = this.count++;
+    this.vertices.set(JSON.stringify({ x, y, z }), vertex);
   }
 
   getVertex(x, y, z) {
@@ -67,16 +88,53 @@ class Geometry {
   }
 
   getAttributeData() {
-    const attributesMap = Array.from(this.vertices.values())
-      .map(({ attributes }) => attributes)
-      .reduce(noPartitionAttributeReduceFn(this.vertices), new Map());
+    let attributesMap;
+    if (this.partitionStyle === Geometry.NO_PARTITION) {
+      attributesMap = Array.from(this.vertices.values())
+        .map(({ attributes }) => attributes)
+        .reduce(noPartitionAttributeReduceFn(this.vertices), new Map());
+    } else {
+      attributesMap = Array.from(this.vertices.values())
+        .map(vertex => {
+          const { attributes } = vertex;
+          attributes[0].srcData = [];
+          const stride = attributes.reduce((acc, curr) => {
+            return acc + curr.spaceTaken;
+          }, 0);
+          attributes.forEach((current, i, attributes) => {
+            attributes[0].srcData = [...attributes[0].srcData, ...current.data];
+            current.stride = stride;
+            current.offset = getAttributeOffset(attributes, i);
+          });
 
-    return Array.from(attributesMap.values());
+          return vertex;
+        })
+        .reduce(simplePartitionAttributeReduceFn(this.vertices), new Map());
+    }
+
+    return Array.from(attributesMap.values()).map(attribute => {
+      const obj = {
+        name: attribute.name,
+        componentType: attribute.componentType,
+        type: attribute.type,
+        count: attribute.count,
+        stride: attribute.stride,
+        offset: attribute.offset,
+        spaceTaken: attribute.spaceTaken
+      };
+
+      if (attribute.srcData) {
+        obj["srcData"] = attribute.srcData;
+      }
+
+      return obj;
+    });
   }
 
   getCount(primitiveType) {
     return {
       0: this.vertices.size,
+      1: this.vertices.size,
       4: this.vertices.size / 3
     }[primitiveType];
   }
@@ -90,9 +148,5 @@ class Geometry {
   //   }
   // }
 }
-
-Geometry.POSITION = "POSITION";
-Geometry.NO_PARTITION = "NO_PARTITION";
-Geometry.SIMPLE_PARTITION = "SIMPLE_PARTITION";
 
 export { Geometry };

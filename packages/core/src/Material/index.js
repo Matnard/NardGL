@@ -31,5 +31,6 @@ class Material {
 
 Material.POINTS = 0;
 Material.TRIANGLES = 4;
+Material.LINES = 1;
 
 export { Material };

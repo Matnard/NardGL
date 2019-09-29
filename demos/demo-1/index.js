@@ -1,5 +1,6 @@
 import * as NARD from "nardgl";
 import { Particles } from "./Particles";
+import { Grid } from "./Grid";
 
 const particles = new Particles();
 
@@ -9,8 +10,10 @@ const scene = [];
 const renderer = new NARD.WebGLRenderer();
 
 const grid = new NARD.Grid();
-grid.rotation.x = Math.PI / 2;
-scene.push(grid);
+const grid2 = new Grid();
+grid2.rotation.x = Math.PI / 2;
+//scene.push(grid);
+scene.push(grid2);
 
 scene.push(particles);
 

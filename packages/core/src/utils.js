@@ -98,6 +98,13 @@ const getTypedArray = function(srcData, componentType) {
   }[componentType](srcData);
 };
 
+const getBytesPerElementOfType = function(componentType) {
+  return {
+    5126: Float32Array,
+    5123: Uint16Array
+  }[componentType].BYTES_PER_ELEMENT;
+};
+
 export {
   randomInt,
   resizeCanvas,
@@ -106,5 +113,6 @@ export {
   createProgramFromSource,
   getSize,
   getTypedArray,
-  getGLSLType
+  getGLSLType,
+  getBytesPerElementOfType
 };

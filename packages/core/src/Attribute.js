@@ -1,8 +1,12 @@
-import { getSize, getTypedArray, getGLSLType } from "./utils";
+import {
+  getSize,
+  getTypedArray,
+  getGLSLType,
+  getBytesPerElementOfType
+} from "./utils";
 
 class AttributeCollection {
   constructor(conf) {
-    console.log("leve la");
     if (conf.count) {
       delete conf.count;
     }
@@ -44,12 +48,13 @@ class AttributeCollection {
   }
 }
 
-class Attribute {
+class CustomAttribute {
   constructor(name, type, componentType, ...data) {
     this._name = name;
     this._type = type;
     this._componentType = componentType;
     this._data = [...data];
+    this.elementsPerAttribute = null;
   }
 
   get name() {
@@ -69,9 +74,13 @@ class Attribute {
   get data() {
     return this._data;
   }
+
+  get spaceTaken() {
+    return this.data.length * getBytesPerElementOfType(this.componentType);
+  }
 }
 
-class NardAttribute extends Attribute {
+class NardAttribute extends CustomAttribute {
   constructor(...data) {
     super(null, null, null, ...data);
   }
@@ -95,4 +104,10 @@ class NormalAttribute extends NardAttribute {
   static componentType = 5126;
 }
 
-export { AttributeCollection, PositionAttribute, UvAttribute, NormalAttribute };
+export {
+  AttributeCollection,
+  PositionAttribute,
+  UvAttribute,
+  NormalAttribute,
+  CustomAttribute
+};

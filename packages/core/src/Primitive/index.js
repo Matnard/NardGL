@@ -16,7 +16,6 @@ class Primitive extends Transform {
     //geometry holds the vertices and indices
 
     if (!conf) {
-      console.log(geometry);
       this.material = material;
       this.geometry = geometry;
       this.indices = null;
@@ -24,7 +23,7 @@ class Primitive extends Transform {
       this.draw = {
         primitiveType: material.primitiveType,
         offset: 0,
-        count: 3 //geometry.getCount(material.primitiveType)
+        count: geometry.getCount(material.primitiveType)
       };
     } else {
       //material tells what to draw (points, lines, triangles)
