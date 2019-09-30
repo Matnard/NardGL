@@ -1,6 +1,6 @@
 {
   "name": "demo-0",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Displays particles, lines and GLTF meshes (quad and cube with texture)",
   "author": "Mathieu Mence <Mathieu.Mence@matnard.com>",
   "homepage": "https://github.com/Matnard/NardGL#readme",
@@ -25,7 +25,7 @@
     "url": "https://github.com/Matnard/NardGL/issues"
   },
   "dependencies": {
-    "nardgl": "^1.0.7"
+    "nardgl": "^1.1.0"
   },
   "browserslist": [
     "last 1 chrome versions"
