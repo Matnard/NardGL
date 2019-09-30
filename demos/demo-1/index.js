@@ -1,21 +1,22 @@
 import * as NARD from "nardgl";
 import { Particles } from "./Particles";
 import { Grid } from "./Grid";
+import { Plane } from "./Plane";
 
 const particles = new Particles();
 
-window.NARD = NARD;
 const camera = new NARD.Camera();
 const scene = [];
 const renderer = new NARD.WebGLRenderer();
 
-const grid = new NARD.Grid();
-const grid2 = new Grid();
-grid2.rotation.x = Math.PI / 2;
-//scene.push(grid);
-scene.push(grid2);
+const grid = new Grid();
+const plane = new Plane();
+grid.rotation.x = Math.PI / 2;
+//plane.rotation.x = -Math.PI / 2;
+scene.push(grid);
 
 scene.push(particles);
+scene.push(plane);
 
 camera.translation.z = 4;
 camera.translation.y = 0.5;

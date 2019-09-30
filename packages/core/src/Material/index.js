@@ -1,9 +1,16 @@
 import { VertexShader, FragmentShader } from "../Shader";
 
 class Material {
+  static POINTS = 0;
+  static LINES = 1;
+  static TRIANGLES = 4;
+  static TRIANGLE_STRIP = 5;
+  static TRIANGLE_FAN = 6;
+
   //stores material properties
   constructor(conf) {
     const defaults = {
+      uniformsData: [],
       primitiveType: 4 //TRIANGLES
     };
     const options = Object.assign({}, defaults, conf);
@@ -28,9 +35,5 @@ class Material {
     }).decorated;
   }
 }
-
-Material.POINTS = 0;
-Material.TRIANGLES = 4;
-Material.LINES = 1;
 
 export { Material };

@@ -64,6 +64,7 @@ class Geometry {
 
   constructor(partitionStyle = Geometry.NO_PARTITION) {
     this.partitionStyle = partitionStyle;
+    this.vertices = new Map();
   }
 
   setVertices(vertexArr) {
@@ -135,7 +136,7 @@ class Geometry {
     return {
       0: this.vertices.size,
       1: this.vertices.size,
-      4: this.vertices.size / 3
+      4: this.vertices.size
     }[primitiveType];
   }
 

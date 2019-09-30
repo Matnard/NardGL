@@ -1,4 +1,4 @@
-import { Geometry } from "@nardgl/core/src/Geometry";
+import { Geometry, Vertex, PositionAttribute } from "@nardgl/core";
 
 class PlaneGeometry extends Geometry {
   constructor(
@@ -27,56 +27,14 @@ class PlaneGeometry extends Geometry {
       for (let xi = 0; xi <= this.segmentsW; xi++) {
         x = (xi / this.segmentsW - 0.5) * this.width;
         y = (yi / this.segmentsH - 0.5) * this.height;
-        this.addVertex(x, y, 0);
+        this.addVertex(
+          x,
+          y,
+          0,
+          new Vertex(x, y, 0, [new PositionAttribute(x, y, 0)])
+        );
       }
     }
-  }
-
-  //move this to material add provide differently depending on drawing primitive
-  getAttributeData() {
-    if (!this.vertices) {
-      throw new Error("Run buildGeometry first");
-    }
-    let x, y;
-    const indices = [];
-    const vertices = [];
-    for (let yi = 0; yi <= this.segmentsH - 1; yi++) {
-      for (let xi = 0; xi <= this.segmentsW - 1; xi++) {
-        x = (xi / this.segmentsW - 0.5) * this.width;
-        y = (yi / this.segmentsH - 0.5) * this.height;
-
-        vertices.push([x, y, 0]);
-        indices.push(this.getVertex({ x, y }));
-        vertices.push([x + 1, y, 0]);
-        indices.push(this.getVertex({ x: x + 1, y }));
-        vertices.push([x + 1, y + 1, 0]);
-        indices.push(this.getVertex({ x: x + 1, y: y + 1 }));
-        //-------------
-        vertices.push([x + 1, y + 1]);
-        indices.push(this.getVertex({ x: x + 1, y: y + 1 }));
-        vertices.push([x, y + 1]);
-        indices.push(this.getVertex({ x, y: y + 1 }));
-        vertices.push([x, y]);
-        indices.push(this.getVertex({ x, y }));
-      }
-    }
-
-    return [
-      {
-        name: "POSITION",
-        componentType: 5126,
-        count: vertices.length,
-        type: "VEC3",
-        srcData: vertices.flat()
-      },
-      {
-        name: "indices",
-        componentType: 5123,
-        count: indices.length,
-        type: "SCALAR",
-        srcData: indices
-      }
-    ];
   }
 }
 
