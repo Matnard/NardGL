@@ -18,6 +18,7 @@ class Material {
     this.fragmentShaderPartial = options.fragmentShader;
     this.primitiveType = options.primitiveType;
     this.uniformsData = options.uniformsData;
+    this.texturesData = options.texturesData;
   }
 
   vertexShaderSrc(attributes, uniforms) {

@@ -1,7 +1,12 @@
 import vertexShaderPartial from "./vertex.glsl";
 import fragmentShaderPartial from "./fragment.glsl";
-import { Primitive, Geometry, Material, PositionAttribute } from "nardgl";
-import { Vertex } from "../../../packages/core/src";
+import {
+  Primitive,
+  Geometry,
+  Material,
+  PositionAttribute,
+  Vertex
+} from "nardgl";
 
 const geometry = new Geometry();
 geometry.setVertices([

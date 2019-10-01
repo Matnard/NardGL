@@ -65,6 +65,7 @@ class Geometry {
   constructor(partitionStyle = Geometry.NO_PARTITION) {
     this.partitionStyle = partitionStyle;
     this.vertices = new Map();
+    this.count = 0;
   }
 
   setVertices(vertexArr) {
@@ -85,7 +86,7 @@ class Geometry {
   }
 
   getVertex(x, y, z) {
-    this.vertices.get(JSON.stringify({ x, y, z }));
+    return this.vertices.get(JSON.stringify({ x, y, z }));
   }
 
   getAttributeData() {
@@ -132,6 +133,10 @@ class Geometry {
     });
   }
 
+  getIndicesData() {
+    return null;
+  }
+
   getCount(primitiveType) {
     return {
       0: this.vertices.size,
@@ -139,15 +144,6 @@ class Geometry {
       4: this.vertices.size
     }[primitiveType];
   }
-
-  // get indices() { // implemented by the custom geometry
-  //   return {
-  //     componentType: 5123,
-  //     count: null,
-  //     srcData: null,
-  //     type: "SCALAR"
-  //   }
-  // }
 }
 
 export { Geometry };

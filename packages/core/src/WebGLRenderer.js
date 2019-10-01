@@ -63,7 +63,7 @@ class WebGLRenderer {
 
       if (primitive.indices) {
         this.gl.drawElements(
-          this.gl.TRIANGLES,
+          drawConf.primitiveType,
           primitive.indices.srcData.length,
           this.gl.UNSIGNED_SHORT,
           0

@@ -105,7 +105,16 @@ const getBytesPerElementOfType = function(componentType) {
   }[componentType].BYTES_PER_ELEMENT;
 };
 
+const hexToNormalizedRGB = function(number) {
+  return {
+    r: (number & (0xff0000 >> 16)) / 255,
+    g: (number & (0x00ff00 >> 8)) / 255,
+    b: (number & 0x0000ff) / 255
+  };
+};
+
 export {
+  hexToNormalizedRGB,
   randomInt,
   resizeCanvas,
   createProgram,

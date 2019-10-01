@@ -1,13 +1,6 @@
 import fragmentShaderPartial from "./fragment.glsl";
 import vertexShaderPartial from "./vertex.glsl";
-import {
-  Geometry,
-  Vertex,
-  PositionAttribute,
-  CustomAttribute,
-  Material,
-  Primitive
-} from "nardgl";
+import { Geometry, Vertex, CustomAttribute, Material, Primitive } from "nardgl";
 
 const geometry = new Geometry(Geometry.SIMPLE_PARTITION);
 
@@ -20,7 +13,7 @@ const addToSubs = (x, y, z, colorIndex) => {
   subs.push(
     new Vertex(x, y, z, [
       new CustomAttribute("POSITION", "VEC3", 5126, x, y, z),
-      new CustomAttribute("COLORS", "SCALAR", 5126, 0)
+      new CustomAttribute("COLORS", "SCALAR", 5126, colorIndex)
     ])
   );
 };

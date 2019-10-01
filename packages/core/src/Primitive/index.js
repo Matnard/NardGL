@@ -18,7 +18,7 @@ class Primitive extends Transform {
     if (!conf) {
       this.material = material;
       this.geometry = geometry;
-      this.indices = null;
+      this.indices = geometry.getIndicesData();
 
       this.draw = {
         primitiveType: material.primitiveType,
@@ -112,7 +112,10 @@ class Primitive extends Transform {
     this.attributes = this.initAttributes(
       this.material.attributesData || this.geometry.getAttributeData()
     );
-    this.uniforms = this.initUniforms(this.material.uniformsData);
+    this.uniforms = this.initUniforms(
+      this.material.uniformsData,
+      this.material.texturesData
+    );
     this.program = this.createProgram(gl);
     this.uniforms = this.bindUniforms(gl);
     this.attributes = this.bindAttributes(gl);
