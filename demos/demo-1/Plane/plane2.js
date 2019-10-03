@@ -2,7 +2,7 @@ import { PlaneGeometry, Material, Primitive } from "nardgl";
 import vertexShaderPartial from "./vertex.glsl";
 import fragmentShaderPartial from "./fragment.glsl";
 
-class Plane extends Primitive {
+class Plane2 extends Primitive {
   constructor() {
     const geometry = new PlaneGeometry(2, 2, 50, 50);
 
@@ -10,7 +10,7 @@ class Plane extends Primitive {
       texturesData: [
         {
           name: "u_texture",
-          src: document.getElementById("avatar").src,
+          src: document.getElementById("texture").src,
           data: 0
         }
       ],
@@ -27,4 +27,4 @@ class Plane extends Primitive {
   }
 }
 
-export { Plane };
+export { Plane2 };

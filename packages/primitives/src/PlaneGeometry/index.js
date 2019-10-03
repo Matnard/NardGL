@@ -64,9 +64,9 @@ class PlaneGeometry extends Geometry {
         x = (xi / this.segmentsW - 0.5) * this.width;
         y = (yi / this.segmentsH - 0.5) * this.height;
 
-        const u = xi / this.width;
-        const v = -yi / this.width;
-        console.log(u, v);
+        const u = xi / this.segmentsH;
+        const v = -yi / this.segmentsW;
+        //console.log(u, v);
         this.addVertex(
           xi,
           yi,

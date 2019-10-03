@@ -2,6 +2,7 @@ import * as NARD from "nardgl";
 import { Particles } from "./Particles";
 import { Grid } from "./Grid";
 import { Plane } from "./Plane";
+import { Plane2 } from "./Plane/plane2";
 
 const particles = new Particles();
 
@@ -10,13 +11,16 @@ const scene = [];
 const renderer = new NARD.WebGLRenderer();
 
 const grid = new Grid();
+grid.rotation.x = Math.PI / 3;
 const plane = new Plane();
-grid.rotation.x = Math.PI / 2;
-//plane.rotation.x = -Math.PI / 2;
-scene.push(grid);
 
+const plane2 = new Plane2();
+plane.rotation.x = (Math.PI * Math.random()) / 2;
+
+scene.push(grid);
 scene.push(particles);
 scene.push(plane);
+scene.push(plane2);
 
 camera.translation.z = 4;
 camera.translation.y = 0.5;

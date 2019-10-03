@@ -68,6 +68,8 @@ class Uniform {
     });
   }
 
+  preSet() {}
+
   passUniforms(options) {
     this.check();
     const gl = this.gl;
@@ -78,6 +80,7 @@ class Uniform {
     } catch (err) {
       throw err;
     }
+    this.preSet();
     //console.log(type, location, data);
     switch (type) {
       case "Matrix2fv":
