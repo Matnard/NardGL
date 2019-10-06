@@ -9,6 +9,7 @@ export * from "./Transform";
 export * from "./Attribute";
 export * from "./m4";
 export * from "./TextureUniform";
+export * from "./TextureCubeUniform";
 export * from "./Uniform";
 export * from "./utils";
 export * from "./WebGLRenderer";

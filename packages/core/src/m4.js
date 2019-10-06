@@ -32,7 +32,7 @@ function identity() {
 }
 
 function projection(width, height, depth) {
-  return mat4.perspective(mat4.create(), 45, width / height, 0.1, 40);
+  return mat4.perspective(mat4.create(), 45, width / height, 0.1, depth);
 }
 
 function multiply(a, b) {

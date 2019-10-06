@@ -3,6 +3,7 @@ import { createProgramFromSource } from "../utils";
 import { AttributeCollection } from "../Attribute";
 import { Uniform } from "../Uniform";
 import { TextureUniform } from "../TextureUniform";
+import { TextureCubeUniform } from "../TextureCubeUniform";
 import { m4 } from "../m4";
 
 class Primitive extends Transform {
@@ -105,7 +106,15 @@ class Primitive extends Transform {
     uniformsData = [...uniformsData, ...extraUniforms];
 
     let uniforms = uniformsData.map(u => new Uniform(u));
-    return [...uniforms, ...texturesData.map(t => new TextureUniform(t))];
+    return [
+      ...uniforms,
+      ...texturesData.map(t => {
+        // return new TextureUniform(t);
+        return t.textureCube
+          ? new TextureCubeUniform(t)
+          : new TextureUniform(t);
+      })
+    ];
   }
 
   init(gl) {
@@ -116,6 +125,7 @@ class Primitive extends Transform {
       this.material.uniformsData,
       this.material.texturesData
     );
+    console.log(this.uniforms);
     this.program = this.createProgram(gl);
     this.uniforms = this.bindUniforms(gl);
     this.attributes = this.bindAttributes(gl);
