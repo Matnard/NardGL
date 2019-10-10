@@ -1,6 +1,6 @@
 {
   "name": "demo-1",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Displays NardGL's primitives",
   "keywords": [
     "NardGL",
@@ -33,8 +33,8 @@
     "last 1 chrome versions"
   ],
   "dependencies": {
-    "@nardgl/core": "^0.1.2",
-    "nardgl": "^1.3.0"
+    "@nardgl/core": "^0.1.3",
+    "nardgl": "^1.3.1"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",
