@@ -1,4 +1,4 @@
-import { resizeCanvas } from "./utils";
+import { resizeCanvas, debounce } from "./utils";
 import { m4 } from "./m4";
 
 class WebGLRenderer {
@@ -15,17 +15,23 @@ class WebGLRenderer {
     }
 
     this.gl = gl;
+
+    this.onResize();
+    window.addEventListener("resize", debounce(this.onResize, 250));
+  }
+
+  onResize = () => {
     this.projectionMatrix = m4.projection(
       this.gl.canvas.clientWidth,
       this.gl.canvas.clientHeight,
       this.gl.canvas.clientWidth
     );
-  }
+    resizeCanvas(this.gl.canvas);
+  };
 
   render(scene, camera) {
-    resizeCanvas(this.gl.canvas);
     this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
-    this.gl.clearColor(1, 1, 1, 1.0);
+    this.gl.clearColor(1, 1, 1, 1);
     this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
 
     // turn on depth testing

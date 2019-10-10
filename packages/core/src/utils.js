@@ -41,13 +41,12 @@ const createProgramFromSource = function(
 };
 
 const resizeCanvas = function(canvas) {
-  // Lookup the size the browser is displaying the canvas.
-  var displayWidth = canvas.clientWidth;
-  var displayHeight = canvas.clientHeight;
+  var cssToRealPixels = window.devicePixelRatio || 1;
 
-  // Check if the canvas is not the same size.
+  var displayWidth = Math.floor(canvas.clientWidth * cssToRealPixels);
+  var displayHeight = Math.floor(canvas.clientHeight * cssToRealPixels);
+
   if (canvas.width !== displayWidth || canvas.height !== displayHeight) {
-    // Make the canvas the same size
     canvas.width = displayWidth;
     canvas.height = displayHeight;
   }
@@ -113,6 +112,22 @@ const hexToNormalizedRGB = function(number) {
   };
 };
 
+const debounce = function(func, wait, immediate) {
+  var timeout;
+  return function() {
+    var context = this,
+      args = arguments;
+    var later = function() {
+      timeout = null;
+      if (!immediate) func.apply(context, args);
+    };
+    var callNow = immediate && !timeout;
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+    if (callNow) func.apply(context, args);
+  };
+};
+
 export {
   hexToNormalizedRGB,
   randomInt,
@@ -123,5 +138,6 @@ export {
   getSize,
   getTypedArray,
   getGLSLType,
-  getBytesPerElementOfType
+  getBytesPerElementOfType,
+  debounce
 };
