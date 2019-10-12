@@ -4,6 +4,7 @@ import { Grid } from "./Grid";
 import { Plane } from "./Plane";
 import { Plane2 } from "./Plane/plane2";
 import { CubeMap } from "./CubeMap";
+import { CameraControl } from "@nardgl/camera-control";
 
 const particles = new Particles();
 const cube = new CubeMap();
@@ -11,6 +12,8 @@ const cube = new CubeMap();
 const camera = new NARD.Camera();
 const scene = [];
 const renderer = new NARD.WebGLRenderer();
+
+const control = new CameraControl(camera, renderer.canvas);
 
 const grid = new Grid();
 grid.rotation.x = Math.PI / 3;
@@ -23,9 +26,9 @@ scene.push(grid);
 scene.push(particles);
 scene.push(plane);
 scene.push(plane2);
-cube.scale.x = 40;
-cube.scale.y = 40;
-cube.scale.z = 40;
+cube.scale.x = window.innerWidth;
+cube.scale.y = window.innerWidth;
+cube.scale.z = window.innerWidth;
 //cube.rotation.x = Math.PI / 2;
 scene.push(cube);
 
@@ -43,9 +46,7 @@ function onEnterFrame() {
   const elapsed = now - then;
 
   if (elapsed > fpsInterval) {
-    camera.rotation.x += 0.005;
-    camera.rotation.y += 0.005;
-    camera.rotation.z += 0.005;
+    control.update();
     renderer.render(scene, camera);
     then = now - (elapsed % fpsInterval);
   }
