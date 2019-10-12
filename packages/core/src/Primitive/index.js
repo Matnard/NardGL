@@ -125,7 +125,6 @@ class Primitive extends Transform {
       this.material.uniformsData,
       this.material.texturesData
     );
-    console.log(this.uniforms);
     this.program = this.createProgram(gl);
     this.uniforms = this.bindUniforms(gl);
     this.attributes = this.bindAttributes(gl);

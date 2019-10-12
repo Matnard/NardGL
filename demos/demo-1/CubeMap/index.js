@@ -4,8 +4,6 @@ import { Primitive, Material, CubeGeometry } from "nardgl";
 
 const geometry = new CubeGeometry();
 
-console.log(geometry, geometry.getIndicesData());
-
 const material = new Material({
   uniformsData: [],
   texturesData: [

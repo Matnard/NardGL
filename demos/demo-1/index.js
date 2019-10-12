@@ -29,11 +29,9 @@ scene.push(plane2);
 cube.scale.x = window.innerWidth;
 cube.scale.y = window.innerWidth;
 cube.scale.z = window.innerWidth;
-//cube.rotation.x = Math.PI / 2;
 scene.push(cube);
 
-//camera.translation.z = 14;
-//camera.translation.y = 0.5;
+camera.translation.z = 7;
 
 const fps = 60;
 const fpsInterval = 1000 / fps;
