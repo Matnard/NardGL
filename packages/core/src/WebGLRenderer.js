@@ -20,6 +20,10 @@ class WebGLRenderer {
     window.addEventListener("resize", debounce(this.onResize, 250));
   }
 
+  get canvas() {
+    return this.gl.canvas;
+  }
+
   onResize = () => {
     this.projectionMatrix = m4.projection(
       this.gl.canvas.clientWidth,
