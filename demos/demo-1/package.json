@@ -1,6 +1,6 @@
 {
   "name": "demo-1",
-  "version": "0.0.7-alpha.0",
+  "version": "0.0.7",
   "description": "Displays NardGL's primitives",
   "keywords": [
     "NardGL",
@@ -33,8 +33,8 @@
     "last 1 chrome versions"
   ],
   "dependencies": {
-    "@nardgl/camera-control": "^0.0.1-alpha.0",
-    "nardgl": "^1.3.2"
+    "@nardgl/camera-control": "^0.1.0",
+    "nardgl": "^1.3.3"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",
