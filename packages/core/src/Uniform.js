@@ -80,8 +80,6 @@ class Uniform {
     } catch (err) {
       throw err;
     }
-    this.preSet();
-    //console.log(type, location, data);
     switch (type) {
       case "Matrix2fv":
       case "Matrix2x3fv":
@@ -98,6 +96,7 @@ class Uniform {
       default:
         gl[`uniform${type}`](location, ...data);
     }
+    //this.preSet();
   }
 }
 
