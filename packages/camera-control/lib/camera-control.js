@@ -25,15 +25,15 @@ class CameraControl {
     this.deltaXSign = 0;
     this.deltaYSign = 0;
 
-    canvas.addEventListener("wheel", this.onWheel.bind(this));
+    //canvas.addEventListener("wheel", this.onWheel.bind(this));
     document.addEventListener("keydown", this.onKeyDown.bind(this));
     document.addEventListener("keyup", this.onKeyUp.bind(this));
   }
 
   onWheel({ deltaX, deltaY }) {
     //console.log(deltaX, deltaY);
-    this.deltaXSign = Math.sign(step(deltaX, 1));
-    this.deltaYSign = Math.sign(step(deltaY, 1));
+    //this.deltaXSign = Math.sign(step(deltaX, 1));
+    //this.deltaYSign = Math.sign(step(deltaY, 1));
   }
 
   onKeyDown({ keyCode }) {
