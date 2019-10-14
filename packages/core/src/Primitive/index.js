@@ -50,16 +50,9 @@ class Primitive extends Transform {
   }
 
   updateUniforms() {
-    this.uniforms
-      .filter(uniform => uniform.constructor.name !== "TextureCubeUniform")
-      .forEach(uniform => {
-        uniform.update();
-      });
-    this.uniforms
-      .filter(uniform => uniform.constructor.name !== "Uniform")
-      .forEach(uniform => {
-        uniform.update();
-      });
+    this.uniforms.forEach(uniform => {
+      uniform.update();
+    });
 
     this.uniforms
       .filter(uniform => uniform.constructor.name !== "Uniform")
