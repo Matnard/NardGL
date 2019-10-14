@@ -16,6 +16,8 @@ class WebGLRenderer {
 
     this.gl = gl;
 
+    this.t = 0;
+
     this.onResize();
     window.addEventListener("resize", debounce(this.onResize, 250));
   }
@@ -57,6 +59,7 @@ class WebGLRenderer {
 
       primitive.setUniform("u_projectionMatrix", this.projectionMatrix);
       primitive.setUniform("u_viewMatrix", camera.viewMatrix);
+      primitive.setUniform("u_time", this.t);
       primitive.computeMatrix();
       primitive.beforeDraw(this.then);
 
@@ -85,6 +88,7 @@ class WebGLRenderer {
           drawConf.count
         );
       }
+      this.t++;
     });
   }
 }
