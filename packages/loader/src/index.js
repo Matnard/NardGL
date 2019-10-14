@@ -27,6 +27,7 @@ const loadAsset = function(arg) {
 
       const thenFn = {
         "image/png": blobToImg,
+        "image/jpeg": blobToImg,
         "model/gltf+json": blobToJson,
         "text/html": blobToText
       }[type];
