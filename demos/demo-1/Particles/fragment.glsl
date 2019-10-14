@@ -5,6 +5,6 @@ void main() {
   if(r > 0.5) {
     discard;
   } else {
-    outColor = vec4(0.0, 0.0, 0.0, 1.0);
+    outColor = vec4(248.0, 213.0, 104.0, 255.0) / vec4(255.0);
   }
 }

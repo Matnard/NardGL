@@ -36,14 +36,18 @@ new NARD.Loader({
 
     const plane2 = new Plane2(data[texture]);
 
-    //scene.push(particles);
+    scene.push(particles);
 
-    grid.rotation.x = Math.PI / 3;
-    //scene.push(grid);
+    grid.rotation.x = Math.PI / 2;
+    scene.push(grid);
 
-    plane.rotation.x = (Math.PI * Math.random()) / 2;
+    //plane.rotation.x = Math.PI / 2;
+    plane.translation.z = -1;
+
     scene.push(plane);
 
+    plane2.translation.z = 1;
+    plane2.rotation.y = Math.PI / 2;
     scene.push(plane2);
 
     cube.scale.x = window.innerWidth;
@@ -51,8 +55,9 @@ new NARD.Loader({
     cube.scale.z = window.innerWidth;
     scene.push(cube);
 
-    camera.translation.z = 7;
-
+    camera.translation.z = 4;
+    camera.translation.y = 0.5;
+    camera.rotation.y = -Math.PI / 4;
     const fps = 60;
     const fpsInterval = 1000 / fps;
     let then = Date.now();
@@ -66,6 +71,9 @@ new NARD.Loader({
 
       if (elapsed > fpsInterval) {
         control.update();
+        particles.rotation.x += 0.05;
+        particles.rotation.y += 0.03;
+        particles.rotation.z -= 0.05;
         renderer.render(scene, camera);
         then = now - (elapsed % fpsInterval);
       }

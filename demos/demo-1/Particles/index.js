@@ -9,11 +9,15 @@ import {
 } from "nardgl";
 
 const geometry = new Geometry();
-geometry.setVertices([
-  new Vertex(0, 0, 0, [new PositionAttribute(0, 0, 0)]),
-  new Vertex(0.5, 0.5, 0, [new PositionAttribute(0.5, 0.5, 0)]),
-  new Vertex(-0.5, -0.5, 0, [new PositionAttribute(-0.5, -0.5, 0)])
-]);
+
+const randomParticles = Array.from({ length: 20 }).map(p => {
+  const x = (Math.random() - 0.5) * 5;
+  const y = (Math.random() - 0.5) * 5;
+  const z = (Math.random() - 0.5) * 5;
+  return new Vertex(x, y, z, [new PositionAttribute(x, y, z)]);
+});
+
+geometry.setVertices(randomParticles);
 
 const material = new Material({
   uniformsData: [
@@ -32,6 +36,10 @@ const material = new Material({
 class Particles extends Primitive {
   constructor() {
     super(null, geometry, material);
+  }
+
+  beforeDraw() {
+    this.setUniform("u_modelMatrix", this.matrix);
   }
 }
 
