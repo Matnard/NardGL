@@ -1,7 +1,7 @@
 import { TextureUniform } from "./TextureUniform";
 
 class TextureCubeUniform extends TextureUniform {
-  targets = [
+  static targets = [
     "TEXTURE_CUBE_MAP_POSITIVE_X",
     "TEXTURE_CUBE_MAP_NEGATIVE_X",
     "TEXTURE_CUBE_MAP_POSITIVE_Y",
@@ -15,15 +15,14 @@ class TextureCubeUniform extends TextureUniform {
   }
 
   toGLSL() {
-    return `uniform samplerCube ${this.name};`;
+    return `uniform samplerCube ${this.name};\n`;
   }
 
-  loadTexture(gl, path) {
+  loadTexture(gl, path, loadedImg) {
     var texture = gl.createTexture();
     gl.bindTexture(gl.TEXTURE_CUBE_MAP, texture);
 
-    this.targets.forEach(target => {
-      //console.log(target, gl[target]);
+    TextureCubeUniform.targets.forEach(target => {
       gl.texImage2D(
         gl[target],
         0,
@@ -37,14 +36,22 @@ class TextureCubeUniform extends TextureUniform {
       );
     });
 
-    const img = new Image();
+    const img = loadedImg || new Image();
     const ctx = document.createElement("canvas").getContext("2d");
-    img.crossOrigin = "anonymous";
-    img.src = path;
-    img.onerror = function(err) {
-      console.log(err);
-    };
-    img.onload = () => {
+
+    if (!loadedImg) {
+      img.src = path;
+      img.crossOrigin = "anonymous";
+      img.onload = onLoad;
+      img.onerror = function(err) {
+        console.log(err);
+      };
+    } else {
+      onLoad();
+      return texture;
+    }
+
+    function onLoad() {
       const width = img.width / 4;
       const height = width;
       ctx.canvas.width = width;
@@ -79,7 +86,7 @@ class TextureCubeUniform extends TextureUniform {
         );
 
         gl.texImage2D(
-          gl[this.targets[i]],
+          gl[TextureCubeUniform.targets[i]],
           0,
           gl.RGBA,
           width,
@@ -97,7 +104,7 @@ class TextureCubeUniform extends TextureUniform {
         gl.TEXTURE_MIN_FILTER,
         gl.LINEAR_MIPMAP_LINEAR
       );
-    };
+    }
 
     return texture;
   }

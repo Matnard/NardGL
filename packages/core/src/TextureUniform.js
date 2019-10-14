@@ -1,22 +1,20 @@
 import { Uniform } from "./Uniform";
 
 class TextureUniform extends Uniform {
-  static unitUsed = 0;
-
   constructor(conf) {
     super(conf);
     this.type = "1i";
     this.src = conf.src;
-    this.data = [conf.data];
+    this.img = conf.img;
+    this.data = conf.data;
+    this.value = this.data;
   }
 
   bind(gl, program) {
     this.gl = gl;
     this.program = program;
-    this.texture = this.loadTexture(gl, this.src);
-    this.textureUnit = this.data[0]; //TextureUniform.unitUsed;
-    //this.data = [this.textureUnit];
-    //TextureUniform.unitUsed++;
+    this.texture = this.loadTexture(gl, this.src, this.img);
+    this.textureUnit = this.data;
     return this;
   }
 
@@ -24,7 +22,7 @@ class TextureUniform extends Uniform {
     return `uniform sampler2D ${this.name};`;
   }
 
-  loadTexture(gl, path) {
+  loadTexture(gl, path, loadedImg) {
     var texture = gl.createTexture();
     gl.bindTexture(gl.TEXTURE_2D, texture);
 
@@ -42,9 +40,17 @@ class TextureUniform extends Uniform {
     );
 
     // Asynchronously load an image
-    var image = new Image();
-    image.src = path;
-    image.addEventListener("load", function() {
+    const image = loadedImg || new Image();
+
+    if (!loadedImg) {
+      image.src = path;
+      image.addEventListener("load", onLoad);
+    } else {
+      onLoad();
+      return texture;
+    }
+
+    function onLoad() {
       // Now that the image has loaded make copy it to the texture.
       gl.bindTexture(gl.TEXTURE_2D, texture);
       gl.texImage2D(
@@ -56,7 +62,7 @@ class TextureUniform extends Uniform {
         image
       );
       gl.generateMipmap(gl.TEXTURE_2D);
-    });
+    }
 
     return texture;
   }
