@@ -50,9 +50,22 @@ class Primitive extends Transform {
   }
 
   updateUniforms() {
-    this.uniforms.forEach(uniform => {
-      uniform.update();
-    });
+    this.uniforms
+      .filter(uniform => uniform.constructor.name !== "TextureCubeUniform")
+      .forEach(uniform => {
+        uniform.update();
+      });
+    this.uniforms
+      .filter(uniform => uniform.constructor.name !== "Uniform")
+      .forEach(uniform => {
+        uniform.update();
+      });
+
+    this.uniforms
+      .filter(uniform => uniform.constructor.name !== "Uniform")
+      .forEach(uniform => {
+        uniform.preSet();
+      });
   }
 
   beforeDraw(dt) {}
@@ -99,6 +112,12 @@ class Primitive extends Transform {
         name: "u_projectionMatrix",
         type: "Matrix4fv",
         value: m4.identity(),
+        count: 1
+      },
+      {
+        name: "u_time",
+        type: "1f",
+        value: 0,
         count: 1
       }
     ];
