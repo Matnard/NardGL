@@ -3,49 +3,71 @@ import { Particles } from "./Particles";
 import { Grid } from "./Grid";
 import { Plane } from "./Plane";
 import { Plane2 } from "./Plane/plane2";
-import { CubeMap } from "./CubeMap";
+//import { CubeMap } from "./CubeMap";
 import { CameraControl } from "@nardgl/camera-control";
+import { SkyboxDayCycles } from "./SkyboxDayCycles";
 
-const particles = new Particles();
-const cube = new CubeMap();
+import daybox from "./miramar_large.jpg";
+import nightbox from "./grimmnight_large.jpg";
+import avatar from "./profile-512-clean.png";
+import texture from "./texture.jpg";
 
-const camera = new NARD.Camera();
-const scene = [];
-const renderer = new NARD.WebGLRenderer();
+const urls = [daybox, nightbox, avatar, texture];
 
-const control = new CameraControl(camera, renderer.canvas);
+new NARD.Loader({
+  onProgress: function(progress) {
+    console.log(`Progress: ${progress}`);
+  },
+  assets: urls
+})
+  .start()
+  .then(function(data) {
+    const particles = new Particles();
+    const cube = new SkyboxDayCycles(data[daybox], data[nightbox]);
 
-const grid = new Grid();
-grid.rotation.x = Math.PI / 3;
-const plane = new Plane();
+    const camera = new NARD.Camera();
+    const scene = [];
+    const renderer = new NARD.WebGLRenderer();
 
-const plane2 = new Plane2();
-// plane.rotation.x = (Math.PI * Math.random()) / 2;
+    const control = new CameraControl(camera, renderer.canvas);
 
-scene.push(grid);
-scene.push(particles);
-scene.push(plane);
-scene.push(plane2);
-cube.scale.x = window.innerWidth;
-cube.scale.y = window.innerWidth;
-cube.scale.z = window.innerWidth;
-scene.push(cube);
+    const grid = new Grid();
+    const plane = new Plane(data[avatar]);
 
-camera.translation.z = 7;
+    const plane2 = new Plane2(data[texture]);
 
-const fps = 60;
-const fpsInterval = 1000 / fps;
-let then = Date.now();
-onEnterFrame();
+    //scene.push(particles);
 
-function onEnterFrame() {
-  requestAnimationFrame(onEnterFrame);
-  const now = Date.now();
-  const elapsed = now - then;
+    grid.rotation.x = Math.PI / 3;
+    //scene.push(grid);
 
-  if (elapsed > fpsInterval) {
-    control.update();
-    renderer.render(scene, camera);
-    then = now - (elapsed % fpsInterval);
-  }
-}
+    plane.rotation.x = (Math.PI * Math.random()) / 2;
+    scene.push(plane);
+
+    scene.push(plane2);
+
+    cube.scale.x = window.innerWidth;
+    cube.scale.y = window.innerWidth;
+    cube.scale.z = window.innerWidth;
+    scene.push(cube);
+
+    camera.translation.z = 7;
+
+    const fps = 60;
+    const fpsInterval = 1000 / fps;
+    let then = Date.now();
+
+    setTimeout(onEnterFrame, 100);
+
+    function onEnterFrame() {
+      requestAnimationFrame(onEnterFrame);
+      const now = Date.now();
+      const elapsed = now - then;
+
+      if (elapsed > fpsInterval) {
+        control.update();
+        renderer.render(scene, camera);
+        then = now - (elapsed % fpsInterval);
+      }
+    }
+  });

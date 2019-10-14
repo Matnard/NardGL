@@ -3,14 +3,14 @@ import vertexShaderPartial from "./vertex.glsl";
 import fragmentShaderPartial from "./fragment.glsl";
 
 class Plane extends Primitive {
-  constructor() {
+  constructor(img) {
     const geometry = new PlaneGeometry(2, 2, 50, 50);
 
     const material = new Material({
       texturesData: [
         {
           name: "u_texture",
-          src: document.getElementById("avatar").src,
+          img,
           data: 0
         }
       ],
