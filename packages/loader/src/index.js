@@ -83,6 +83,8 @@ class Loader {
     this.waitingScreen.style.width = "100%";
     this.waitingScreen.style.height = "100vh";
     this.waitingScreen.style.position = "fixed";
+    this.waitingScreen.style.top = 0;
+    this.waitingScreen.style.left = 0;
     this.waitingScreen.style.zIndex = "1000";
     this.waitingScreen.style.display = "flex";
     this.waitingScreen.style.justifyContent = "center";
