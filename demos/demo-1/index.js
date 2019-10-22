@@ -29,7 +29,7 @@ new NARD.Loader({
     const scene = [];
     const renderer = new NARD.WebGLRenderer();
 
-    const control = new CameraControl(camera, renderer.canvas);
+    //const control = new CameraControl(camera, renderer.canvas);
 
     const grid = new Grid();
     const plane = new Plane(data[avatar]);
@@ -50,17 +50,19 @@ new NARD.Loader({
     plane2.rotation.y = Math.PI / 2;
     scene.push(plane2);
 
-    cube.scale.x = window.innerWidth;
-    cube.scale.y = window.innerWidth;
-    cube.scale.z = window.innerWidth;
+    cube.scale.x = 40;
+    cube.scale.y = 40;
+    cube.scale.z = 40;
     scene.push(cube);
 
-    camera.translation.z = 4;
-    camera.translation.y = 0.5;
-    camera.rotation.y = -Math.PI / 4;
+    //camera.translation.z = 4;
+    camera.translation.y = -0.5;
+    //camera.rotation.y = -Math.PI / 4;
+
     const fps = 60;
     const fpsInterval = 1000 / fps;
     let then = Date.now();
+    let t = 0;
 
     setTimeout(onEnterFrame, 100);
 
@@ -70,12 +72,15 @@ new NARD.Loader({
       const elapsed = now - then;
 
       if (elapsed > fpsInterval) {
-        control.update();
+        //control.update();
+        camera.translation.z += 0.05 * Math.sin(t * 0.01);
+        camera.translation.x += 0.05 * Math.sin(t * 0.01 + 1);
         particles.rotation.x += 0.05;
         particles.rotation.y += 0.03;
         particles.rotation.z -= 0.05;
         renderer.render(scene, camera);
         then = now - (elapsed % fpsInterval);
       }
+      t++;
     }
   });
