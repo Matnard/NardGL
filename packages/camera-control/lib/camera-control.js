@@ -90,14 +90,14 @@ class CameraControl {
 
   update() {
     if (this.rightPressed) {
-      this.camera.rotation.y -= Math.PI / 90;
+      this.camera.rotation.y += Math.PI / 32;
     } else if (this.leftPressed) {
-      this.camera.rotation.y += Math.PI / 90;
+      this.camera.rotation.y -= Math.PI / 32;
     }
     if (this.downPressed) {
-      this.camera.rotation.x += Math.PI / 90;
+      this.camera.rotation.x -= Math.PI / 32;
     } else if (this.upPressed) {
-      this.camera.rotation.x -= Math.PI / 90;
+      this.camera.rotation.x += Math.PI / 32;
     }
 
     if (this.dPressed) {

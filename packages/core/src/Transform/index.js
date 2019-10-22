@@ -23,6 +23,18 @@ class Transform {
     };
   }
 
+  computeTargetToMatrix(x, y, z) {
+    const conf = {
+      eye: this.translation,
+      center: {
+        x,
+        y,
+        z
+      }
+    };
+    return m4.targetTo(conf);
+  }
+
   computeMatrix(m = m4.identity()) {
     let transforms = m4.identity();
 

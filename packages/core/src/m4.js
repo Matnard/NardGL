@@ -71,6 +71,12 @@ const m4 = {
 
   scale: function(m, sx, sy, sz) {
     return m4.multiply(m, m4.scaling(sx, sy, sz));
+  },
+  targetTo: function(conf) {
+    const center = vec3.fromValues(...Object.values(conf.center));
+    const eye = vec3.fromValues(...Object.values(conf.eye));
+    const up = vec3.fromValues(0, 1, 0);
+    return mat4.targetTo(mat4.create(), eye, center, up);
   }
 };
 
