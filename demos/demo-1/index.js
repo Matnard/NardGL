@@ -22,6 +22,13 @@ new NARD.Loader({
 })
   .start()
   .then(function(data) {
+    return new Promise(function(resolve) {
+      setTimeout(function() {
+        resolve(data);
+      }, 100);
+    });
+  })
+  .then(function(data) {
     const particles = new Particles();
     const cube = new SkyboxDayCycles(data[daybox], data[nightbox]);
 
