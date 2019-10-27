@@ -39,7 +39,7 @@
     "@nardgl/utils": "^0.0.11"
   },
   "devDependencies": {
-    "@babel/core": "^7.6.2",
+    "@babel/core": "^7.6.4",
     "@babel/plugin-proposal-class-properties": "^7.5.5",
     "parcel-bundler": "^1.12.3"
   },

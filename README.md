@@ -13,6 +13,7 @@ In order to master the foundations and possibly contribute to other open source 
 - display basic primitives
 - display skybox / environment box
 - parse and display GLTF scenes
+- diplay obj models
 
 ## Demo 0 
 https://matnard.github.io/NardGL/demo-0/dist/
