@@ -1,20 +1,8 @@
-import { BasicMaterial } from "../BasicMaterial";
+import { Material } from "..";
 
-class PbrMetallicRoughnessMaterial extends BasicMaterial {
-  constructor(
-    attributes,
-    uniforms,
-    texturesData = [],
-    vertexShaderPartial,
-    fragmentShaderPartial
-  ) {
-    super(
-      attributes,
-      uniforms,
-      texturesData,
-      vertexShaderPartial,
-      fragmentShaderPartial
-    );
+class PbrMetallicRoughnessMaterial extends Material {
+  constructor(conf) {
+    super(conf);
   }
 }
 

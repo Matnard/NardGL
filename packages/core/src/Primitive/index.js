@@ -7,7 +7,7 @@ import { TextureCubeUniform } from "../TextureCubeUniform";
 import { m4 } from "../m4";
 
 class Primitive extends Transform {
-  constructor(conf, geometry, material) {
+  constructor(geometry, material) {
     super();
     //stuff to access
     this.vao = null;
@@ -16,29 +16,15 @@ class Primitive extends Transform {
 
     //geometry holds the vertices and indices
 
-    if (!conf) {
-      this.material = material;
-      this.geometry = geometry;
-      this.indices = geometry.getIndicesData();
+    this.material = material;
+    this.geometry = geometry;
+    this.indices = geometry.getIndicesData();
 
-      this.draw = {
-        primitiveType: material.primitiveType,
-        offset: 0,
-        count: geometry.getCount(material.primitiveType)
-      };
-    } else {
-      //material tells what to draw (points, lines, triangles)
-      this.material = conf.material;
-      this.indices = conf.indices || null;
-
-      //draw stuff should come from the material
-      this.draw = conf.draw || {
-        primitiveType: 4,
-        offset: 0,
-        count: 3
-      };
-      this.draw.count = conf.count;
-    }
+    this.draw = {
+      primitiveType: material.primitiveType,
+      offset: 0,
+      count: geometry.getCount(material.primitiveType)
+    };
   }
 
   setUniform(name, data) {

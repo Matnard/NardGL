@@ -1,21 +1,25 @@
 import { Primitive } from "./index";
 import { PbrMetallicRoughnessMaterial } from "../Material/PbrMetallicRoughnessMaterial";
+import { StaticGeometry } from "../Geometry/StaticGeometry";
 
 class GltfPrimitive extends Primitive {
-  constructor(primitiveData, textureData = [], vertexPartial, fragmentPartial) {
-    const material = new PbrMetallicRoughnessMaterial(
+  constructor(
+    primitiveData,
+    texturesData = [],
+    vertexPartial,
+    fragmentPartial
+  ) {
+    const material = new PbrMetallicRoughnessMaterial({
+      fragmentShader: fragmentPartial,
+      vertexShader: vertexPartial,
+      primitiveType: PbrMetallicRoughnessMaterial.TRIANGLES,
+      texturesData
+    });
+    const geometry = new StaticGeometry(
       primitiveData.attributes,
-      [],
-      textureData,
-      vertexPartial,
-      fragmentPartial
+      primitiveData.indices
     );
-    const conf = {
-      count: primitiveData.attributes[0].count, //POSITION, maybe..
-      material,
-      indices: primitiveData.indices
-    };
-    super(conf);
+    super(geometry, material);
   }
 }
 

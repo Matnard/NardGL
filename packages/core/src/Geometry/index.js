@@ -1,16 +1,7 @@
-import { Vertex } from "./Vertex";
-
 const noPartitionAttributeReduceFn = function(vertices) {
   return (map, curr) => {
     curr.forEach(attribute => {
       const entries = map.get(attribute.name) || { srcData: [] };
-
-      // attribute.count = vertices.size;
-      // attribute.srcData = [...entries.srcData, ...attribute.data];
-      // attribute.stride = 0;
-      // attribute.offset = 0;
-      // attribute.elementsPerAttribute = attribute.data.length;
-      // map.set(attribute.name, attribute);
 
       attribute.elementsPerAttribute = attribute.data.length;
       map.set(attribute.name, {
