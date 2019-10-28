@@ -21,7 +21,7 @@ const material = new Material({
 
 class CubeMap extends Primitive {
   constructor() {
-    super(null, geometry, material);
+    super(geometry, material);
   }
 
   beforeDraw() {

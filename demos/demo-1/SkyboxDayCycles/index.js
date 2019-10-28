@@ -26,7 +26,7 @@ class SkyboxDayCycles extends Primitive {
       vertexShader: vertexShaderPartial,
       fragmentShader: fragmentShaderPartial
     });
-    super(null, geometry, material);
+    super(geometry, material);
   }
 
   static cloneCanvas(oldCanvas) {

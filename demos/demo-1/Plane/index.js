@@ -19,7 +19,7 @@ class Plane extends Primitive {
       fragmentShader: fragmentShaderPartial
     });
 
-    super(null, geometry, material);
+    super(geometry, material);
   }
 
   beforeDraw() {

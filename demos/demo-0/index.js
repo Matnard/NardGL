@@ -1,5 +1,4 @@
 import * as NARD from "nardgl";
-import { Particles } from "./Particles";
 import { Quad } from "./Quad";
 import quadGltfUrl from "./Quad/quad.gltf";
 import { TexturedCube } from "./TexturedCube";
@@ -19,24 +18,19 @@ new NARD.Loader({
     const scene = [];
     const renderer = new NARD.WebGLRenderer();
 
-    const particles = new Particles();
-    scene.push(particles);
-
-    const grid = new NARD.Grid();
-    grid.rotation.x = Math.PI / 2;
-    scene.push(grid);
-
     const cube = new TexturedCube(
-      new NARD.GltfParser(data[urls[1]]).getPrimitives()[0]
+      new NARD.GltfParser(data[texturedCubeGltfUrl]).getPrimitives()[0]
     );
 
-    cube.translation.y = 2;
-    cube.scale.x = cube.scale.y = cube.scale.z = 0.25;
+    setTimeout(() => {
+      cube.translation.y = 2;
+      cube.scale.x = cube.scale.y = cube.scale.z = 0.25;
 
-    scene.push(cube);
+      scene.push(cube);
+    }, 200);
 
     const quad = new Quad(
-      new NARD.GltfParser(data[urls[0]]).getPrimitives()[0]
+      new NARD.GltfParser(data[quadGltfUrl]).getPrimitives()[0]
     );
 
     scene.push(quad);
@@ -56,7 +50,9 @@ new NARD.Loader({
       const elapsed = now - then;
 
       if (elapsed > fpsInterval) {
-        camera.rotation.y -= 0.005;
+        quad.rotation.y += 0.005;
+        cube.rotation.y -= 0.005;
+        cube.rotation.x -= 0.005;
         renderer.render(scene, camera);
         then = now - (elapsed % fpsInterval);
       }

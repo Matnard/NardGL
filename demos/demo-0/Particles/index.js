@@ -1,55 +1,43 @@
 import vertexShaderPartial from "./vertex.glsl";
 import fragmentShaderPartial from "./fragment.glsl";
-import { Primitive, BasicMaterial } from "nardgl";
 
-const attributesData = [
-  {
-    name: "a_position",
-    type: "VEC3",
-    componentType: 5126,
-    count: 3,
-    srcData: [0, 0, 0, 0.5, 0.5, 0, -0.5, -0.5, 0],
-    stride: 0,
-    offset: 0
-  }
-];
+import {
+  Primitive,
+  Geometry,
+  Material,
+  PositionAttribute,
+  Vertex
+} from "nardgl";
 
-const uniformsData = [
-  {
-    name: "u_pointSize",
-    type: "1f",
-    value: 50,
-    count: 1
-  }
-];
+const geometry = new Geometry();
 
-const material = new BasicMaterial(
-  attributesData,
-  uniformsData,
-  [],
-  vertexShaderPartial,
-  fragmentShaderPartial
-);
+geometry.setVertices([
+  new Vertex(0, 0, 0, [new PositionAttribute(0, 0, 0)]),
+  new Vertex(0.5, 0.5, 0, [new PositionAttribute(0.5, 0.5, 0)]),
+  new Vertex(-0.5, -0.5, 0, [new PositionAttribute(-0.5, -0.5, 0)])
+]);
 
-const draw = {
-  primitiveType: 0,
-  offset: 0
-};
-
-const conf = {
-  material,
-  draw,
-  count: 3
-};
+const material = new Material({
+  uniformsData: [
+    {
+      name: "u_pointSize",
+      type: "1f",
+      value: 50,
+      count: 1
+    }
+  ],
+  primitiveType: Material.POINTS,
+  vertexShader: vertexShaderPartial,
+  fragmentShader: fragmentShaderPartial
+});
 
 class Particles extends Primitive {
   constructor() {
-    super(conf);
+    super(geometry, material);
   }
 
-  beforeDraw(dt) {
+  beforeDraw() {
     this.setUniform("u_modelMatrix", this.matrix);
-    this.setUniform("u_pointSize", (Math.sin(dt / 1000) * 0.5 + 0.5) * 41);
   }
 }
 

@@ -9,13 +9,18 @@ class TexturedCube extends GltfPrimitive {
       primitiveData.attributes[2]
     ];
 
+    const img = new Image();
+    img.src =
+      primitiveData.material.pbrMetallicRoughness.baseColorTexture.texture;
+
+    //img.load = () => {};
     super(
       primitiveData,
       [
         {
           name: "u_texture",
-          src:
-            primitiveData.material.pbrMetallicRoughness.baseColorTexture.texture
+          img,
+          data: 0
         }
       ],
       vertexPartial,
