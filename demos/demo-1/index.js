@@ -3,8 +3,8 @@ import { Particles } from "./Particles";
 import { Grid } from "./Grid";
 import { Plane } from "./Plane";
 import { Plane2 } from "./Plane/plane2";
-//import { CubeMap } from "./CubeMap";
-import { CameraControl } from "@nardgl/camera-control";
+// import { CubeMap } from "./CubeMap";
+// import { CameraControl } from "@nardgl/camera-control";
 import { SkyboxDayCycles } from "./SkyboxDayCycles";
 
 import daybox from "./miramar_large.jpg";
