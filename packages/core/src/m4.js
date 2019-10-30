@@ -77,7 +77,8 @@ const m4 = {
     const eye = vec3.fromValues(...Object.values(conf.eye));
     const up = vec3.fromValues(0, 1, 0);
     return mat4.targetTo(mat4.create(), eye, center, up);
-  }
+  },
+  EPSILON: 0.000001
 };
 
 export { m4 };
