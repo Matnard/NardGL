@@ -35,12 +35,12 @@
     "@nardgl/core": "^0.1.8",
     "@nardgl/gltf-parser": "^1.0.2-alpha.0",
     "@nardgl/loader": "^1.1.1",
-    "@nardgl/primitives": "^1.0.0",
-    "@nardgl/utils": "^0.0.12"
+    "@nardgl/primitives": "^1.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.6.4",
     "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/plugin-transform-runtime": "^7.6.2",
     "parcel-bundler": "^1.12.3"
   },
   "gitHead": "0f0c0417ffcfc488f89ab295d6dd84c13babbe75"
