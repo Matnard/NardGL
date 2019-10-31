@@ -1,8 +1,9 @@
 {
-  "name": "parcel-sandbox",
+  "name": "demo-2",
   "version": "1.0.0",
   "description": "Simple Parcel Sandbox",
   "main": "index.html",
+  "private": true,
   "scripts": {
     "start": "parcel index.html --open",
     "build": "parcel build index.html"
