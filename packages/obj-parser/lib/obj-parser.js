@@ -41,13 +41,10 @@ function parseObj(txt, textureSrc) {
     }
   }
 
-  //console.log(positionsBank, uvsBank, normalsBank, polys);
-
   let attribs = polys
     .map(poly => {
       let vertices = poly.map(vertex => {
         let data = vertex.split("/").map(parseFloat);
-        //console.log(data);
         return {
           positions: positionsBank[data[0] - 1],
           uvs: uvsBank[data[1] - 1],
