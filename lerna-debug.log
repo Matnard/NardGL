@@ -1,0 +1,6 @@
+105 warn complete Waiting for 7 child processes to exit. CTRL-C to exit immediately.
+106 error Error: Command failed: git tag demo-0@1.0.0 -m demo-0@1.0.0
+106 error fatal: tag 'demo-0@1.0.0' already exists
+106 error
+106 error     at makeError (/home/matnard/.nvm/versions/node/v10.15.3/lib/node_modules/lerna/node_modules/execa/index.js:174:9)
+106 error     at Promise.all.then.arr (/home/matnard/.nvm/versions/node/v10.15.3/lib/node_modules/lerna/node_modules/execa/index.js:278:16)
