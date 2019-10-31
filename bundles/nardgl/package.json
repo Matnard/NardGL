@@ -35,7 +35,9 @@
     "@nardgl/core": "^0.1.8",
     "@nardgl/gltf-parser": "^1.0.2-alpha.0",
     "@nardgl/loader": "^1.1.1",
-    "@nardgl/primitives": "^1.0.0"
+    "@nardgl/obj-parser": "^0.0.0",
+    "@nardgl/primitives": "^1.0.0",
+    "@nardgl/utils": "0.0.12"
   },
   "devDependencies": {
     "@babel/core": "^7.6.4",

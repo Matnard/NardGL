@@ -25,12 +25,18 @@ const loadAsset = function(arg) {
     .then(blob => {
       const type = mimeType || blob.type;
 
-      const thenFn = {
+      let thenFn = {
         "image/png": blobToImg,
         "image/jpeg": blobToImg,
         "model/gltf+json": blobToJson,
+        "application/x-tgif": blobToText,
         "text/html": blobToText
       }[type];
+
+      if (!thenFn) {
+        console.error("Unsupported type. Defaulted to text");
+        thenFn = blobToText;
+      }
 
       return thenFn(blob);
     })
