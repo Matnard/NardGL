@@ -4,6 +4,8 @@ class Transform {
   constructor() {
     this.matrix = m4.identity();
 
+    this.quaternion = null;
+
     this.translation = {
       x: 0,
       y: 0,
@@ -51,6 +53,15 @@ class Transform {
       this.translation.z
     );
     this.matrix = m4.multiply(m, transforms);
+
+    if (this.quaternion) {
+      this.computeMatrixFromQuaternion(...Object.values(this.quaternion));
+    }
+  }
+
+  computeMatrixFromQuaternion(x, y, z, w) {
+    const m = m4.fromQuat(x, y, z, w);
+    this.matrix = m4.multiply(this.matrix, m);
   }
 }
 

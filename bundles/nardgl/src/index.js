@@ -6,5 +6,4 @@ export * from "@nardgl/loader";
 export * from "@nardgl/core";
 export * from "@nardgl/gltf-parser";
 export * from "@nardgl/obj-parser";
-export * from "@nardgl/utils";
 export * from "@nardgl/primitives";
