@@ -7,8 +7,8 @@ import { TexturedCube } from "./TexturedCube";
 import cubeData from "./mindcraft-cube-data";
 import demoPhysics from "./physics";
 
-const nCubes = 40;
-const { world, bodies } = demoPhysics(40);
+const nCubes = 100;
+const { world, bodies } = demoPhysics(nCubes);
 
 const grid = new Grid(14 * 10);
 grid.scale.x = 20;
@@ -44,7 +44,7 @@ const renderer = new NARD.WebGLRenderer();
       64,
       64,
       Array.from({ length: nCubes }).map(() => {
-        return Math.random() > 0.5 ? cubeData.grassyCube : cubeData.tntCube;
+        return cubeData[Math.floor(Math.random() * cubeData.length)];
       })
     );
 
