@@ -1,6 +1,6 @@
 {
   "name": "demo-3",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Simple Parcel Sandbox",
   "main": "index.html",
   "private": true,
