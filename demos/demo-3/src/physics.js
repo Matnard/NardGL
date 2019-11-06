@@ -7,7 +7,7 @@ const demoPhysics = n => {
 
   const cannonCubes = Array.from({ length: n }).map((el, i) => {
     const body = new CANNON.Body({
-      mass: 5, // kg
+      mass: 5 + 5 * Math.random(), // kg
       position: new CANNON.Vec3(
         Math.random() - 0.5,
         2.5 * i + 0.5,
