@@ -1,6 +1,6 @@
 {
   "name": "@nardgl/obj-parser",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "partially parses waveform obj data",
   "keywords": [
     "nardgl",
