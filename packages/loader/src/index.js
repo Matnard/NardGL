@@ -129,3 +129,4 @@ class Loader {
 }
 
 export { batchLoad, loadAsset, Loader };
+//
