@@ -7,14 +7,17 @@ import { TextureCubeUniform } from "../TextureCubeUniform";
 import { m4 } from "../m4";
 
 class Primitive extends Transform {
+  static projectionMatrix = m4.identity();
+  static viewMatrix = m4.identity();
+  static t = 0;
+  static reverseLightDirection = [0, 0, 0];
+
   constructor(geometry, material) {
     super();
     //stuff to access
     this.vao = null;
     this.hasRenderedOnce = false;
     this.needsUpdate = true;
-
-    //geometry holds the vertices and indices
 
     this.material = material;
     this.geometry = geometry;
@@ -47,7 +50,13 @@ class Primitive extends Transform {
       });
   }
 
-  beforeDraw(dt) {}
+  beforeDraw() {
+    this.setUniform("u_projectionMatrix", Primitive.projectionMatrix);
+    this.setUniform("u_viewMatrix", Primitive.viewMatrix);
+    this.setUniform("u_modelMatrix", this.matrix);
+    this.setUniform("u_time", Primitive.t);
+    this.setUniform("u_reverseLightDirection", Primitive.reverseLightDirection);
+  }
 
   createProgram(gl) {
     return createProgramFromSource(
@@ -97,6 +106,12 @@ class Primitive extends Transform {
         name: "u_time",
         type: "1f",
         value: 0,
+        count: 1
+      },
+      {
+        name: "u_reverseLightDirection",
+        type: "3fv",
+        value: [5, 7, 10],
         count: 1
       }
     ];

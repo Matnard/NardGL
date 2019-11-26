@@ -89,6 +89,13 @@ function parseObj(txt, textureSrc) {
         count: attribs.positions.length / 2,
         type: "VEC2",
         srcData: attribs.uvs
+      },
+      {
+        name: "NORMAL",
+        componentType: 5126,
+        count: attribs.normals.length / 3,
+        type: "VEC3",
+        srcData: attribs.normals
       }
     ],
     //   indices: {

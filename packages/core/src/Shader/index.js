@@ -1,4 +1,5 @@
-import { getGLSLType } from "../utils";
+import { getMatches } from "../utils";
+import shaderBits from "../Shader/shader-bits";
 
 class Shader {
   constructor(conf) {
@@ -9,6 +10,15 @@ class Shader {
 
   get decorated() {
     throw new Error("Use either VertexShader or FragmentShader instances");
+  }
+
+  static resolveIncludes(script) {
+    const includePattern = /^[ \t]*#include +<([\w\d./]+)>/gm;
+    getMatches(includePattern, script).forEach(match => {
+      script = script.replace(match[0], shaderBits[match[1]]);
+    });
+
+    return script;
   }
 }
 
@@ -21,7 +31,7 @@ class VertexShader extends Shader {
       "\n" +
       this.uniforms.map(u => u.toGLSL()).join("") +
       "\n" +
-      `${this.script}`
+      `${Shader.resolveIncludes(this.script)}`
     );
   }
 }
@@ -33,7 +43,7 @@ class FragmentShader extends Shader {
       "precision mediump float;\n" +
       this.uniforms.map(u => u.toGLSL()).join("") +
       "\n" +
-      `${this.script}`
+      `${Shader.resolveIncludes(this.script)}`
     );
   }
 }

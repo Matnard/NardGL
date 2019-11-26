@@ -1,7 +1,8 @@
 import { resizeCanvas, debounce } from "./utils";
-import { m4 } from "./m4";
 
 class WebGLRenderer {
+  clearColor = [0, 0, 0, 1];
+
   constructor(canvas = document.createElement("canvas")) {
     const gl = canvas.getContext("webgl2");
 
@@ -16,8 +17,6 @@ class WebGLRenderer {
 
     this.gl = gl;
 
-    this.t = 0;
-
     this.onResize();
     window.addEventListener("resize", debounce(this.onResize, 250));
   }
@@ -27,17 +26,12 @@ class WebGLRenderer {
   }
 
   onResize = () => {
-    this.projectionMatrix = m4.projection(
-      this.gl.canvas.clientWidth,
-      this.gl.canvas.clientHeight,
-      this.gl.canvas.clientWidth
-    );
     resizeCanvas(this.gl.canvas);
   };
 
-  render(scene, camera) {
+  render(scene) {
     this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
-    this.gl.clearColor(1, 1, 1, 1);
+    this.gl.clearColor(...this.clearColor);
     this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
 
     // turn on depth testing
@@ -57,19 +51,12 @@ class WebGLRenderer {
 
       this.gl.bindVertexArray(primitive.vao);
 
-      primitive.setUniform("u_projectionMatrix", this.projectionMatrix);
-      primitive.setUniform("u_viewMatrix", camera.viewMatrix);
-      primitive.setUniform("u_time", this.t);
       primitive.computeMatrix();
-      primitive.beforeDraw(this.then);
-
+      primitive.beforeDraw();
       primitive.updateUniforms();
 
       const drawConf = {
-        primitiveType:
-          primitive.draw.primitiveType !== "undefined"
-            ? primitive.draw.primitiveType
-            : this.gl.TRIANGLES,
+        primitiveType: primitive.draw.primitiveType,
         offset: primitive.draw.offset,
         count: primitive.draw.count
       };
@@ -88,7 +75,6 @@ class WebGLRenderer {
           drawConf.count
         );
       }
-      this.t++;
     });
   }
 }
