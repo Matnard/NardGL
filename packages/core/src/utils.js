@@ -128,6 +128,19 @@ const debounce = function(func, wait, immediate) {
   };
 };
 
+const getMatches = function(regex, text) {
+  const matches = [];
+  let match;
+  do {
+    match = regex.exec(text);
+    if (match) {
+      matches.push(match);
+    }
+  } while (match != null);
+
+  return matches;
+};
+
 export {
   hexToNormalizedRGB,
   randomInt,
@@ -139,5 +152,6 @@ export {
   getTypedArray,
   getGLSLType,
   getBytesPerElementOfType,
-  debounce
+  debounce,
+  getMatches
 };
