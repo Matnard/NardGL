@@ -23,10 +23,6 @@ class CubeMap extends Primitive {
   constructor() {
     super(geometry, material);
   }
-
-  beforeDraw() {
-    this.setUniform("u_modelMatrix", this.matrix);
-  }
 }
 
 export { CubeMap };

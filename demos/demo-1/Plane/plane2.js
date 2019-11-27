@@ -21,10 +21,6 @@ class Plane2 extends Primitive {
 
     super(geometry, material);
   }
-
-  beforeDraw() {
-    this.setUniform("u_modelMatrix", this.matrix);
-  }
 }
 
 export { Plane2 };

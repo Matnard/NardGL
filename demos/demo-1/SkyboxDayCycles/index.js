@@ -72,10 +72,6 @@ class SkyboxDayCycles extends Primitive {
       return SkyboxDayCycles.cloneCanvas(ctx.canvas);
     });
   }
-
-  beforeDraw() {
-    this.setUniform("u_modelMatrix", this.matrix);
-  }
 }
 
 export { SkyboxDayCycles };

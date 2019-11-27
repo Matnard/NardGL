@@ -25,10 +25,6 @@ class PirateGirl extends NARD.GltfPrimitive {
       fragmentPartial
     );
   }
-
-  beforeDraw() {
-    this.setUniform("u_modelMatrix", this.matrix);
-  }
 }
 
 export { PirateGirl };

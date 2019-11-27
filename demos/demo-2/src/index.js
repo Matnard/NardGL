@@ -1,11 +1,10 @@
 import * as NARD from "nardgl";
-import { Grid } from "@nardgl/utils";
 import logo from "./Nardgl-thumb.png";
 import pirateGirlTexture from "./PirateGirl/texture.png";
 import pirateGirlModel from "./PirateGirl/pirate-girl.obj";
 import { PirateGirl } from "./PirateGirl";
 
-const grid = new Grid(14 * 10);
+const grid = new NARD.Grid(14 * 10);
 grid.scale.x = 20;
 grid.scale.y = 1;
 grid.scale.z = 20;
@@ -45,12 +44,20 @@ const renderer = new NARD.WebGLRenderer();
 
   onEnterFrame();
 
+  NARD.Primitive.projectionMatrix = NARD.m4.projection(
+    renderer.canvas.clientWidth,
+    renderer.canvas.clientHeight,
+    renderer.canvas.clientWidth
+  );
+
   function onEnterFrame() {
     requestAnimationFrame(onEnterFrame);
     const now = Date.now();
     const elapsed = now - then;
 
     if (elapsed > fpsInterval) {
+      NARD.Primitive.t = elapsed;
+      NARD.Primitive.viewMatrix = camera.viewMatrix;
       renderer.render(scene, camera);
       then = now - (elapsed % fpsInterval);
 
