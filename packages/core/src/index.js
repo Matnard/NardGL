@@ -15,3 +15,4 @@ export * from "./utils";
 export * from "./WebGLRenderer";
 export * from "./Geometry";
 export * from "./Vertex";
+export * from "./Debug";

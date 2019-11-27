@@ -1,5 +1,4 @@
 import * as NARD from "nardgl";
-import { Grid } from "@nardgl/utils";
 import logo from "./Nardgl-thumb.png";
 import atlas from "./atlas_mindcraft.png";
 import { CubeFacesSlicer } from "./CubeFacesSlicer";
@@ -10,7 +9,7 @@ import demoPhysics from "./physics";
 const nCubes = 100;
 const { world, bodies } = demoPhysics(nCubes);
 
-const grid = new Grid(14 * 10);
+const grid = new NARD.Grid(14 * 10);
 grid.scale.x = 20;
 grid.scale.y = 1;
 grid.scale.z = 20;
@@ -56,6 +55,12 @@ const renderer = new NARD.WebGLRenderer();
     onEnterFrame();
   }, 200);
 
+  NARD.Primitive.projectionMatrix = NARD.m4.projection(
+    renderer.canvas.clientWidth,
+    renderer.canvas.clientHeight,
+    renderer.canvas.clientWidth
+  );
+
   function onEnterFrame() {
     requestAnimationFrame(onEnterFrame);
     var fixedTimeStep = 1.0 / 60.0; // seconds
@@ -66,6 +71,9 @@ const renderer = new NARD.WebGLRenderer();
     if (elapsed > fpsInterval) {
       renderer.render([grid, ...cubes], camera);
       then = now - (elapsed % fpsInterval);
+
+      NARD.Primitive.t = elapsed;
+      NARD.Primitive.viewMatrix = camera.viewMatrix;
 
       //console.log(bodies[0].position);
 

@@ -1,6 +1,5 @@
 import * as NARD from "nardgl";
 import { Particles } from "./Particles";
-import { Grid } from "./Grid";
 import { Plane } from "./Plane";
 import { Plane2 } from "./Plane/plane2";
 // import { CubeMap } from "./CubeMap";
@@ -38,7 +37,7 @@ new NARD.Loader({
 
     //const control = new CameraControl(camera, renderer.canvas);
 
-    const grid = new Grid();
+    const grid = new NARD.Grid();
     const plane = new Plane(data[avatar]);
 
     const plane2 = new Plane2(data[texture]);
@@ -73,6 +72,12 @@ new NARD.Loader({
 
     setTimeout(onEnterFrame, 100);
 
+    NARD.Primitive.projectionMatrix = NARD.m4.projection(
+      renderer.canvas.clientWidth,
+      renderer.canvas.clientHeight,
+      renderer.canvas.clientWidth
+    );
+
     function onEnterFrame() {
       requestAnimationFrame(onEnterFrame);
       const now = Date.now();
@@ -80,12 +85,16 @@ new NARD.Loader({
 
       if (elapsed > fpsInterval) {
         //control.update();
+
+        NARD.Primitive.t = elapsed;
+        NARD.Primitive.viewMatrix = camera.viewMatrix;
+
         camera.translation.z += 0.05 * Math.sin(t * 0.01);
         camera.translation.x += 0.05 * Math.sin(t * 0.01 + 1);
         particles.rotation.x += 0.05;
         particles.rotation.y += 0.03;
         particles.rotation.z -= 0.05;
-        renderer.render(scene, camera);
+        renderer.render(scene);
         then = now - (elapsed % fpsInterval);
       }
       t++;
