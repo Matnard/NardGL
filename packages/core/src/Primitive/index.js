@@ -56,6 +56,10 @@ class Primitive extends Transform {
     this.setUniform("u_modelMatrix", this.matrix);
     this.setUniform("u_time", Primitive.t);
     this.setUniform("u_reverseLightDirection", Primitive.reverseLightDirection);
+    this.setUniform(
+      "u_normalTransform",
+      this.normalTransform(Primitive.viewMatrix)
+    );
   }
 
   createProgram(gl) {
@@ -112,6 +116,12 @@ class Primitive extends Transform {
         name: "u_reverseLightDirection",
         type: "3fv",
         value: [5, 7, 10],
+        count: 1
+      },
+      {
+        name: "u_normalTransform",
+        type: "Matrix4fv",
+        value: m4.identity(),
         count: 1
       }
     ];

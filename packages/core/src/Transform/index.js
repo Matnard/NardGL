@@ -63,6 +63,10 @@ class Transform {
     const m = m4.fromQuat(x, y, z, w);
     this.matrix = m4.multiply(this.matrix, m);
   }
+
+  normalTransform(viewMatrix) {
+    return m4.invert(m4.multiply(this.matrix, viewMatrix));
+  }
 }
 
 export { Transform };
