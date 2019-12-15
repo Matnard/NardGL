@@ -7,14 +7,14 @@ import { TextureCubeUniform } from "../TextureCubeUniform";
 import { m4 } from "../m4";
 
 class Primitive extends Transform {
-  static projectionMatrix = m4.identity();
-  static viewMatrix = m4.identity();
   static t = 0;
+  static viewMatrix = m4.identity();
+  static projectionMatrix = m4.identity();
   static reverseLightDirection = [0, 0, 0];
 
   constructor(geometry, material) {
     super();
-    //stuff to access
+
     this.vao = null;
     this.hasRenderedOnce = false;
     this.needsUpdate = true;
@@ -57,7 +57,7 @@ class Primitive extends Transform {
     this.setUniform("u_time", Primitive.t);
     this.setUniform("u_reverseLightDirection", Primitive.reverseLightDirection);
     this.setUniform(
-      "u_normalTransform",
+      "u_worldInverseTranspose",
       this.normalTransform(Primitive.viewMatrix)
     );
   }
@@ -119,7 +119,7 @@ class Primitive extends Transform {
         count: 1
       },
       {
-        name: "u_normalTransform",
+        name: "u_worldInverseTranspose",
         type: "Matrix4fv",
         value: m4.identity(),
         count: 1

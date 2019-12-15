@@ -1,4 +1,4 @@
-import { resizeCanvas, debounce } from "./utils";
+import { resizeCanvas } from "./utils";
 
 class WebGLRenderer {
   clearColor = [0, 0, 0, 1];
@@ -18,7 +18,6 @@ class WebGLRenderer {
     this.gl = gl;
 
     this.onResize();
-    window.addEventListener("resize", debounce(this.onResize, 250));
   }
 
   get canvas() {

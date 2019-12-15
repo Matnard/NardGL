@@ -39,6 +39,10 @@ function multiply(a, b) {
   return mat4.multiply(mat4.create(), a, b);
 }
 
+function transpose(a) {
+  return mat4.transpose(a, a);
+}
+
 const multiplyAll = reduceArgsWithFn(multiply, mat4.create());
 
 const m4 = {
@@ -48,6 +52,7 @@ const m4 = {
   multiply,
   multiplyAll,
   identity,
+  transpose,
 
   invert: function(m) {
     return mat4.invert(mat4.create(), m);
