@@ -1,8 +1,5 @@
 node_modules
 .cache
 dist
-package-lock.json
-.nard
-
 # Local Netlify folder
 .netlify

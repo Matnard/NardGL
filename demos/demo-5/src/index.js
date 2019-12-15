@@ -21,7 +21,8 @@ const renderer = new NARD.WebGLRenderer();
   }).start();
 
   const logo = new Plane(data[logoPath]);
-  logo.translation.y = 1;
+  logo.translation.y = 4;
+  logo.translation.z = 2;
   camera.translation.y = 1;
   grid.rotation.x = Math.PI / 2;
 
@@ -33,6 +34,10 @@ const renderer = new NARD.WebGLRenderer();
   pirate.scale.y = 0.5;
   pirate.scale.z = 0.5;
 
+  logo.scale.x = 0.2;
+  logo.scale.y = 0.2;
+  logo.scale.z = 0.2;
+
   const fps = 60;
   const fpsInterval = 1000 / fps;
   let then = Date.now();
@@ -43,7 +48,7 @@ const renderer = new NARD.WebGLRenderer();
 
   const scene = [grid];
   setTimeout(() => {
-    //scene.push(logo);
+    scene.push(logo);
     scene.push(pirate);
   }, 100); //image loading issue...
 
@@ -53,7 +58,7 @@ const renderer = new NARD.WebGLRenderer();
     renderer.canvas.clientWidth
   );
 
-  NARD.Primitive.reverseLightDirection = [2, 7, 10];
+  NARD.Primitive.reverseLightDirection = [0.5, 1.5, 1];
   onEnterFrame();
 
   function onEnterFrame() {
@@ -70,9 +75,9 @@ const renderer = new NARD.WebGLRenderer();
 
       camera.translation.z = radius * Math.sin(angle);
       camera.translation.x = radius * Math.cos(angle);
-      //logo.rotation.y = angle;
       //pirate.rotation.y = angle;
-      //logo.rotation.x = angle;
+      logo.rotation.y = -angle * 10;
+      logo.rotation.x = -angle * 5;
 
       angle += 0.005;
     }
