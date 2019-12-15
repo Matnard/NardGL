@@ -1,3 +1,4 @@
+export * from "./App";
 export * from "./Camera";
 export * from "./Material";
 export * from "./Material/BasicMaterial";

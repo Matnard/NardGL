@@ -65,7 +65,7 @@ class Transform {
   }
 
   normalTransform(viewMatrix) {
-    return m4.invert(m4.multiply(this.matrix, viewMatrix));
+    return m4.transpose(m4.invert(viewMatrix));
   }
 }
 
