@@ -26,26 +26,26 @@ class Primitive extends Transform {
     this.draw = {
       primitiveType: material.primitiveType,
       offset: 0,
-      count: geometry.getCount(material.primitiveType)
+      count: geometry.getCount(material.primitiveType),
     };
   }
 
   setUniform(name, data) {
-    this.uniforms.find(u => u.name === name).value = data;
+    this.uniforms.find((u) => u.name === name).value = data;
   }
 
   updateUniform(name, value) {
-    this.uniforms.find(u => u.name === name).update(value);
+    this.uniforms.find((u) => u.name === name).update(value);
   }
 
   updateUniforms() {
-    this.uniforms.forEach(uniform => {
+    this.uniforms.forEach((uniform) => {
       uniform.update();
     });
 
     this.uniforms
-      .filter(uniform => uniform.constructor.name !== "Uniform")
-      .forEach(uniform => {
+      .filter((uniform) => uniform.constructor.name !== "Uniform")
+      .forEach((uniform) => {
         uniform.preSet();
       });
   }
@@ -73,17 +73,17 @@ class Primitive extends Transform {
   bindUniforms(gl) {
     return this.uniforms
       .concat([])
-      .map(uniform => uniform.bind(gl, this.program));
+      .map((uniform) => uniform.bind(gl, this.program));
   }
 
   bindAttributes(gl) {
     return this.attributes
       .concat([])
-      .map(attribute => attribute.bind(gl, this.program));
+      .map((attribute) => attribute.bind(gl, this.program));
   }
 
   initAttributes(attributesData) {
-    return attributesData.map(a => new AttributeCollection(a));
+    return attributesData.map((a) => new AttributeCollection(a));
   }
 
   initUniforms(uniformsData, texturesData = []) {
@@ -92,51 +92,63 @@ class Primitive extends Transform {
         name: "u_modelMatrix",
         type: "Matrix4fv",
         value: m4.identity(),
-        count: 1
+        count: 1,
       },
       {
         name: "u_viewMatrix",
         type: "Matrix4fv",
         value: m4.identity(),
-        count: 1
+        count: 1,
       },
       {
         name: "u_projectionMatrix",
         type: "Matrix4fv",
         value: m4.identity(),
-        count: 1
+        count: 1,
       },
       {
         name: "u_time",
         type: "1f",
         value: 0,
-        count: 1
+        count: 1,
       },
       {
         name: "u_reverseLightDirection",
         type: "3fv",
         value: [5, 7, 10],
-        count: 1
+        count: 1,
       },
       {
         name: "u_worldInverseTranspose",
         type: "Matrix4fv",
         value: m4.identity(),
-        count: 1
-      }
+        count: 1,
+      },
+      {
+        name: "u_mouse",
+        type: "2fv",
+        value: [0, 0],
+        count: 1,
+      },
+      {
+        name: "u_resolution",
+        type: "2fv",
+        value: [0, 0],
+        count: 1,
+      },
     ];
 
     uniformsData = [...uniformsData, ...extraUniforms];
 
-    let uniforms = uniformsData.map(u => new Uniform(u));
+    let uniforms = uniformsData.map((u) => new Uniform(u));
     return [
       ...uniforms,
-      ...texturesData.map(t => {
+      ...texturesData.map((t) => {
         // return new TextureUniform(t);
         return t.textureCube
           ? new TextureCubeUniform(t)
           : new TextureUniform(t);
-      })
+      }),
     ];
   }
 
@@ -155,7 +167,7 @@ class Primitive extends Transform {
     this.vao = gl.createVertexArray();
     gl.bindVertexArray(this.vao);
 
-    this.attributes.forEach(attribute => {
+    this.attributes.forEach((attribute) => {
       if (!!attribute.srcData) {
         gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
         gl.bufferData(gl.ARRAY_BUFFER, attribute.array, gl.STATIC_DRAW);
@@ -167,7 +179,7 @@ class Primitive extends Transform {
         type: attribute.componentType,
         normalize: true,
         stride: attribute.stride,
-        offset: attribute.offset
+        offset: attribute.offset,
       };
 
       if (this.indices) {
@@ -175,7 +187,7 @@ class Primitive extends Transform {
         const elementsConf = {
           target: gl.ELEMENT_ARRAY_BUFFER,
           srcData: new Uint16Array(this.indices.srcData),
-          usage: gl.STATIC_DRAW
+          usage: gl.STATIC_DRAW,
         };
         gl.bufferData(
           elementsConf.target,
