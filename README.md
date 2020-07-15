@@ -18,12 +18,12 @@ In order to master the foundations and possibly contribute to other open source 
 
 ## Demo 0
 
-https://totq2.codesandbox.io/
+https://codesandbox.io/s/demo-0-totq2
 
 Displays simple quad and textured cube made with Blender exported as GLTF.
 
 ## Demo 1
 
-https://dmum0.codesandbox.io/
+https://codesandbox.io/s/jovial-feather-lh2q4
 
 Displays a skymap, a procedural grid made of lines and textured planes.
