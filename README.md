@@ -27,3 +27,9 @@ Displays simple quad and textured cube made with Blender exported as GLTF.
 https://codesandbox.io/s/jovial-feather-lh2q4
 
 Displays a skymap, a procedural grid made of lines and textured planes.
+
+## Demo 3 (demo 2 isn't worth it)
+
+https://codesandbox.io/s/demo-3-vqlzp?file=/package.json
+
+Displays a bunch of falling cubes using Minecraft's textures and Cannon.js for the physics
