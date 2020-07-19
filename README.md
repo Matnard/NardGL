@@ -28,8 +28,14 @@ https://codesandbox.io/s/jovial-feather-lh2q4
 
 Displays a skymap, a procedural grid made of lines and textured planes.
 
-## Demo 3 (demo 2 isn't worth it)
+## Demo 2
 
 https://codesandbox.io/s/demo-3-vqlzp?file=/package.json
 
 Displays a bunch of falling cubes using Minecraft's textures and Cannon.js for the physics
+
+## Demo 3
+
+https://nardgl-directional-light.netlify.app/
+
+Added scroll and drag interaction to demo along with directional light!
