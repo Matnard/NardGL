@@ -18,7 +18,7 @@ class Uniform {
   }
 
   toGLSL() {
-    const getType = type =>
+    const getType = () =>
       ({
         "1f": "float",
         "1fv": "float",
@@ -31,7 +31,7 @@ class Uniform {
         Matrix2fv: "mat2",
         Matrix3fv: "mat3",
         Matrix4fv: "mat4",
-        "1i": "int",
+        "1i": typeof this.value === "boolean" ? "bool" : "int",
         "1iv": "int",
         "2i": "ivec2",
         "2iv": "ivec2",
@@ -46,10 +46,10 @@ class Uniform {
         "3u": "uvec3",
         "3uv": "uvec3",
         "4u": "uvec4",
-        "4uv": "uvec4"
-      }[type]);
+        "4uv": "uvec4",
+      }[this.type]);
 
-    return `uniform ${getType(this.type)} ${this.name}${
+    return `uniform ${getType()} ${this.name}${
       this.count > 2 ? `[${this.count}];\n` : `;\n`
     }`;
   }
@@ -64,7 +64,7 @@ class Uniform {
     this.passUniforms({
       location: this.getLocation(),
       type: this.type,
-      data: [data]
+      data: [data],
     });
   }
 
