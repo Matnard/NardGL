@@ -1,5 +1,6 @@
 import { Uniform } from "../src/Uniform";
 
+
 const u = new Uniform({
   name: "u_resolution",
   type: "2fv",
