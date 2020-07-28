@@ -1,6 +1,6 @@
 {
   "name": "@nardgl/utils",
-  "version": "0.0.21",
+  "version": "0.0.26",
   "description": "NarGL helpful functionalities",
   "keywords": [
     "nardgl",
@@ -12,11 +12,9 @@
   "main": "src/index.js",
   "directories": {
     "lib": "lib",
+    "Grid": "Grid",
     "test": "__tests__"
   },
-  "files": [
-    "lib"
-  ],
   "publishConfig": {
     "access": "public"
   },
@@ -31,7 +29,7 @@
     "url": "https://github.com/Matnard/NardGL/issues"
   },
   "dependencies": {
-    "nardgl": "^1.6.3"
+    "nardgl": "^1.6.5"
   },
   "devDependencies": {
     "glslify-bundle": "^5.1.1",

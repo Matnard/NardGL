@@ -1,6 +1,6 @@
 {
   "name": "@nardgl/primitives",
-  "version": "1.0.4",
+  "version": "1.0.6",
   "description": "3D primitives for NardGL lib",
   "keywords": [
     "nardgl"
@@ -30,7 +30,7 @@
     "url": "https://github.com/Matnard/NardGL/issues"
   },
   "dependencies": {
-    "@nardgl/core": "^0.1.13"
+    "@nardgl/core": "^0.1.15"
   },
   "gitHead": "0f0c0417ffcfc488f89ab295d6dd84c13babbe75"
 }
