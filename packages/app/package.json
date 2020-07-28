@@ -1,6 +1,6 @@
 {
   "name": "@nardgl/app",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "> TODO: description",
   "author": "Mathieu Mence <Mathieu.Mence@matnard.com>",
   "homepage": "https://github.com/Matnard/NardGL#readme",
@@ -27,6 +27,6 @@
     "url": "https://github.com/Matnard/NardGL/issues"
   },
   "dependencies": {
-    "@nardgl/loader": "^1.1.6"
+    "@nardgl/loader": "^1.1.7"
   }
 }

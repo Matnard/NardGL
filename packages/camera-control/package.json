@@ -1,6 +1,6 @@
 {
   "name": "@nardgl/camera-control",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "keys and mouse camera controls",
   "keywords": [
     "nardgl"
