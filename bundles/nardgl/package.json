@@ -1,6 +1,6 @@
 {
   "name": "nardgl",
-  "version": "1.7.5",
+  "version": "1.7.6",
   "description": "My graphics library",
   "keywords": [
     "webgl",
@@ -29,12 +29,12 @@
     "url": "https://github.com/Matnard/NardGL/issues"
   },
   "dependencies": {
-    "@nardgl/console-greeting": "^1.0.1",
-    "@nardgl/core": "^0.2.1",
-    "@nardgl/gltf-parser": "^1.0.4",
-    "@nardgl/loader": "^1.1.8",
-    "@nardgl/obj-parser": "^0.0.8",
-    "@nardgl/primitives": "^1.0.9"
+    "@nardgl/console-greeting": "^1.0.2",
+    "@nardgl/core": "^0.2.2",
+    "@nardgl/gltf-parser": "^1.0.5",
+    "@nardgl/loader": "^1.1.9",
+    "@nardgl/obj-parser": "^0.0.9",
+    "@nardgl/primitives": "^1.0.10"
   },
   "devDependencies": {
     "@babel/core": "^7.7.4",
