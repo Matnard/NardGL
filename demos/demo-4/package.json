@@ -1,6 +1,6 @@
 {
   "name": "demo-4",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "Simple Parcel Sandbox",
   "main": "index.html",
   "private": true,
@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@nardgl/utils": "^0.0.21",
-    "nardgl": "^1.7.6"
+    "nardgl": "^1.7.7"
   },
   "devDependencies": {
     "@babel/core": "^7.6.4",

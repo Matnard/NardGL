@@ -1,6 +1,6 @@
 {
   "name": "nardgl",
-  "version": "1.7.6",
+  "version": "1.7.7",
   "description": "My graphics library",
   "keywords": [
     "webgl",
@@ -32,7 +32,7 @@
     "@nardgl/console-greeting": "^1.0.2",
     "@nardgl/core": "^0.2.2",
     "@nardgl/gltf-parser": "^1.0.5",
-    "@nardgl/loader": "^1.1.9",
+    "@nardgl/loader": "^1.2.0",
     "@nardgl/obj-parser": "^0.0.9",
     "@nardgl/primitives": "^1.0.10"
   },

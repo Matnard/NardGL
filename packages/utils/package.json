@@ -1,6 +1,6 @@
 {
   "name": "@nardgl/utils",
-  "version": "0.0.30",
+  "version": "0.0.31",
   "description": "NarGL helpful functionalities",
   "keywords": [
     "nardgl",
@@ -29,7 +29,7 @@
     "url": "https://github.com/Matnard/NardGL/issues"
   },
   "dependencies": {
-    "nardgl": "^1.7.6"
+    "nardgl": "^1.7.7"
   },
   "devDependencies": {
     "glslify-bundle": "^5.1.1",
