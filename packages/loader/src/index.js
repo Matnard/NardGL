@@ -1,8 +1,8 @@
-const batchLoad = function(promises, onProgress) {
+const batchLoad = function (promises, onProgress) {
   const count = promises.length;
   let resolved = 0;
-  promises.forEach(p => {
-    p.then(function() {
+  promises.forEach((p) => {
+    p.then(function () {
       resolved++;
       onProgress(resolved / count);
     });
@@ -11,18 +11,18 @@ const batchLoad = function(promises, onProgress) {
   return Promise.all(promises);
 };
 
-const loadAsset = function(arg) {
+const loadAsset = function (arg) {
   if (typeof arg === "string") {
     arg = {
-      url: arg
+      url: arg,
     };
   }
 
   const { url, mimeType } = arg;
 
   return fetch(url)
-    .then(res => res.blob())
-    .then(blob => {
+    .then((res) => res.blob())
+    .then((blob) => {
       const type = mimeType || blob.type;
 
       let thenFn = {
@@ -30,7 +30,7 @@ const loadAsset = function(arg) {
         "image/jpeg": blobToImg,
         "model/gltf+json": blobToJson,
         "application/x-tgif": blobToText,
-        "text/html": blobToText
+        "text/html": blobToText,
       }[type];
 
       if (!thenFn) {
@@ -40,40 +40,40 @@ const loadAsset = function(arg) {
 
       return thenFn(blob);
     })
-    .then(result => {
+    .then((result) => {
       const asset = {};
       asset[url] = result;
       return asset;
     });
 };
 
-const blobToText = blob => {
-  return new Promise(function(resolve, reject) {
+const blobToText = (blob) => {
+  return new Promise(function (resolve, reject) {
     const fr = new FileReader();
-    fr.onload = function() {
+    fr.onload = function () {
       resolve(this.result);
     };
-    fr.onerror = function(err) {
+    fr.onerror = function (err) {
       reject(err);
     };
     fr.readAsText(blob);
   });
 };
 
-const blobToJson = blob => {
-  return new Promise(function(resolve, reject) {
+const blobToJson = (blob) => {
+  return new Promise(function (resolve, reject) {
     const fr = new FileReader();
-    fr.onload = function() {
+    fr.onload = function () {
       resolve(JSON.parse(this.result));
     };
-    fr.onerror = function(err) {
+    fr.onerror = function (err) {
       reject(err);
     };
     fr.readAsText(blob);
   });
 };
 
-const blobToImg = blob => {
+const blobToImg = (blob) => {
   var url = URL.createObjectURL(blob);
   var img = new Image();
   img.src = url;
@@ -82,8 +82,38 @@ const blobToImg = blob => {
 
 class Loader {
   constructor(conf) {
-    this.onProgress = conf.onProgress;
-    this.loaders = conf.assets.map(x => loadAsset(x)) || [];
+    this.onProgress = conf.onProgress || function () {};
+    this.onComplete = conf.onComplete || function () {};
+    const assets = conf.assets || [];
+    this.loaders = assets.map((x) => loadAsset(x)) || [];
+  }
+
+  add(asset) {
+    this.loaders.push(loadAsset(asset));
+    return this;
+  }
+
+  addArray(assetUrls) {
+    this.loaders = this.loaders.concat(assetUrls.map((x) => loadAsset(x)));
+    return this;
+  }
+
+  start() {
+    return batchLoad(this.loaders, (progress) => {
+      this.onProgress(progress);
+    }).then((data) => {
+      this.onComplete();
+      return data.reduce((a, b) => {
+        a[Object.keys(b)[0]] = b[Object.keys(b)[0]];
+        return a;
+      }, {});
+    });
+  }
+}
+
+class NardLoader extends Loader {
+  constructor(conf) {
+    super(conf);
     this.waitingScreen = document.createElement("div");
     this.waitingScreen.style.backgroundColor = "rgba(0,0,0,1)";
     this.waitingScreen.style.width = "100%";
@@ -102,31 +132,15 @@ class Loader {
     this.waitingScreen.appendChild(this.logo);
 
     document.body.appendChild(this.waitingScreen);
-  }
 
-  add(asset) {
-    this.loaders.push(loadAsset(asset));
-    return this;
-  }
-
-  addArray(assetUrls) {
-    this.loaders = this.loaders.concat(assetUrls.map(x => loadAsset(x)));
-    return this;
-  }
-
-  start() {
-    return batchLoad(this.loaders, progress => {
+    this.onProgress = (progress) => {
       this.waitingScreen.style.backgroundColor = `rgba(0,0,0,${1 - progress})`;
-      this.onProgress(progress);
-    }).then(data => {
+    };
+
+    this.onComplete = () => {
       document.body.removeChild(this.waitingScreen);
-      return data.reduce((a, b) => {
-        a[Object.keys(b)[0]] = b[Object.keys(b)[0]];
-        return a;
-      }, {});
-    });
+    };
   }
 }
 
-export { batchLoad, loadAsset, Loader };
-//
+export { batchLoad, loadAsset, Loader, NardLoader };

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script type="module">
+    import { Loader, NardLoader } from "./index.js";
+
+    let complete = false;
+
+    const loader = new Loader({
+      onComplete: () => {
+        console.log("complete!")
+      },
+      onProgress: (prog) => {
+        console.log(prog, "complete")
+      },
+    });
+
+    loader.add("https://matnard.github.io/NardGL/images/profile-51.png");
+    loader.start();
+  </script>
+</body>
+
+</html>

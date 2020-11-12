@@ -28,9 +28,16 @@
     "url": "git+https://github.com/Matnard/NardGL.git"
   },
   "scripts": {
-    "test": ""
+    "test": "jest"
   },
   "bugs": {
     "url": "https://github.com/Matnard/NardGL/issues"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.12.1",
+    "babel-jest": "^26.6.3",
+    "babelify": "^10.0.0",
+    "jest": "^26.6.3",
+    "node-fetch": "^2.6.1"
   }
 }
